@@ -1,3 +1,5 @@
+
+
 def falling(n, k):
     """Compute the falling factorial of n to depth k.
 
@@ -20,7 +22,7 @@ def falling(n, k):
     print(m)
     
 
-
+## sum the digits 
 def sum_digits(y):
     """Sum all the digits of y.
 
@@ -52,7 +54,9 @@ def sum_digits(y):
 
 
 
-
+## count there are how many eight in a squence of number
+## 判断这一串数字是否有两个临近的8
+## 理解题意。。写代码的工具 容易阅读。。以后还是要阅读的。
 def double_eights(n):
     """Return true if n has two eights in a row.
     >>> double_eights(8)
@@ -69,5 +73,37 @@ def double_eights(n):
     False
     """
     "*** YOUR CODE HERE ***"
+    m = 0
+    isTrue = False
+
+    while( n > 0):
+        m = n % 10
+        if( m == 8):
+            if((n // 10) % 10 == 8):
+                isTrue = True
+        n = n // 10
+    return isTrue
+
+
+    # count_of_eight = 0
+    # divide_of_n = 0
+    # has_two_eight = False
+
+    # while( n > 0):
+    #     divide_of_n = n % 10
+    #     n = n // 10
+    #     if(divide_of_n == 8):
+    #         count_of_eight = count_of_eight + 1
+    #     ##print("divide_of_n:",divide_of_n,"n:",n,"count_of_eight",count_of_eight)
+    
+    # if(count_of_eight == 2):
+    #     has_two_eight = True
+    # else:
+    #     has_two_eight = False
+    
+    # return has_two_eight
+
+    
+
 
 
