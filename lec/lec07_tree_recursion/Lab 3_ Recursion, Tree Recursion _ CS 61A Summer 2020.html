@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<!-- saved from url=(0028)https://cs61a.org/lab/lab03/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="description" content="CS 61A: Structure and Interpretation of Computer Programs">
+    <meta name="keywords" content="CS 61A, Computer Science, CS, 61A, Programming, John DeNero, Berkeley, EECS">
+    <meta name="author" content="Chae Park, Kavi Gupta, Ryan Moughan">
+    
+    <meta name="viewport" content="width=device-width">
+
+    <script src="./Lab 3_ Recursion, Tree Recursion _ CS 61A Summer 2020_files/jquery.min.js.下载"></script>
+    <script src="./Lab 3_ Recursion, Tree Recursion _ CS 61A Summer 2020_files/bootstrap.min.js.下载"></script>
+    <script src="./Lab 3_ Recursion, Tree Recursion _ CS 61A Summer 2020_files/hl.js.下载"></script>
+    <script>
+        // we aren't registering builtins since
+        //      (1) they don't render differently in the current CSS from other names
+        //      (2) it's a mess to list all of them. You can extract from the site but that takes effort
+        // if (1) ceases to be true, (2) might be worth the effort. For now, we're leaving as is
+        hljsRegister({
+            'keyword': "define if cond and or let begin lambda mu quote delay cons-stream set! quasiquote unquote unquote-splicing define-macro"
+        });
+        hljs.initHighlightingOnLoad();
+    </script>
+    <script src="./Lab 3_ Recursion, Tree Recursion _ CS 61A Summer 2020_files/dark-mode.js.下载"></script>
+    <link rel="stylesheet" href="./Lab 3_ Recursion, Tree Recursion _ CS 61A Summer 2020_files/bootstrap.min.css">
+    <link rel="stylesheet" href="./Lab 3_ Recursion, Tree Recursion _ CS 61A Summer 2020_files/css">
+    <link rel="stylesheet" href="./Lab 3_ Recursion, Tree Recursion _ CS 61A Summer 2020_files/style.css">
+    <link rel="stylesheet" href="./Lab 3_ Recursion, Tree Recursion _ CS 61A Summer 2020_files/mono-blue.css">
+    <link rel="icon" href="https://cs61a.org/assets/images/favicon.ico">
+
+    
+
+    <title>
+Lab 3: Recursion, Tree Recursion | CS 61A Summer 2020
+</title>
+  </head>
+
+  <body id="index" class="home">
+    <nav class="navbar navbar-default navbar-static-top">
+      <div class="container noselect">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-section">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="https://cs61a.org/">
+            <img style="max-width:60px; margin-top: -20px;" class="logo" src="./Lab 3_ Recursion, Tree Recursion _ CS 61A Summer 2020_files/logo.png">
+          </a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="navbar-collapse-section">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="https://cs61a.org/weekly.html">Weekly Schedule</a></li>
+            <li><a href="https://cs61a.org/office-hours.html">Office Hours</a></li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="https://cs61a.org/lab/lab03/#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Staff
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a href="https://cs61a.org/instructor.html">Instructors</a></li>
+                <li><a href="https://cs61a.org/TAs.html">TAs</a></li>
+                <li><a href="https://cs61a.org/tutors.html">Tutors</a></li>
+                <!-- <li><a href="/academic-interns.html">Academic Interns</a></li> -->
+              </ul>
+            </li>
+            <li><a href="https://cs61a.org/resources.html">Resources</a></li>
+            <li><a href="https://cs61a.org/articles/about.html">Syllabus</a></li>
+            <li><a href="https://piazza.com/berkeley/summer2020/cs61a" target="_blank">Piazza</a></li>
+            <li><a href="https://denero.org/feedback.html" target="_blank">Feedback</a></li>
+            <li><a href="https://edge.edx.org/courses/course-v1:BerkeleyX+CSW61A+2020_SP">EdX</a></li>
+            <!-- <li><a href="https://scheme.cs61a.org">Scheme</a></li> -->
+            <!-- <li><a href="https://sql.cs61a.org">SQL</a></li> -->
+            <li><a href="https://code.cs61a.org/">Code</a></li>
+            <li><a href="http://tutor.cs61a.org/">Tutor</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <main id="content" class="container">
+      
+<div class="row">
+  <div class="col-md-9">
+    <header>
+      <h1>
+        
+Lab 3: Recursion, Tree Recursion
+
+        
+        
+        <ul class="inline-block list-inline">
+          <li><a href="https://cs61a.org/lab/lab03/lab03.zip" class="label label-outline">lab03.zip</a></li>
+        </ul>
+        
+        
+      </h1>
+    </header>
+    
+
+<p><i>Due by 11:59pm on Tuesday, July 7.</i></p>
+
+
+
+
+<h2 id="starter-files">Starter Files</h2>
+
+<p>Download <a href="https://cs61a.org/lab/lab03/lab03.zip">lab03.zip</a>.
+Inside the archive, you will find starter files for the questions in this lab,
+  along with a copy of the <a href="https://cs61a.org/lab/lab03/ok">Ok</a> autograder.</p>
+
+
+<h2 id="submission">Submission</h2>
+
+<p>By the end of this lab, you should have submitted the lab with
+<code>python3 ok --submit</code>. You may submit more than once before the
+deadline; only the final submission will be graded.
+Check that you have successfully submitted your code on
+<a href="https://okpy.org/">okpy.org</a>.</p>
+
+
+
+
+
+    
+<h1 id="topics">Topics</h1>
+
+
+<p>Consult this section if you need a refresher on the material for this lab. It's
+okay to skip directly to <a href="https://cs61a.org/lab/lab03/#required-questions">the questions</a> and refer back
+here should you get stuck.</p>
+
+
+        <button id="toggle-1" class="btn btn-outline btn-lg alwaystoggle toggle" style="display: inline-block;">
+        Recursion<noscript> (enable JavaScript)</noscript>
+        </button>
+        <div class="solution toggle-1">
+
+<h2 id="recursion">Recursion</h2>
+
+
+<p>A recursive function is a function that calls itself in its body,
+either directly or indirectly. Recursive functions have three important
+components:</p>
+
+<ol>
+  <li>Base case(s), the simplest possible form of the problem you're trying to solve.</li>
+  <li>Recursive case(s), where the function calls itself with a <em>simpler
+  argument</em> as part of the computation.</li>
+  <li>Using the recursive calls to solve the full problem.</li>
+</ol>
+
+<p>Let's look at the canonical example, <code>factorial</code>.</p>
+
+<blockquote><p>Factorial, denoted with the <code>!</code> operator, is defined as:</p>
+
+<pre><code class="hljs">n! = n * (n-1) * ... * 1</code></pre>
+
+<p>For example, <code>5! = 5 * 4 * 3 * 2 * 1 = 120</code></p></blockquote>
+
+<p>The recursive implementation for factorial is as follows:</p>
+
+<pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">factorial</span><span class="hljs-params">(n)</span>:</span>
+    <span class="hljs-keyword">if</span> n == <span class="hljs-number">0</span>:
+        <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>
+    <span class="hljs-keyword">return</span> n * factorial(n - <span class="hljs-number">1</span>)</code></pre>
+
+<p>We know from its definition that 0! is 1. Since <code>n == 0</code> is the smallest number we
+can compute the factorial of, we use it as our base case.
+The recursive step also follows from the definition of factorial, i.e., <code>n! =
+n * (n-1)!</code>.</p>
+
+<p>The next few questions in lab will have you writing recursive
+functions.  Here are some general tips:</p>
+
+<ul>
+  <li>Paradoxically, to write a recursive function, you must assume that the function
+  is fully functional before you finish writing it; this is called the
+  <em>recursive leap of faith</em>.</li>
+  <li>Consider how you can solve the current problem using the solution to
+  a simpler version of the problem. The amount of work done in a recursive function
+  can be deceptively little: remember to take the leap of faith and <em>trust the recursion</em>
+  to solve the slightly smaller problem without worrying about how.</li>
+  <li>Think about what the answer would be in the simplest possible
+  case(s). These will be your base cases - the stopping points for your
+  recursive calls. Make sure to consider the possibility that you're
+  missing base cases (this is a common way recursive solutions fail).</li>
+  <li>It may help to write an iterative version first.</li>
+</ul>
+
+<!-- <table class='table table-bordered'>
+
+<pre><code>&lt;tr&gt;
+    &lt;th&gt;Function Type:&lt;/th&gt;
+    &lt;th&gt;Recusive&lt;/th&gt;
+    &lt;th&gt;Iterative&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+    &lt;td&gt;Function&lt;/td&gt;
+    &lt;td&gt;&lt;pre&gt; def factorial(n):
+    if n == 0:
+        return 1
+    return n * factorial(n &#x2d; 1)&lt;pre&gt;&lt;/td&gt;
+    &lt;td&gt;&lt;pre&gt; def factorial(n):
+    total = 1
+    while n &gt; 0:
+        total *= n
+        n &#x2d;= 1
+    return total
+    &lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+    &lt;td&gt;Ends calculations&lt;/td&gt;
+    &lt;td&gt;When it hits the base case&lt;/td&gt;
+    &lt;td&gt;When n !&gt; 0, it will end.&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+    &lt;td&gt;Means of traversal&lt;/td&gt;
+    &lt;td&gt;&lt;code&gt;factorial(&lt;strong&gt;n &#x2d; 1&lt;/strong&gt;&lt;/code&gt;&lt;/td&gt;
+    &lt;td&gt;&lt;code&gt;&lt;strong&gt;n &#x2d;= 1&lt;/strong&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/td&gt;
+&lt;/tr&gt;</code></pre>
+
+</table> -->
+</div>
+<br>
+
+        <button id="toggle-2" class="btn btn-outline btn-lg alwaystoggle toggle" style="display: inline-block;">
+        Tree Recursion<noscript> (enable JavaScript)</noscript>
+        </button>
+        <div class="solution toggle-2">
+
+<h2 id="tree-recursion">Tree Recursion</h2>
+
+
+<p>A tree recursive function is a recursive function that makes more than one call
+to itself, resulting in a tree-like series of calls.</p>
+
+<p>A classic example of a tree recursion function is finding the nth <a href="https://www.wikiwand.com/en/Fibonacci_number">Fibonacci
+number</a>:</p>
+
+<pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">fib</span><span class="hljs-params">(n)</span>:</span>
+    <span class="hljs-keyword">if</span> n == <span class="hljs-number">0</span> <span class="hljs-keyword">or</span> n == <span class="hljs-number">1</span>:
+        <span class="hljs-keyword">return</span> n
+    <span class="hljs-keyword">return</span> fib(n - <span class="hljs-number">1</span>) + fib(n - <span class="hljs-number">2</span>)</code></pre>
+
+<p>Calling <code>fib(6)</code> results in the following call structure (where <code>f</code> is <code>fib</code>):</p>
+
+<p><img class="img-responsive center-block" src="./Lab 3_ Recursion, Tree Recursion _ CS 61A Summer 2020_files/Algorithms-F6CallTree.png" alt="Fibonacci Tree" title="Fibonnaci Tree"></p>
+
+<p>Each <code>f(i)</code> node represents a recursive call to <code>fib</code>. Each recursive call
+makes another two recursive calls. <code>f(0)</code> and <code>f(1)</code> do not make any recursive
+calls because they are the base cases of the function. Because of these base
+cases, we are able to terminate the recursion and beginning accumulating the
+values.</p>
+
+<p>Generally, tree recursion is effective when you want to explore multiple
+possibilities or choices at a single step. In these types of problems, you make
+a recursive call for each choice or for a group of choices. Here are some
+examples:</p>
+
+<ul>
+  <li>Given a list of paid tasks and a limited amount of time, which tasks should you
+  choose to maximize your pay? This is actually a variation of the
+  <a href="https://en.wikipedia.org/wiki/Knapsack_problem">Knapsack</a> problem, which
+  focuses on finding some optimal combination of different items.</li>
+  <li>Suppose you are lost in a maze and see several different paths.  How do you
+  find your way out? This is an example of path finding, and is tree recursive
+  because at every step, you could have multiple directions to choose from that
+  could lead out of the maze.</li>
+  <li>Your dryer costs $2 per cycle and accepts all types of coins.  How many
+  different combinations of coins can you create to run the dryer? This is
+  similar to the
+  <a href="http://composingprograms.com/pages/17-recursive-functions.html#example-partitions">partitions</a>
+  problem from the textbook.
+  </li></ul></div>
+
+
+
+<h1 id="required-questions">Required Questions</h1>
+
+
+
+<h2 id="what-would-python-display">What Would Python Display?</h2>
+
+
+<h3 class="question" id="q1">Q1: WWPD: Recursion</h3>
+
+<blockquote><p>Use Ok to test your knowledge with the following "What Would Python Display?"
+questions:</p>
+
+<pre><code class="hljs">python3 ok -q recursion-wwpd -u</code></pre>
+
+<p>For all WWPD questions, type <code>Function</code> if you believe the answer
+is <code>&lt;function...&gt;</code>, <code>Error</code> if it errors, <code>Infinite</code> if there is an infinite loop
+or infinite recursion, and <code>Nothing</code> if nothing is displayed.</p></blockquote>
+
+<pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">f</span><span class="hljs-params">(a, b)</span>:</span>
+<span class="hljs-meta">... </span>    <span class="hljs-keyword">if</span> a &gt; b:
+<span class="hljs-meta">... </span>    	<span class="hljs-keyword">return</span> f(a - <span class="hljs-number">3</span>, <span class="hljs-number">2</span> * b)
+<span class="hljs-meta">... </span>    <span class="hljs-keyword">elif</span> a &lt; b:
+...		<span class="hljs-keyword">return</span> f(b // <span class="hljs-number">2</span>, a)
+<span class="hljs-meta">... </span>    <span class="hljs-keyword">else</span>:
+<span class="hljs-meta">... </span>    	<span class="hljs-keyword">return</span> b
+<span class="hljs-meta">&gt;&gt;&gt; </span>f(<span class="hljs-number">2</span>, <span class="hljs-number">2</span>)
+<div class="alt prompt-1">______</div><div class="solution prompt-1">2</div>
+<span class="hljs-meta">&gt;&gt;&gt; </span>f(<span class="hljs-number">7</span>, <span class="hljs-number">4</span>)
+<div class="alt prompt-1">______</div><div class="solution prompt-1">4</div>
+<span class="hljs-meta">&gt;&gt;&gt; </span>f(<span class="hljs-number">2</span>, <span class="hljs-number">28</span>)
+<div class="alt prompt-1">______</div><div class="solution prompt-1">8</div>
+<span class="hljs-meta">&gt;&gt;&gt; </span>f(<span class="hljs-number">-1</span>, <span class="hljs-number">-3</span>)
+<div class="alt prompt-1">______</div><div class="solution prompt-1">Infinite</div></code></pre>
+        <button id="prompt-1" class="btn btn-outline btn-lg solutiontoggle prompt">
+        Toggle Solution<noscript> (enable JavaScript)</noscript>
+        </button>
+        
+
+<h3 class="question" id="q2">Q2: WWPD: Journey to the Center of the Earth</h3>
+
+<blockquote><p>Use Ok to test your knowledge with the following "What Would Python Display?"
+questions:</p>
+
+<pre><code class="hljs">python3 ok -q sr-wwpd -u</code></pre>
+
+<p>For all WWPD questions, type <code>Function</code> if you believe the answer
+is <code>&lt;function...&gt;</code>, <code>Error</code> if it errors, and <code>Nothing</code> if nothing is displayed.</p></blockquote>
+
+<pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">crust</span><span class="hljs-params">()</span>:</span>
+<span class="hljs-meta">... </span>    print(<span class="hljs-string">"70km"</span>)
+<span class="hljs-meta">... </span>    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">mantle</span><span class="hljs-params">()</span>:</span>
+<span class="hljs-meta">... </span>         print(<span class="hljs-string">"2900km"</span>)
+<span class="hljs-meta">... </span>         <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">core</span><span class="hljs-params">()</span>:</span>
+<span class="hljs-meta">... </span>              print(<span class="hljs-string">"5300km"</span>)
+<span class="hljs-meta">... </span>              <span class="hljs-keyword">return</span> mantle()
+<span class="hljs-meta">... </span>         <span class="hljs-keyword">return</span> core
+<span class="hljs-meta">... </span>    <span class="hljs-keyword">return</span> mantle
+<span class="hljs-meta">&gt;&gt;&gt; </span>drill = crust
+<span class="hljs-meta">&gt;&gt;&gt; </span>drill = drill()
+<div class="alt prompt-2">______</div><div class="solution prompt-2">70km</div>
+<span class="hljs-meta">&gt;&gt;&gt; </span>drill = drill()
+<div class="alt prompt-2">______</div><div class="solution prompt-2">2900km</div>
+<span class="hljs-meta">&gt;&gt;&gt; </span>drill = drill()
+<div class="alt prompt-2">______</div><div class="solution prompt-2">5300km
+<span class="hljs-number">2900</span>km</div>
+<span class="hljs-meta">&gt;&gt;&gt; </span>drill()
+<div class="alt prompt-2">______</div><div class="solution prompt-2">5300km
+<span class="hljs-number">2900</span>km
+Function</div></code></pre>
+        <button id="prompt-2" class="btn btn-outline btn-lg solutiontoggle prompt">
+        Toggle Solution<noscript> (enable JavaScript)</noscript>
+        </button>
+        
+
+
+<h2 id="coding-practice">Coding Practice</h2>
+
+
+<h3 class="question" id="q3">Q3: Pascal's Triangle</h3>
+
+<p>Here's a part of the Pascal's trangle:</p>
+
+<pre><code class="hljs">1
+1 1
+1 2 1
+1 3 3 1
+1 4 6 4 1</code></pre>
+
+<p>Every number in Pascal's triangle is defined as the sum of the item
+above it and the item that is directly to the upper left of it. Use
+<code>0</code> if the entry is empty.
+Define the procedure <code>pascal(row, column)</code> which takes a row and a column,
+and finds the value at that position in the triangle. Rows and columns are
+zero-indexed; that is, the first row is row 0 instead of 1.</p>
+
+<solution>
+
+<pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">pascal</span><span class="hljs-params">(row, column)</span>:</span>
+    <span class="hljs-string">"""Returns a number corresponding to the value at that location
+    in Pascal's Triangle.
+    &gt;&gt;&gt; pascal(0, 0)
+    1
+    &gt;&gt;&gt; pascal(0, 5)	# Empty entry; outside of Pascal's Triangle
+    0
+    &gt;&gt;&gt; pascal(3, 2)	# Row 4 (1 3 3 1), 3rd entry
+    3
+    """</span>
+    <span class="hljs-string">"*** YOUR CODE HERE ***"</span>
+</code></pre>
+
+</solution>
+
+<p>Use Ok to test your code:</p><pre><code class="nohighlight">python3 ok -q pascal</code></pre>
+
+<h3 class="question" id="q4">Q4: Repeated, repeated</h3>
+
+<p>In Homework 2 you encountered the <code>repeated</code> function, which takes
+arguments <code>f</code> and <code>n</code> and returns a function equivalent to the nth
+repeated application of <code>f</code>. This time, we want to write <code>repeated</code>
+recursively. You'll want to use <code>compose1</code>, given below for your
+convenience:</p>
+
+<pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">compose1</span><span class="hljs-params">(f, g)</span>:</span>
+    <span class="hljs-string">""""Return a function h, such that h(x) = f(g(x))."""</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">h</span><span class="hljs-params">(x)</span>:</span>
+        <span class="hljs-keyword">return</span> f(g(x))
+    <span class="hljs-keyword">return</span> h</code></pre>
+
+<solution>
+
+<pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">repeated</span><span class="hljs-params">(f, n)</span>:</span>
+    <span class="hljs-string">"""Return the function that computes the nth application of func (recursively!).
+
+    &gt;&gt;&gt; add_three = repeated(lambda x: x + 1, 3)
+    &gt;&gt;&gt; add_three(5)
+    8
+    &gt;&gt;&gt; square = lambda x: x ** 2
+    &gt;&gt;&gt; repeated(square, 2)(5) # square(square(5))
+    625
+    &gt;&gt;&gt; repeated(square, 4)(5) # square(square(square(square(5))))
+    152587890625
+    &gt;&gt;&gt; repeated(square, 0)(5)
+    5
+    &gt;&gt;&gt; from construct_check import check
+    &gt;&gt;&gt; # ban iteration
+    &gt;&gt;&gt; check(HW_SOURCE_FILE, 'repeated',
+    ...       ['For', 'While'])
+    True
+    """</span>
+    <span class="hljs-string">"*** YOUR CODE HERE ***"</span>
+</code></pre>
+
+</solution>
+
+<p>Use Ok to test your code:</p><pre><code class="nohighlight">python3 ok -q repeated</code></pre>
+
+<h3 class="question" id="q5">Q5: Num eights</h3>
+
+<p>Write a recursive function <code>num_eights</code> that takes a positive integer <code>x</code> and
+returns the number of times the digit 8 appears in <code>x</code>.
+<em>Use recursion - the tests will fail if you use any assignment statements.</em></p>
+
+<solution>
+
+<pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">num_eights</span><span class="hljs-params">(x)</span>:</span>
+    <span class="hljs-string">"""Returns the number of times 8 appears as a digit of x.
+
+    &gt;&gt;&gt; num_eights(3)
+    0
+    &gt;&gt;&gt; num_eights(8)
+    1
+    &gt;&gt;&gt; num_eights(88888888)
+    8
+    &gt;&gt;&gt; num_eights(2638)
+    1
+    &gt;&gt;&gt; num_eights(86380)
+    2
+    &gt;&gt;&gt; num_eights(12345)
+    0
+    &gt;&gt;&gt; from construct_check import check
+    &gt;&gt;&gt; # ban all assignment statements
+    &gt;&gt;&gt; check(HW_SOURCE_FILE, 'num_eights',
+    ...       ['Assign', 'AugAssign'])
+    True
+    """</span>
+    <span class="hljs-string">"*** YOUR CODE HERE ***"</span>
+</code></pre>
+
+</solution>
+
+<br>
+
+<p>Watch the hints video below for somewhere to start:
+
+            <iframe width="560" height="315" src="./Lab 3_ Recursion, Tree Recursion _ CS 61A Summer 2020_files/VVBUCY_hHew.html" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></p>
+
+<br>
+
+<p>Use Ok to test your code:</p><pre><code class="nohighlight">python3 ok -q num_eights</code></pre>
+
+
+
+<h3 class="question" id="q6">Q6: Ping-pong</h3>
+
+<p>The ping-pong sequence counts up starting from 1 and is always either counting
+up or counting down.  At element <code>k</code>, the direction switches if <code>k</code> is a
+multiple of 8 or contains the digit 8.  The first 30 elements of the ping-pong
+sequence are listed below, with direction swaps marked using brackets at the
+8th, 16th, 18th, 24th, and 28th elements:</p>
+
+
+
+
+        <div class="table-responsive">
+          <table class="table table-bordered">
+          
+  <tbody><tr>
+    <th>Index</th>
+    <th>1</th>
+    <th>2</th>
+    <th>3</th>
+    <th>4</th>
+    <th>5</th>
+    <th>6</th>
+    <th>7</th>
+    <th>[8]</th>
+    <th>9</th>
+    <th>10</th>
+    <th>11</th>
+    <th>12</th>
+    <th>13</th>
+    <th>14</th>
+    <th>15</th>
+    <th>[16]</th>
+    <th>17</th>
+    <th>[18]</th>
+    <th>19</th>
+    <th>20</th>
+    <th>21</th>
+    <th>22</th>
+    <th>23</th>
+  </tr>
+  <tr>
+    <td>PingPong Value</td>
+    <td>1</td>
+    <td>2</td>
+    <td>3</td>
+    <td>4</td>
+    <td>5</td>
+    <td>6</td>
+    <td>7</td>
+    <td>[8]</td>
+    <td>7</td>
+    <td>6</td>
+    <td>5</td>
+    <td>4</td>
+    <td>3</td>
+    <td>2</td>
+    <td>1</td>
+    <td>[0]</td>
+    <td>1</td>
+    <td>[2]</td>
+    <td>1</td>
+    <td>0</td>
+    <td>-1</td>
+    <td>-2</td>
+    <td>-3</td>
+  </tr>
+
+          </tbody></table>
+        </div>
+        
+
+
+
+
+
+
+        <div class="table-responsive">
+          <table class="table table-bordered">
+          
+  <tbody><tr>
+    <th>Index (cont.)</th>
+    <th>[24]</th>
+    <th>25</th>
+    <th>26</th>
+    <th>27</th>
+    <th>[28]</th>
+    <th>29</th>
+    <th>30</th>
+  </tr>
+  <tr>
+    <td>PingPong Value</td>
+    <td>[-4]</td>
+    <td>-3</td>
+    <td>-2</td>
+    <td>-1</td>
+    <td>[0]</td>
+    <td>-1</td>
+    <td>-2</td>
+  </tr>
+
+          </tbody></table>
+        </div>
+        
+
+
+
+<p>Implement a function <code>pingpong</code> that returns the nth element of the ping-pong
+sequence <em>without using any assignment statements</em>.</p>
+
+<p>You may use the function <code>num_eights</code>, which you defined in the previous question.</p>
+
+<p><em>Use recursion - the tests will fail if you use any assignment statements.</em></p>
+
+<blockquote><p><em>Hint</em>: If you're stuck, first try implementing <code>pingpong</code> using assignment
+statements and a <code>while</code> statement. Then, to convert this into a recursive
+solution, write a helper function that has a parameter for each variable that
+changes values in the body of the while loop.</p></blockquote>
+
+<solution>
+
+<pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">pingpong</span><span class="hljs-params">(n)</span>:</span>
+    <span class="hljs-string">"""Return the nth element of the ping-pong sequence.
+
+    &gt;&gt;&gt; pingpong(8)
+    8
+    &gt;&gt;&gt; pingpong(10)
+    6
+    &gt;&gt;&gt; pingpong(15)
+    1
+    &gt;&gt;&gt; pingpong(21)
+    -1
+    &gt;&gt;&gt; pingpong(22)
+    -2
+    &gt;&gt;&gt; pingpong(30)
+    -2
+    &gt;&gt;&gt; pingpong(68)
+    0
+    &gt;&gt;&gt; pingpong(69)
+    -1
+    &gt;&gt;&gt; pingpong(80)
+    0
+    &gt;&gt;&gt; pingpong(81)
+    1
+    &gt;&gt;&gt; pingpong(82)
+    0
+    &gt;&gt;&gt; pingpong(100)
+    -6
+    &gt;&gt;&gt; from construct_check import check
+    &gt;&gt;&gt; # ban assignment statements
+    &gt;&gt;&gt; check(HW_SOURCE_FILE, 'pingpong', ['Assign', 'AugAssign'])
+    True
+    """</span>
+    <span class="hljs-string">"*** YOUR CODE HERE ***"</span>
+</code></pre>
+
+</solution>
+
+<br>
+
+<p>Watch the hints video below for somewhere to start:
+
+            <iframe width="560" height="315" src="./Lab 3_ Recursion, Tree Recursion _ CS 61A Summer 2020_files/wr4ZIFy7tXg.html" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></p>
+
+<br>
+
+<!--
+
+<pre><code>def has_eight(k):
+    &quot;&quot;&quot;Returns True if at least one of the digits of k is a 8, False otherwise.
+
+    &gt;&gt;&gt; has_eight(3)
+    False
+    &gt;&gt;&gt; has_eight(8)
+    True
+    &gt;&gt;&gt; has_eight(2834)
+    True
+    &gt;&gt;&gt; has_eight(2634)
+    False
+    &gt;&gt;&gt; has_eight(834)
+    True
+    &gt;&gt;&gt; has_eight(8888)
+    True
+    &quot;&quot;&quot;
+    if k % 10 == 8:
+        return True
+    elif k &lt; 10:
+        return False
+    else:
+        return has_eight(k // 10)</code></pre>
+
+-->
+
+<p>Use Ok to test your code:</p><pre><code class="nohighlight">python3 ok -q pingpong</code></pre>
+
+
+<script>
+    $('.alwaystoggle').css('display', 'inline-block');
+    $('.alwaystoggle').click(function() {
+      var solution_id = $(this).attr('id');
+      $('div.' + solution_id).slideToggle(600);
+    });
+</script>
+
+  </div>
+
+  <div class="col-md-3 sticky">
+    <nav class="hidden-print hidden-sm hidden-xs sidebar">
+      <ul class="nav nav-stacked noselect">
+  <li class=""><a href="https://cs61a.org/lab/lab03/#topics">Topics</a></li>
+  <ul class="nav nav-stacked noselect">
+    <li><a href="https://cs61a.org/lab/lab03/#recursion">Recursion</a></li>
+    <li><a href="https://cs61a.org/lab/lab03/#tree-recursion">Tree Recursion</a></li>
+  </ul>
+  <li><a href="https://cs61a.org/lab/lab03/#required-questions">Required Questions</a></li>
+  <ul class="nav nav-stacked noselect">
+    <li><a href="https://cs61a.org/lab/lab03/#what-would-python-display">What Would Python Display?</a></li>
+    <ul class="nav nav-stacked noselect">
+      <li class=""><a href="https://cs61a.org/lab/lab03/#q1">Q1: WWPD: Recursion</a></li>
+      <li class=""><a href="https://cs61a.org/lab/lab03/#q2">Q2: WWPD: Journey to the Center of the Earth</a></li>
+    </ul>
+    <li><a href="https://cs61a.org/lab/lab03/#coding-practice">Coding Practice</a></li>
+    <ul class="nav nav-stacked noselect">
+      <li class=""><a href="https://cs61a.org/lab/lab03/#q3">Q3: Pascal's Triangle</a></li>
+      <li class=""><a href="https://cs61a.org/lab/lab03/#q4">Q4: Repeated, repeated</a></li>
+      <li class="active"><a href="https://cs61a.org/lab/lab03/#q5">Q5: Num eights</a></li>
+      <li><a href="https://cs61a.org/lab/lab03/#q6">Q6: Ping-pong</a></li>
+    </ul>
+  </ul>
+</ul>
+    </nav>
+  </div>
+</div>
+
+    </main>
+
+    <footer class="container">
+      <div class="row text-center">
+        <div class="col col-sm-4">
+          <h3><a href="https://cs61a.org/">CS 61A</a></h3>
+          <ul class="nav nav-pills nav-stacked">
+            <li><a href="https://cs61a.org/weekly.html">Weekly Schedule</a></li>
+            <li><a href="https://cs61a.org/office-hours.html">Office Hours</a></li>
+            <li><a href="https://cs61a.org/staff.html">Staff</a></li>
+          </ul>
+        </div>
+        <div class="col col-sm-4">
+          <h3><a href="https://cs61a.org/resources.html">Resources</a></h3>
+          <ul class="nav nav-pills nav-stacked">
+            <li><a href="https://cs61a.org/articles/studying.html">Studying Guide</a></li>
+            <li><a href="https://cs61a.org/articles/debugging.html">Debugging Guide</a></li>
+            <li><a href="https://cs61a.org/articles/composition.html">Composition Guide</a></li>
+          </ul>
+        </div>
+        <div class="col col-sm-4">
+          <h3><a href="https://cs61a.org/articles/about.html">Policies</a></h3>
+          <ul class="nav nav-pills nav-stacked">
+            <li><a href="https://cs61a.org/articles/about.html#assignments">Assignments</a></li>
+            <li><a href="https://cs61a.org/articles/about.html#exams">Exams</a></li>
+            <li><a href="https://cs61a.org/articles/about.html#grading">Grading</a></li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+
+    
+
+<script>
+  $('.sidebar ul').addClass('nav nav-stacked noselect');
+  $('body').scrollspy({
+    target: '.sidebar',
+    offset: 40
+  });
+
+  function goToId(id) {
+    var target = $(id);
+    console.log(target);
+    target.parent().show();
+    $('html,body').animate({
+      scrollTop: target.offset().top,
+    }, 100);
+    $("body").scrollspy('refresh');
+  }
+
+  if (location.hash) {
+    setTimeout(function() {
+      // window.scrollTo(0, 0);
+      if (location.hash) {
+        goToId(location.hash);
+      }
+    }, 1);
+  }
+
+  $("a").click(function(event) {
+    var urlBeforeHashRegEx = new RegExp("^"+window.location.href.split("#")[0]);
+    if (/^#/.test(this.hash) && urlBeforeHashRegEx.test(this.href)) {
+      event.preventDefault();
+      goToId(this.hash);
+      document.location.hash = this.hash;
+    }
+  });
+</script>
+
+  
+<div class="xl-chrome-ext-bar" id="xl_chrome_ext_{4DB361DE-01F7-4376-B494-639E489D19ED}" style="display: none;">
+      <div class="xl-chrome-ext-bar__logo"></div>
+
+      <a id="xl_chrome_ext_download" href="javascript:;" class="xl-chrome-ext-bar__option">下载视频</a>
+      <a id="xl_chrome_ext_close" href="javascript:;" class="xl-chrome-ext-bar__close"></a>
+    </div></body></html>

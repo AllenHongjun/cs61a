@@ -1,0 +1,23 @@
+.searchbox {
+  text-align: center;
+}
+
+.searchbox input {
+  margin-top: 10px;
+  font-size: 2rem;
+  width: 80%;
+  padding: 10px;
+}
+
+.searchResults {
+  text-align: left;
+}
+
+.searchResults em {
+  font-style: normal;
+  font-weight: bold;
+}
+
+.searchResults .preview {
+  font-size: 0.8em;
+}

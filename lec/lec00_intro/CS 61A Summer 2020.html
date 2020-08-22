@@ -1,0 +1,2654 @@
+<!DOCTYPE html>
+<!-- saved from url=(0018)https://cs61a.org/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="description" content="CS 61A: Structure and Interpretation of Computer Programs">
+    <meta name="keywords" content="CS 61A, Computer Science, CS, 61A, Programming, John DeNero, Berkeley, EECS">
+    <meta name="author" content="Chae Park, Kavi Gupta, Ryan Moughan">
+    
+    <meta name="viewport" content="width=device-width">
+
+    <script src="./CS 61A Summer 2020_files/jquery.min.js.下载"></script>
+    <script src="./CS 61A Summer 2020_files/bootstrap.min.js.下载"></script>
+    <script src="./CS 61A Summer 2020_files/hl.js.下载"></script>
+    <script>
+        // we aren't registering builtins since
+        //      (1) they don't render differently in the current CSS from other names
+        //      (2) it's a mess to list all of them. You can extract from the site but that takes effort
+        // if (1) ceases to be true, (2) might be worth the effort. For now, we're leaving as is
+        hljsRegister({
+            'keyword': "define if cond and or let begin lambda mu quote delay cons-stream set! quasiquote unquote unquote-splicing define-macro"
+        });
+        hljs.initHighlightingOnLoad();
+    </script>
+    <script src="./CS 61A Summer 2020_files/dark-mode.js.下载"></script>
+    <link rel="stylesheet" href="./CS 61A Summer 2020_files/bootstrap.min.css">
+    <link rel="stylesheet" href="./CS 61A Summer 2020_files/css">
+    <link rel="stylesheet" href="./CS 61A Summer 2020_files/style.css">
+    <link rel="stylesheet" href="./CS 61A Summer 2020_files/mono-blue.css">
+    <link rel="icon" href="https://cs61a.org/assets/images/favicon.ico">
+
+    
+
+    <title>CS 61A Summer 2020</title>
+  </head>
+
+  <body id="index" class="home">
+    <nav class="navbar navbar-default navbar-static-top">
+      <div class="container noselect">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-section">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="https://cs61a.org/">
+            <img style="max-width:60px; margin-top: -20px;" class="logo" src="./CS 61A Summer 2020_files/logo.png">
+          </a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="navbar-collapse-section">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="https://cs61a.org/weekly.html">Weekly Schedule</a></li>
+            <li><a href="https://cs61a.org/office-hours.html">Office Hours</a></li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="https://cs61a.org/#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Staff
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a href="https://cs61a.org/instructor.html">Instructors</a></li>
+                <li><a href="https://cs61a.org/TAs.html">TAs</a></li>
+                <li><a href="https://cs61a.org/tutors.html">Tutors</a></li>
+                <!-- <li><a href="/academic-interns.html">Academic Interns</a></li> -->
+              </ul>
+            </li>
+            <li><a href="https://cs61a.org/resources.html">Resources</a></li>
+            <li><a href="https://cs61a.org/articles/about.html">Syllabus</a></li>
+            <li><a href="https://piazza.com/berkeley/summer2020/cs61a" target="_blank">Piazza</a></li>
+            <li><a href="https://denero.org/feedback.html" target="_blank">Feedback</a></li>
+            <li><a href="https://edge.edx.org/courses/course-v1:BerkeleyX+CSW61A+2020_SP">EdX</a></li>
+            <!-- <li><a href="https://scheme.cs61a.org">Scheme</a></li> -->
+            <!-- <li><a href="https://sql.cs61a.org">SQL</a></li> -->
+            <li><a href="https://code.cs61a.org/">Code</a></li>
+            <li><a href="http://tutor.cs61a.org/">Tutor</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <main id="content" class="container">
+      
+<header>
+  <h1>CS 61A: Structure and Interpretation of Computer Programs</h1>
+  <p>
+    Summer 2020
+    <br>
+    
+      Instructors:
+    
+    Chae Park, Kavi Gupta, Ryan Moughan
+    <br>
+    Varies, Typically Tuesday 3-4:30pm. Link will be posted on piazza
+  </p>
+</header>
+
+<section id="announcements">
+  
+    <div class="announcement" id="announcement-0" style="display: block;">
+        <div class="header">Thursday, August 13</div>
+        <ul>
+  <li>Please read this Piazza <a href="https://piazza.com/class/kbesvacrkom2of?cid=2810">post</a>!</li>
+</ul>
+        
+    <div class="highlight-resources">
+        <div class="highlight-resource">
+            <div class="header">Week 8 Class Material</div>
+            <li>
+<div class="assignment-text">
+  Lecture 27: Special Topics I (Programming Languages)
+</div>
+
+<ul class="list-inline">
+  <li><a href="https://youtu.be/22x3YMdp67U" class="label label-outline" target="_blank">capture</a></li>
+<li><a href="https://docs.google.com/presentation/d/10X2MFk6UKduoV_OC04wdHe--TVhqNXWA2TWlfyZtZKs/edit#slide=id.p" class="label label-outline" target="_blank">slides</a></li>
+</ul>
+</li>
+<li>
+<div class="assignment-text">
+  Lecture 28: Special Topics II (Machine Learning)
+</div>
+
+<ul class="list-inline">
+  <li><a href="https://youtu.be/sXXmfojZA2k" class="label label-outline" target="_blank">capture</a></li>
+</ul>
+</li>
+<li>
+<div class="assignment-text">
+  Lecture 29: Navigating Berkeley
+</div>
+
+<ul class="list-inline">
+  <li><a href="https://youtu.be/YDn908mJxKs" class="label label-outline" target="_blank">capture</a></li>
+<li><a href="https://docs.google.com/presentation/d/1q56AikNJmgr_eTDzn4PeXo71RcEGlRvZ4gNC6vubGLs/edit#slide=id.g370722b3f7_0_0" class="label label-outline" target="_blank">slides</a></li>
+</ul>
+</li><li>Week 8 Readings: 
+<ul class="list-inline">
+  
+</ul>
+</li><li>
+<span class="">
+<a href="https://cs61a.org/disc/disc14.pdf" class="assignment-text">Disc 14: Final Review</a>
+
+<ul class="list-inline">
+  
+</ul>
+
+</span>
+</li>
+        </div>
+        <div class="highlight-resource">
+            <div class="header">Week 8 <a href="https://cs61a.org/resources.html">Resources</a></div>
+            <li><a href="https://docs.google.com/document/d/1_wpYjkzeuRZOIM6GssSDH8X2CoIRjqjtDIYMNaTQGtQ/edit?usp=sharing" target="_blank">Rachel's Streams Guide (Spring 2019)</a></li>
+<li><a href="https://docs.google.com/presentation/d/1t6tK4J5dmeRb9z619f2AaGawlkrMVCwhJMP2HF-2tUY/edit#slide=id.g1fd8f00051_0_0" target="_blank">Ashley &amp; Mrinalini's Streams Slides (Fall 2017)</a></li>
+<li><a href="https://youtu.be/N-AGcLiPDao" target="_blank">Minilecture: Streams Intro (Fall 2017)</a></li>
+<li><a href="https://youtu.be/OyTnjS94EE8" target="_blank">Minilecture: SQL Intro (Fall 2017)</a></li>
+<li><a href="https://docs.google.com/presentation/d/1X5cETCVjMakbKHvBPRVs_7Go0up-zx4rRrk__NCWWys/edit?usp=sharing" target="_blank">Michael's SQL Review Slides (Summer 2017)</a></li>
+<li>
+<span class="">
+<a href="https://docs.google.com/document/d/1PmAmyJfyROXklKiPP2pCxSe9_wXTb-GAYMamIpCgMOA/edit?usp=sharing" target="_blank">(Spring 2016) Colin's SQL Worksheet</a>
+
+<ul class="list-inline">
+  <li><a href="https://docs.google.com/a/berkeley.edu/document/d/1ncMSaABODJWjUmUJH_Zrx3stIKo66lbWRKEXwzlt05U/edit?usp=sharing" class="label label-outline" target="_blank">Solutions</a></li>
+</ul>
+
+</span>
+</li>
+<li><a href="https://docs.google.com/presentation/d/1St9VsIj12tPSbeh1LA--up_9HosyFAdN_en-NuetB4c/edit?usp=sharing" target="_blank">Kevin's SQL Slides (Fall 2015)</a></li>
+<li><a href="https://docs.google.com/document/d/16cGPPsb1QsUAL2mE74ihg3cUOkK9DicA9PLfESfLcME/edit" target="_blank">Andrew's Quick Guide to SQL (Fall 2015)</a></li>
+<li>
+<span class="">
+<a href="http://albertwu.org/cs61a/review/streams/exam.html" target="_blank">(Summer 2015) Albert's Streams Problems</a>
+
+<ul class="list-inline">
+  
+</ul>
+
+</span>
+</li>
+        </div>
+    </div>
+    
+        <i class="prev glyphicon glyphicon-menu-left" aria-hidden="true"></i>
+        <i class="next glyphicon glyphicon-menu-right disabled" aria-hidden="true"></i>
+    </div>
+    
+
+    <div class="announcement" id="announcement-1">
+        <div class="header">Friday, August 7</div>
+        <ul>
+  <li>Please read the final exam logistics <a href="https://piazza.com/class/kbesvacrkom2of?cid=2167">post</a></li>
+  <li>If you need an alternate time for the final exam, please see this Piazza <a href="https://piazza.com/class/kbesvacrkom2of?cid=2080">link</a></li>
+  <li>Check out the topical reviews here: links.cs61a.org/topical-review</li>
+  <li>Scheme has been released and is due Monday, Aug. 10th</li>
+  <li>The last homework (HW 08) has been released! It is due Tuesday, Aug. 11th</li>
+  <li>Lab 13 has been released and is due Friday, Aug. 7th</li>
+</ul>
+        
+    <div class="highlight-resources">
+        <div class="highlight-resource">
+            <div class="header">Week 7 Class Material</div>
+            <li>
+<div class="assignment-text">
+  Lecture 23: Streams
+</div>
+
+<ul class="list-inline">
+  <li><a href="https://www.youtube.com/playlist?list=PLx38hZJ5RLZcjcujTun_raYxUZlHKUgbB" class="label label-outline" target="_blank">Video</a></li>
+<li><a href="https://cs61a.org/assets/slides/23-Streams_1pp.pdf" class="label label-outline">1pp</a></li>
+<li><a href="https://cs61a.org/assets/slides/23-Streams_6pp.pdf" class="label label-outline">6pp</a></li>
+<li><a href="https://cs61a.org/assets/slides/23-Streams_9pp.pdf" class="label label-outline">9pp</a></li>
+</ul>
+</li>
+<li>
+<div class="assignment-text">
+  Lecture 24: Declarative Programming I
+</div>
+
+<ul class="list-inline">
+  <li><a href="https://www.youtube.com/playlist?list=PLx38hZJ5RLZdQkYbg6wF7iDhIznaFtfDG" class="label label-outline" target="_blank">Video</a></li>
+<li><a href="https://cs61a.org/assets/slides/24-Declarative_Programming_I_1pp.pdf" class="label label-outline">1pp</a></li>
+<li><a href="https://cs61a.org/assets/slides/24-Declarative_Programming_I_6pp.pdf" class="label label-outline">6pp</a></li>
+<li><a href="https://cs61a.org/assets/slides/24-Declarative_Programming_I_9pp.pdf" class="label label-outline">9pp</a></li>
+<li><a href="https://code.cs61a.org/su20/24.sql" class="label label-outline" target="_blank">24.sql</a></li>
+</ul>
+</li>
+<li>
+<div class="assignment-text">
+  Lecture 25: Declarative Programming II
+</div>
+
+<ul class="list-inline">
+  <li><a href="https://www.youtube.com/playlist?list=PLx38hZJ5RLZfbmmdqB-zF30xnNBoAC0Rz" class="label label-outline" target="_blank">Video</a></li>
+<li><a href="https://cs61a.org/assets/slides/25-Declarative_Programming_II_1pp.pdf" class="label label-outline">1pp</a></li>
+<li><a href="https://cs61a.org/assets/slides/25-Declarative_Programming_II_6pp.pdf" class="label label-outline">6pp</a></li>
+<li><a href="https://cs61a.org/assets/slides/25-Declarative_Programming_II_9pp.pdf" class="label label-outline">9pp</a></li>
+<li><a href="https://code.cs61a.org/su20/25.py" class="label label-outline" target="_blank">25.py</a></li>
+<li><a href="https://code.cs61a.org/su20/25.sql" class="label label-outline" target="_blank">25.sql</a></li>
+</ul>
+</li>
+<li>
+<div class="assignment-text">
+  Lecture 26: Final Review
+</div>
+
+<ul class="list-inline">
+  <li><a href="https://www.youtube.com/playlist?list=PLx38hZJ5RLZe_WKEjJ5B0Glvnod2UN_Mt" class="label label-outline" target="_blank">Video</a></li>
+<li><a href="https://youtu.be/2rdyDpLbuDw" class="label label-outline" target="_blank">capture</a></li>
+<li><a href="https://cs61a.org/assets/slides/26-Final_Review_1pp.pdf" class="label label-outline">1pp</a></li>
+<li><a href="https://cs61a.org/assets/slides/26-Final_Review_6pp.pdf" class="label label-outline">6pp</a></li>
+<li><a href="https://cs61a.org/assets/slides/26-Final_Review_9pp.pdf" class="label label-outline">9pp</a></li>
+<li><a href="https://code.cs61a.org/su20/26.py" class="label label-outline" target="_blank">26.py</a></li>
+</ul>
+</li><li>Week 7 Readings: 
+<ul class="list-inline">
+  <li><a href="http://composingprograms.com/pages/43-declarative-programming.html" class="label label-outline" target="_blank">Ch. 4.3</a></li>
+</ul>
+</li><li>
+<span class="">
+<a href="https://cs61a.org/disc/disc12.pdf" class="assignment-text">Disc 12: Streams</a>
+
+<ul class="list-inline">
+  
+</ul>
+
+</span>
+</li>
+<li>
+<span class="">
+<a href="https://cs61a.org/disc/disc13.pdf" class="assignment-text">Disc 13: SQL</a>
+
+<ul class="list-inline">
+  
+</ul>
+
+</span>
+</li>
+        </div>
+        <div class="highlight-resource">
+            <div class="header">Week 7 <a href="https://cs61a.org/resources.html">Resources</a></div>
+            <li><a href="https://cs61a.org/articles/scheme-builtins.html">Scheme Built-In Procedure Reference (Summer 2020)</a></li>
+<li><a href="https://cs61a.org/articles/scheme-spec.html">CS 61A Scheme Specification (Summer 2020)</a></li>
+<li><a href="https://youtu.be/zuF9xaK41yA" target="_blank">Minilecture: Tail Recursion (Summer 2019)</a></li>
+<li><a href="https://youtu.be/y1lPFnLtNAo" target="_blank">Minilecture: Macro (Summer 2019)</a></li>
+<li><a href="https://docs.google.com/document/d/1mjkLKfKrBOFbmpCqDZoKzHJf11DIRmAM_clQ_FJCcJE/edit?usp=sharing" target="_blank">Chris's Macros Guide (Spring 2019)</a></li>
+<li><a href="https://docs.google.com/presentation/d/173Oi_1r0IE1AgcF-yLvv992QyD96_OHXZxYuEqdlElQ/edit?usp=sharing" target="_blank">Chris &amp; Rachel's Macros Slides (Spring 2019)</a></li>
+<li><a href="https://docs.google.com/presentation/d/19GhUvcpZT1lVeO-D740SV5tgPYa-qgSYHKPI_yMLJL4/edit?usp=sharing" target="_blank">Annie's Macros Guide (Spring 2019)</a></li>
+<li><a href="https://docs.google.com/document/d/1_wpYjkzeuRZOIM6GssSDH8X2CoIRjqjtDIYMNaTQGtQ/edit?usp=sharing" target="_blank">Rachel's Streams Guide (Spring 2019)</a></li>
+<li><a href="https://docs.google.com/document/d/1-AYfeYT2YtCaQd13MegSH8Jh-ZlxhcE6_XxMYcJgeds/edit?usp=sharing" target="_blank">Rachel's Macros Guide (Summer 2018)</a></li>
+<li><a href="http://tmmydngyn.me/cs61a/guides/scheme.html" target="_blank">Tammy's Scheme Guide (Spring 2018)</a></li>
+<li><a href="http://tmmydngyn.me/cs61a/guides/tail-recursion.html" target="_blank">Tammy's Tail Recursion Guide (Spring 2018)</a></li>
+<li><a href="https://docs.google.com/presentation/d/1F9bffNArt0AnBfB7Y8TWlKtSLvZ6ek-JX95E_Bhl3js/edit?usp=sharing" target="_blank">Tammy &amp; Katherine's Macros Slides (Spring 2018)</a></li>
+<li>
+<span class="">
+<a href="https://docs.google.com/document/d/1XPdc4cUITvdbgAxsRF0Ko7LnnH3VlyabWFYxwwGDoCo/edit?usp=sharing" target="_blank">(Spring 2018) Tammy &amp; Katherine's Macros Worksheet</a>
+
+<ul class="list-inline">
+  <li><a href="https://docs.google.com/document/d/1OSz_NZ-UIU71elTYFxgfhTZ1UwTe4eeGmkDJ72w_7Rs/edit?usp=sharing" class="label label-outline" target="_blank">Solutions</a></li>
+</ul>
+
+</span>
+</li>
+<li>
+<span class="">
+<a href="https://docs.google.com/document/d/1FGMA4a6v1SLZwMcgEWfBBgZ_PJV-cLhR_CSeCzB18TI/edit?usp=sharing" target="_blank">(Spring 2018) Colin's Macros Worksheet</a>
+
+<ul class="list-inline">
+  <li><a href="https://docs.google.com/document/d/1GVEBn1tfwCBlRn3a8_sh3LY6ciJphGNrHL34ulnHMMY/edit?usp=sharing" class="label label-outline" target="_blank">Solutions</a></li>
+</ul>
+
+</span>
+</li>
+<li>
+<span class="">
+<a href="https://drive.google.com/open?id=17a3S_baEC1E_ojDSuCdvPej2LdAC8qPQ" target="_blank">(Spring 2018) Shea's Macros Problems + Solution Folder</a>
+
+<ul class="list-inline">
+  
+</ul>
+
+</span>
+</li>
+<li><a href="https://youtu.be/J0wAfcoBoR4" target="_blank">Minilecture: Scheme Intro (Fall 2017)</a></li>
+<li><a href="https://youtu.be/QbtKMreFRl8" target="_blank">Minilecture: Tail Recursion Intro (Fall 2017)</a></li>
+<li><a href="https://docs.google.com/presentation/d/1t6tK4J5dmeRb9z619f2AaGawlkrMVCwhJMP2HF-2tUY/edit#slide=id.g1fd8f00051_0_0" target="_blank">Ashley &amp; Mrinalini's Streams Slides (Fall 2017)</a></li>
+<li><a href="https://youtu.be/N-AGcLiPDao" target="_blank">Minilecture: Streams Intro (Fall 2017)</a></li>
+<li><a href="https://youtu.be/OyTnjS94EE8" target="_blank">Minilecture: SQL Intro (Fall 2017)</a></li>
+<li><a href="https://docs.google.com/presentation/d/1X5cETCVjMakbKHvBPRVs_7Go0up-zx4rRrk__NCWWys/edit?usp=sharing" target="_blank">Michael's SQL Review Slides (Summer 2017)</a></li>
+<li>
+<span class="">
+<a href="https://drive.google.com/file/d/0B9f1uNGYHmJ9UzhQT1NSOG5seXc/view?usp=sharing" target="_blank">(Fall 2016) Kavi's Scheme Slides</a>
+
+<ul class="list-inline">
+  <li><a href="https://drive.google.com/file/d/0B9f1uNGYHmJ9ZUdaMG1BclVwc00/view?usp=sharing" class="label label-outline" target="_blank">Solutions</a></li>
+</ul>
+
+</span>
+</li>
+<li><a href="https://docs.google.com/presentation/d/19TWNzh5YQkd7qnPhmjL9Hwxb6KL6yskP16L7CH8CE6o/edit?usp=sharing" target="_blank">Cale's Tail Recursion Slides (Spring 2016)</a></li>
+<li>
+<span class="">
+<a href="https://docs.google.com/document/d/1PmAmyJfyROXklKiPP2pCxSe9_wXTb-GAYMamIpCgMOA/edit?usp=sharing" target="_blank">(Spring 2016) Colin's SQL Worksheet</a>
+
+<ul class="list-inline">
+  <li><a href="https://docs.google.com/a/berkeley.edu/document/d/1ncMSaABODJWjUmUJH_Zrx3stIKo66lbWRKEXwzlt05U/edit?usp=sharing" class="label label-outline" target="_blank">Solutions</a></li>
+</ul>
+
+</span>
+</li>
+<li><a href="https://docs.google.com/document/d/1Tglw1x9sKF2DsrcINeG3G1sKLTowZggx2OkKjgU4iWU/edit?usp=sharing" target="_blank">Andrew's append vs cons vs list Guide (Fall 2015)</a></li>
+<li><a href="https://docs.google.com/presentation/d/1St9VsIj12tPSbeh1LA--up_9HosyFAdN_en-NuetB4c/edit?usp=sharing" target="_blank">Kevin's SQL Slides (Fall 2015)</a></li>
+<li><a href="https://docs.google.com/document/d/16cGPPsb1QsUAL2mE74ihg3cUOkK9DicA9PLfESfLcME/edit" target="_blank">Andrew's Quick Guide to SQL (Fall 2015)</a></li>
+<li>
+<span class="">
+<a href="http://albertwu.org/cs61a/review/scheme/exam.html" target="_blank">(Summer 2015) Albert's Scheme Problems</a>
+
+<ul class="list-inline">
+  
+</ul>
+
+</span>
+</li>
+<li>
+<span class="">
+<a href="http://albertwu.org/cs61a/review/tail/exam.html" target="_blank">(Summer 2015) Albert's Tail Recursion Problems</a>
+
+<ul class="list-inline">
+  
+</ul>
+
+</span>
+</li>
+<li>
+<span class="">
+<a href="http://albertwu.org/cs61a/review/streams/exam.html" target="_blank">(Summer 2015) Albert's Streams Problems</a>
+
+<ul class="list-inline">
+  
+</ul>
+
+</span>
+</li>
+<li><a href="https://youtu.be/MtvCeRhUB8I" target="_blank">Max's Scheme Lists Video (Spring 2015)</a></li>
+<li>
+<span class="">
+<a href="http://markmiyashita.com/cs61a/scheme" target="_blank">(Fall 2014) Mark's Scheme Problems</a>
+
+<ul class="list-inline">
+  
+</ul>
+
+</span>
+</li>
+        </div>
+    </div>
+    
+        <i class="prev glyphicon glyphicon-menu-left" aria-hidden="true"></i>
+        <i class="next glyphicon glyphicon-menu-right" aria-hidden="true"></i>
+    </div>
+    
+
+    <div class="announcement" id="announcement-2">
+        <div class="header">Sunday, August 2</div>
+        <ul>
+  <li>HW 07 has been released and is due Tuesday, Aug. 4th</li>
+  <li>Scheme has been released and is due Monday, Aug. 10th</li>
+  <li>Lab 12 has been released and is due Wednesday, Aug. 5th</li>
+  <li>If you need an alternate time for the final exam, please see this Piazza <a href="https://piazza.com/class/kbesvacrkom2of?cid=2080">link</a></li>
+</ul>
+        
+    <div class="highlight-resources">
+        <div class="highlight-resource">
+            <div class="header">Week 6 Class Material</div>
+            <li>
+<div class="assignment-text">
+  Lecture 19: Scheme
+</div>
+
+<ul class="list-inline">
+  <li><a href="https://www.youtube.com/playlist?list=PLx38hZJ5RLZf-3ZQQ1eo_BRQlUbHZy4HD" class="label label-outline" target="_blank">Video</a></li>
+<li><a href="https://cs61a.org/assets/slides/19-Scheme_1pp.pdf" class="label label-outline">1pp</a></li>
+<li><a href="https://cs61a.org/assets/slides/19-Scheme_6pp.pdf" class="label label-outline">6pp</a></li>
+<li><a href="https://cs61a.org/assets/slides/19-Scheme_9pp.pdf" class="label label-outline">9pp</a></li>
+</ul>
+</li>
+<li>
+<div class="assignment-text">
+  Lecture 20: Interpreters
+</div>
+
+<ul class="list-inline">
+  <li><a href="https://www.youtube.com/playlist?list=PLx38hZJ5RLZd6R4c6tv3osMGG3aLK6yVu" class="label label-outline" target="_blank">Video</a></li>
+<li><a href="https://cs61a.org/assets/slides/20-Interpreters_1pp.pdf" class="label label-outline">1pp</a></li>
+<li><a href="https://cs61a.org/assets/slides/20-Interpreters_6pp.pdf" class="label label-outline">6pp</a></li>
+<li><a href="https://cs61a.org/assets/slides/20-Interpreters_9pp.pdf" class="label label-outline">9pp</a></li>
+</ul>
+</li>
+<li>
+<div class="assignment-text">
+  Lecture 21: More Scheme
+</div>
+
+<ul class="list-inline">
+  <li><a href="https://www.youtube.com/playlist?list=PLx38hZJ5RLZd9GgeOIFICR7iYkDbhzAkn" class="label label-outline" target="_blank">Video</a></li>
+<li><a href="https://cs61a.org/assets/slides/21-More_Scheme_1pp.pdf" class="label label-outline">1pp</a></li>
+<li><a href="https://cs61a.org/assets/slides/21-More_Scheme_6pp.pdf" class="label label-outline">6pp</a></li>
+<li><a href="https://cs61a.org/assets/slides/21-More_Scheme_9pp.pdf" class="label label-outline">9pp</a></li>
+</ul>
+</li>
+<li>
+<div class="assignment-text">
+  Lecture 22: Macros
+</div>
+
+<ul class="list-inline">
+  <li><a href="https://www.youtube.com/playlist?list=PLx38hZJ5RLZdRI_P_SBVKTlv626FGxUoT" class="label label-outline" target="_blank">Video</a></li>
+<li><a href="https://cs61a.org/assets/slides/22-Macros_1pp.pdf" class="label label-outline">1pp</a></li>
+<li><a href="https://cs61a.org/assets/slides/22-Macros_6pp.pdf" class="label label-outline">6pp</a></li>
+<li><a href="https://cs61a.org/assets/slides/22-Macros_9pp.pdf" class="label label-outline">9pp</a></li>
+</ul>
+</li><li>Week 6 Readings: 
+<ul class="list-inline">
+  <li><a href="http://composingprograms.com/pages/32-functional-programming.html" class="label label-outline" target="_blank">Ch. 3.2</a></li>
+<li><a href="http://composingprograms.com/pages/35-interpreters-for-languages-with-abstraction.html" class="label label-outline" target="_blank">Ch. 3.5</a></li>
+<li><a href="http://composingprograms.com/pages/31-introduction.html" class="label label-outline" target="_blank">Ch. 3.1</a></li>
+</ul>
+</li><li>
+<span class="">
+<a href="https://cs61a.org/disc/disc10.pdf" class="assignment-text">Disc 10: Scheme, Scheme Lists</a>
+
+<ul class="list-inline">
+  
+</ul>
+
+</span>
+</li>
+<li>
+<span class="">
+<a href="https://cs61a.org/disc/disc11.pdf" class="assignment-text">Disc 11: Tail Recursion, Macros</a>
+
+<ul class="list-inline">
+  
+</ul>
+
+</span>
+</li>
+        </div>
+        <div class="highlight-resource">
+            <div class="header">Week 6 <a href="https://cs61a.org/resources.html">Resources</a></div>
+            <li><a href="https://cs61a.org/articles/scheme-builtins.html">Scheme Built-In Procedure Reference (Summer 2020)</a></li>
+<li><a href="https://cs61a.org/articles/scheme-spec.html">CS 61A Scheme Specification (Summer 2020)</a></li>
+<li><a href="https://youtu.be/8BHhZWBAlug" target="_blank">Minilecture: REPL Overview (Spring 2020)</a></li>
+<li><a href="https://youtu.be/Fimpv8yzAWY" target="_blank">Minilecture: REPL's Read stage (Spring 2020)</a></li>
+<li><a href="https://youtu.be/gB2dtI8MzII" target="_blank">Minilecture: REPL's eval stage (Spring 2020)</a></li>
+<li><a href="https://youtu.be/zuF9xaK41yA" target="_blank">Minilecture: Tail Recursion (Summer 2019)</a></li>
+<li><a href="https://youtu.be/y1lPFnLtNAo" target="_blank">Minilecture: Macro (Summer 2019)</a></li>
+<li><a href="https://docs.google.com/document/d/1mjkLKfKrBOFbmpCqDZoKzHJf11DIRmAM_clQ_FJCcJE/edit?usp=sharing" target="_blank">Chris's Macros Guide (Spring 2019)</a></li>
+<li><a href="https://docs.google.com/presentation/d/173Oi_1r0IE1AgcF-yLvv992QyD96_OHXZxYuEqdlElQ/edit?usp=sharing" target="_blank">Chris &amp; Rachel's Macros Slides (Spring 2019)</a></li>
+<li><a href="https://docs.google.com/presentation/d/19GhUvcpZT1lVeO-D740SV5tgPYa-qgSYHKPI_yMLJL4/edit?usp=sharing" target="_blank">Annie's Macros Guide (Spring 2019)</a></li>
+<li>
+<span class="">
+<a href="https://alex.stennet.com/interpreters.html" target="_blank">(Summer 2018) Alex's Interpreters Guide</a>
+
+<ul class="list-inline">
+  <li><a href="https://alex.stennet.com/interpreters-sol.html" class="label label-outline" target="_blank">Solutions</a></li>
+</ul>
+
+</span>
+</li>
+<li><a href="https://docs.google.com/document/d/1-AYfeYT2YtCaQd13MegSH8Jh-ZlxhcE6_XxMYcJgeds/edit?usp=sharing" target="_blank">Rachel's Macros Guide (Summer 2018)</a></li>
+<li><a href="http://tmmydngyn.me/cs61a/guides/oop.html" target="_blank">Tammy's OOP Guide (Spring 2018)</a></li>
+<li><a href="https://docs.google.com/presentation/d/1LRoggFAyjiwARHFdG1gLn-MkL_RWFYeuDTkblN-t8vk/edit?usp=sharing" target="_blank">Karina &amp; Dennis' Trees + Recursion Slides (Spring 2018)</a></li>
+<li><a href="http://tmmydngyn.me/cs61a/guides/scheme.html" target="_blank">Tammy's Scheme Guide (Spring 2018)</a></li>
+<li>
+<span class="">
+<a href="https://docs.google.com/document/d/1-5KnTJsqBL6TCQjiVsv2sUyiegLs9IqSlWzQEMdde_Q/edit?usp=sharing" target="_blank">(Spring 2018) Tammy's Interpreters Worksheet</a>
+
+<ul class="list-inline">
+  <li><a href="https://docs.google.com/document/d/10egKd_p6wc-TnpexuDKBJSbrTwCDhHzqU6j-yqztw2U/edit?usp=sharing" class="label label-outline" target="_blank">Solutions</a></li>
+</ul>
+
+</span>
+</li>
+<li><a href="http://tmmydngyn.me/cs61a/guides/tail-recursion.html" target="_blank">Tammy's Tail Recursion Guide (Spring 2018)</a></li>
+<li><a href="https://docs.google.com/presentation/d/1F9bffNArt0AnBfB7Y8TWlKtSLvZ6ek-JX95E_Bhl3js/edit?usp=sharing" target="_blank">Tammy &amp; Katherine's Macros Slides (Spring 2018)</a></li>
+<li>
+<span class="">
+<a href="https://docs.google.com/document/d/1XPdc4cUITvdbgAxsRF0Ko7LnnH3VlyabWFYxwwGDoCo/edit?usp=sharing" target="_blank">(Spring 2018) Tammy &amp; Katherine's Macros Worksheet</a>
+
+<ul class="list-inline">
+  <li><a href="https://docs.google.com/document/d/1OSz_NZ-UIU71elTYFxgfhTZ1UwTe4eeGmkDJ72w_7Rs/edit?usp=sharing" class="label label-outline" target="_blank">Solutions</a></li>
+</ul>
+
+</span>
+</li>
+<li>
+<span class="">
+<a href="https://docs.google.com/document/d/1FGMA4a6v1SLZwMcgEWfBBgZ_PJV-cLhR_CSeCzB18TI/edit?usp=sharing" target="_blank">(Spring 2018) Colin's Macros Worksheet</a>
+
+<ul class="list-inline">
+  <li><a href="https://docs.google.com/document/d/1GVEBn1tfwCBlRn3a8_sh3LY6ciJphGNrHL34ulnHMMY/edit?usp=sharing" class="label label-outline" target="_blank">Solutions</a></li>
+</ul>
+
+</span>
+</li>
+<li>
+<span class="">
+<a href="https://drive.google.com/open?id=17a3S_baEC1E_ojDSuCdvPej2LdAC8qPQ" target="_blank">(Spring 2018) Shea's Macros Problems + Solution Folder</a>
+
+<ul class="list-inline">
+  
+</ul>
+
+</span>
+</li>
+<li><a href="https://youtu.be/J0wAfcoBoR4" target="_blank">Minilecture: Scheme Intro (Fall 2017)</a></li>
+<li><a href="https://youtu.be/pRo4QX4c5lk" target="_blank">Minilecture: Evaluation Intro (Fall 2017)</a></li>
+<li><a href="https://youtu.be/QbtKMreFRl8" target="_blank">Minilecture: Tail Recursion Intro (Fall 2017)</a></li>
+<li><a href="https://docs.google.com/a/berkeley.edu/presentation/d/1IsFINK-dDnEHZyQpSCuNASfgI1ulO1ZCzcF1tnLts20/edit?usp=sharing" target="_blank">Samantha's Linked Lists Slides (Summer 2017)</a></li>
+<li>
+<span class="">
+<a href="https://drive.google.com/file/d/0ByFhRPJ7g_tLTXBQcXhnQ3NrVU0/view?usp=sharing" target="_blank">(Spring 2017) Katya's Tree + Linked List Worksheet</a>
+
+<ul class="list-inline">
+  <li><a href="https://drive.google.com/file/d/0ByFhRPJ7g_tLZmswMU1EY0dsNU0/view?usp=sharing" class="label label-outline" target="_blank">Solutions</a></li>
+</ul>
+
+</span>
+</li>
+<li><a href="https://youtu.be/2ZkyNQeXJRM" target="_blank">Minilecture: Tree Intro (Spring 2017)</a></li>
+<li>
+<span class="">
+<a href="https://drive.google.com/file/d/0B9f1uNGYHmJ9UzhQT1NSOG5seXc/view?usp=sharing" target="_blank">(Fall 2016) Kavi's Scheme Slides</a>
+
+<ul class="list-inline">
+  <li><a href="https://drive.google.com/file/d/0B9f1uNGYHmJ9ZUdaMG1BclVwc00/view?usp=sharing" class="label label-outline" target="_blank">Solutions</a></li>
+</ul>
+
+</span>
+</li>
+<li><a href="https://docs.google.com/presentation/d/19TWNzh5YQkd7qnPhmjL9Hwxb6KL6yskP16L7CH8CE6o/edit?usp=sharing" target="_blank">Cale's Tail Recursion Slides (Spring 2016)</a></li>
+<li><a href="https://docs.google.com/document/d/1Tglw1x9sKF2DsrcINeG3G1sKLTowZggx2OkKjgU4iWU/edit?usp=sharing" target="_blank">Andrew's append vs cons vs list Guide (Fall 2015)</a></li>
+<li>
+<span class="">
+<a href="http://albertwu.org/cs61a/review/oop/exam.html" target="_blank">(Summer 2015) Albert's OOP Problems</a>
+
+<ul class="list-inline">
+  
+</ul>
+
+</span>
+</li>
+<li>
+<span class="">
+<a href="http://albertwu.org/cs61a/review/mutable-linked-lists/exam.html" target="_blank">(Summer 2015) Albert's Mutable Linked List Problems</a>
+
+<ul class="list-inline">
+  
+</ul>
+
+</span>
+</li>
+<li>
+<span class="">
+<a href="http://albertwu.org/cs61a/review/trees/exam.html" target="_blank">(Summer 2015) Albert's ADT Tree Problems</a>
+
+<ul class="list-inline">
+  
+</ul>
+
+</span>
+</li>
+<li>
+<span class="">
+<a href="http://albertwu.org/cs61a/review/mutable-trees/exam.html" target="_blank">(Summer 2015) Albert's Mutable Tree Problems</a>
+
+<ul class="list-inline">
+  
+</ul>
+
+</span>
+</li>
+<li>
+<span class="">
+<a href="http://albertwu.org/cs61a/review/scheme/exam.html" target="_blank">(Summer 2015) Albert's Scheme Problems</a>
+
+<ul class="list-inline">
+  
+</ul>
+
+</span>
+</li>
+<li>
+<span class="">
+<a href="http://albertwu.org/cs61a/review/interpreter/exam.html" target="_blank">(Summer 2015) Albert's Interpreters Problems</a>
+
+<ul class="list-inline">
+  
+</ul>
+
+</span>
+</li>
+<li>
+<span class="">
+<a href="http://albertwu.org/cs61a/review/tail/exam.html" target="_blank">(Summer 2015) Albert's Tail Recursion Problems</a>
+
+<ul class="list-inline">
+  
+</ul>
+
+</span>
+</li>
+<li><a href="https://youtu.be/MtvCeRhUB8I" target="_blank">Max's Scheme Lists Video (Spring 2015)</a></li>
+<li>
+<span class="">
+<a href="http://markmiyashita.com/cs61a/scheme" target="_blank">(Fall 2014) Mark's Scheme Problems</a>
+
+<ul class="list-inline">
+  
+</ul>
+
+</span>
+</li>
+        </div>
+    </div>
+    
+        <i class="prev glyphicon glyphicon-menu-left" aria-hidden="true"></i>
+        <i class="next glyphicon glyphicon-menu-right" aria-hidden="true"></i>
+    </div>
+    
+
+    <div class="announcement" id="announcement-3">
+        <div class="header">Sunday, July 19</div>
+        <p>Congrats on finishing the midterm!</p>
+
+<ul>
+  <li>CATS is released and is due Thursday, July 23rd</li>
+  <li>HW 05 is released and is Tuesday, July 21st</li>
+</ul>
+        
+    <div class="highlight-resources">
+        <div class="highlight-resource">
+            <div class="header">Week 4 Class Material</div>
+            <li>
+<div class="assignment-text">
+  Lecture 12: Mutable Functions
+</div>
+
+<ul class="list-inline">
+  <li><a href="https://www.youtube.com/playlist?list=PLx38hZJ5RLZeB0ttci1_ICVKU6WwTf183" class="label label-outline" target="_blank">Video</a></li>
+<li><a href="https://cs61a.org/assets/slides/12-Mutable_Functions_1pp.pdf" class="label label-outline">1pp</a></li>
+<li><a href="https://cs61a.org/assets/slides/12-Mutable_Functions_6pp.pdf" class="label label-outline">6pp</a></li>
+<li><a href="https://cs61a.org/assets/slides/12-Mutable_Functions_9pp.pdf" class="label label-outline">9pp</a></li>
+<li><a href="https://code.cs61a.org/su20/12.py" class="label label-outline" target="_blank">12.py</a></li>
+</ul>
+</li>
+<li>
+<div class="assignment-text">
+  Lecture 13: Midterm Review
+</div>
+
+<ul class="list-inline">
+  <li><a href="https://youtu.be/k4jtx60DQV0" class="label label-outline" target="_blank">capture</a></li>
+</ul>
+</li>
+<li>
+<div class="assignment-text">
+  Lecture 14: Iterators &amp; Generators
+</div>
+
+<ul class="list-inline">
+  <li><a href="https://www.youtube.com/playlist?list=PLx38hZJ5RLZdkiQbzwV4q1L066G_BPG6L" class="label label-outline" target="_blank">Video</a></li>
+<li><a href="https://cs61a.org/assets/slides/14-Iterators_&amp;_Generators_1pp.pdf" class="label label-outline">1pp</a></li>
+<li><a href="https://cs61a.org/assets/slides/14-Iterators_&amp;_Generators_6pp.pdf" class="label label-outline">6pp</a></li>
+<li><a href="https://cs61a.org/assets/slides/14-Iterators_&amp;_Generators_9pp.pdf" class="label label-outline">9pp</a></li>
+<li><a href="https://code.cs61a.org/su20/14.py" class="label label-outline" target="_blank">14.py</a></li>
+</ul>
+</li><li>Week 4 Readings: 
+<ul class="list-inline">
+  <li><a href="http://composingprograms.com/pages/24-mutable-data.html" class="label label-outline" target="_blank">Ch. 2.4</a></li>
+<li><a href="http://composingprograms.com/pages/42-implicit-sequences.html" class="label label-outline" target="_blank">Ch. 4.2</a></li>
+</ul>
+</li><li>
+<span class="">
+<a href="https://cs61a.org/disc/disc06.pdf" class="assignment-text">Disc 06: Nonlocal, Midterm Review</a>
+
+<ul class="list-inline">
+  
+</ul>
+
+</span>
+</li>
+        </div>
+        <div class="highlight-resource">
+            <div class="header">Week 4 <a href="https://cs61a.org/resources.html">Resources</a></div>
+            <li><a href="https://docs.google.com/document/d/1S9rWGByjaN5VGRwW-UlFsJFSG5o7ZkCVony3mm4Tek0/edit?usp=sharing" target="_blank">Rachel's Data Abstraction Guide (Summer 2018)</a></li>
+<li><a href="https://docs.google.com/presentation/d/1LRoggFAyjiwARHFdG1gLn-MkL_RWFYeuDTkblN-t8vk/edit?usp=sharing" target="_blank">Karina &amp; Dennis' Trees + Recursion Slides (Spring 2018)</a></li>
+<li><a href="http://tmmydngyn.me/cs61a/guides/mutability.html" target="_blank">Tammy's Nonlocal and Mutability Guide (Spring 2018)</a></li>
+<li>
+<span class="">
+<a href="https://drive.google.com/file/d/0ByFhRPJ7g_tLTXBQcXhnQ3NrVU0/view?usp=sharing" target="_blank">(Spring 2017) Katya's Tree + Linked List Worksheet</a>
+
+<ul class="list-inline">
+  <li><a href="https://drive.google.com/file/d/0ByFhRPJ7g_tLZmswMU1EY0dsNU0/view?usp=sharing" class="label label-outline" target="_blank">Solutions</a></li>
+</ul>
+
+</span>
+</li>
+<li><a href="https://youtu.be/2ZkyNQeXJRM" target="_blank">Minilecture: Tree Intro (Spring 2017)</a></li>
+<li><a href="https://docs.google.com/a/berkeley.edu/presentation/d/1p1rhwLg6IdFBGghlvvb5HESIUxBo2_-GLKE4AwbeVLc/edit?usp=sharing" target="_blank">Samantha's Environment Diagram with Lists and Nonlocal Slides (Fall 2016)</a></li>
+<li><a href="https://docs.google.com/document/d/1h84c1wWzXwuf8W7th9i7jFocfBM5zfhPj-rFjL0OVM4/edit?usp=sharing" target="_blank">Kevin's Environment Diagram Doc on Lambdas, HOFs, and Nonlocal (Fall 2015)</a></li>
+<li>
+<span class="">
+<a href="http://albertwu.org/cs61a/review/trees/exam.html" target="_blank">(Summer 2015) Albert's ADT Tree Problems</a>
+
+<ul class="list-inline">
+  
+</ul>
+
+</span>
+</li>
+<li>
+<span class="">
+<a href="http://albertwu.org/cs61a/review/mutable-trees/exam.html" target="_blank">(Summer 2015) Albert's Mutable Tree Problems</a>
+
+<ul class="list-inline">
+  
+</ul>
+
+</span>
+</li>
+<li>
+<span class="">
+<a href="http://albertwu.org/cs61a/review/nonlocal/exam.html" target="_blank">(Summer 2015) Albert's Nonlocal Problems</a>
+
+<ul class="list-inline">
+  
+</ul>
+
+</span>
+</li>
+        </div>
+    </div>
+    
+        <i class="prev glyphicon glyphicon-menu-left" aria-hidden="true"></i>
+        <i class="next glyphicon glyphicon-menu-right" aria-hidden="true"></i>
+    </div>
+    
+
+    <div class="announcement" id="announcement-4">
+        <div class="header">Sunday, July 12</div>
+        <ul>
+  <li>CATS is released and is due Thursday, July 23rd</li>
+  <li>HW 04 is released and is due Tuesday</li>
+  <li>The midterm will be Thursday, July 16th from 5-8 PM. If you have a time zone or exam conflict, please fill out the form on piazza by tonight!</li>
+  <li>Make sure to take the Diagnostic Quiz and report any technical issues by tonight!</li>
+</ul>
+        
+    <div class="highlight-resources">
+        <div class="highlight-resource">
+            <div class="header">Week 3 Class Material</div>
+            <li>
+<div class="assignment-text">
+  Lecture 8: Sequences &amp; Data Abstraction
+</div>
+
+<ul class="list-inline">
+  <li><a href="https://www.youtube.com/playlist?list=PLx38hZJ5RLZe0LxEMID8Dus5avnH05-29" class="label label-outline" target="_blank">Video</a></li>
+<li><a href="https://cs61a.org/assets/slides/08-Sequences_&amp;_Data_Abstraction_1pp.pdf" class="label label-outline">1pp</a></li>
+<li><a href="https://cs61a.org/assets/slides/08-Sequences_&amp;_Data_Abstraction_6pp.pdf" class="label label-outline">6pp</a></li>
+<li><a href="https://cs61a.org/assets/slides/08-Sequences_&amp;_Data_Abstraction_9pp.pdf" class="label label-outline">9pp</a></li>
+<li><a href="https://code.cs61a.org/su20/08.py" class="label label-outline" target="_blank">08.py</a></li>
+</ul>
+</li>
+<li>
+<div class="assignment-text">
+  Lecture 9: Functional Decomposition &amp; Debugging
+</div>
+
+<ul class="list-inline">
+  <li><a href="https://www.youtube.com/playlist?list=PLx38hZJ5RLZffZox0dIPDdzuWNWX9YuV5" class="label label-outline" target="_blank">Video</a></li>
+<li><a href="https://youtu.be/FwbkP1JLBa0" class="label label-outline" target="_blank">capture</a></li>
+<li><a href="https://cs61a.org/assets/slides/09-Functional_Decomposition_&amp;_Debugging_1pp.pdf" class="label label-outline">1pp</a></li>
+<li><a href="https://cs61a.org/assets/slides/09-Functional_Decomposition_&amp;_Debugging_6pp.pdf" class="label label-outline">6pp</a></li>
+<li><a href="https://cs61a.org/assets/slides/09-Functional_Decomposition_&amp;_Debugging_9pp.pdf" class="label label-outline">9pp</a></li>
+</ul>
+</li>
+<li>
+<div class="assignment-text">
+  Lecture 10: Trees
+</div>
+
+<ul class="list-inline">
+  <li><a href="https://www.youtube.com/playlist?list=PLx38hZJ5RLZcSO6VGvle_jaPHHSbdq1aX" class="label label-outline" target="_blank">Video</a></li>
+<li><a href="https://cs61a.org/assets/slides/10-Trees_1pp.pdf" class="label label-outline">1pp</a></li>
+<li><a href="https://cs61a.org/assets/slides/10-Trees_6pp.pdf" class="label label-outline">6pp</a></li>
+<li><a href="https://cs61a.org/assets/slides/10-Trees_9pp.pdf" class="label label-outline">9pp</a></li>
+<li><a href="https://code.cs61a.org/su20/10.py" class="label label-outline" target="_blank">10.py</a></li>
+</ul>
+</li>
+<li>
+<div class="assignment-text">
+  Lecture 11: Mutable Sequences
+</div>
+
+<ul class="list-inline">
+  <li><a href="https://www.youtube.com/playlist?list=PLx38hZJ5RLZdduunxLp6Eiw9qIXSZknFq" class="label label-outline" target="_blank">Video</a></li>
+<li><a href="https://cs61a.org/assets/slides/11-Mutable_Sequences_1pp.pdf" class="label label-outline">1pp</a></li>
+<li><a href="https://cs61a.org/assets/slides/11-Mutable_Sequences_6pp.pdf" class="label label-outline">6pp</a></li>
+<li><a href="https://cs61a.org/assets/slides/11-Mutable_Sequences_9pp.pdf" class="label label-outline">9pp</a></li>
+<li><a href="https://code.cs61a.org/su20/11.py" class="label label-outline" target="_blank">11.py</a></li>
+</ul>
+</li><li>Week 3 Readings: 
+<ul class="list-inline">
+  <li><a href="http://composingprograms.com/pages/24-mutable-data.html" class="label label-outline" target="_blank">Ch. 2.4</a></li>
+<li><a href="http://composingprograms.com/pages/21-introduction.html" class="label label-outline" target="_blank">Ch. 2.1</a></li>
+<li><a href="http://composingprograms.com/pages/22-data-abstraction.html" class="label label-outline" target="_blank">Ch. 2.2</a></li>
+<li><a href="http://composingprograms.com/pages/23-sequences.html" class="label label-outline" target="_blank">Ch. 2.3</a></li>
+</ul>
+</li><li>
+<span class="">
+<a href="https://cs61a.org/disc/disc04.pdf" class="assignment-text">Disc 04: Recursion, Tree Recursion, Python Lists</a>
+
+<ul class="list-inline">
+  
+</ul>
+
+</span>
+</li>
+<li>
+<span class="">
+<a href="https://cs61a.org/disc/disc05.pdf" class="assignment-text">Disc 05: Python Lists, Trees, Mutability</a>
+
+<ul class="list-inline">
+  
+</ul>
+
+</span>
+</li>
+        </div>
+        <div class="highlight-resource">
+            <div class="header">Week 3 <a href="https://cs61a.org/resources.html">Resources</a></div>
+            <li><a href="https://aaronchen.gitbook.io/daq" target="_blank">Aaron's Beginner-Friendly Guide to Recursion (Summer 2018)</a></li>
+<li><a href="https://drive.google.com/open?id=14wVXEVlYTxTkKBznkBmTgHBZhttYk2EahdA_eJhYFyU" target="_blank">Rachel's Recursion Guide (Summer 2018)</a></li>
+<li><a href="https://docs.google.com/document/d/1IP9hjEhYGQN7A6luoMWSzG1N8pJrCTAFOut7cPG5k4A/edit?usp=sharing" target="_blank">Mitas' List Method Confusion (Summer 2018)</a></li>
+<li><a href="https://docs.google.com/document/d/1S9rWGByjaN5VGRwW-UlFsJFSG5o7ZkCVony3mm4Tek0/edit?usp=sharing" target="_blank">Rachel's Data Abstraction Guide (Summer 2018)</a></li>
+<li><a href="https://docs.google.com/presentation/d/1w70bSls2ouRi8yFpdF6BkfG5cFWmhsCo8RXbcRwuazQ/edit?usp=sharing" target="_blank">HKN Spring 2018 Slides: Recursion</a></li>
+<li><a href="https://docs.google.com/presentation/d/1LRoggFAyjiwARHFdG1gLn-MkL_RWFYeuDTkblN-t8vk/edit?usp=sharing" target="_blank">Karina &amp; Dennis' Trees + Recursion Slides (Spring 2018)</a></li>
+<li><a href="https://docs.google.com/presentation/d/1UoHrRa8_QuKSy3LGSzsPoLEcsJWDxz5D3FdtoB4zL40/edit?usp=sharing" target="_blank">Yichen &amp; Allen's Lists &amp; Sequences Slides (Spring 2018)</a></li>
+<li><a href="https://youtu.be/qcL7j0e0vvc" target="_blank">Minilecture: Recursion Intro (Spring 2017)</a></li>
+<li><a href="https://youtu.be/t5CjpTAC8uw" target="_blank">Minilecture: Tree Recursion Intro (Spring 2017)</a></li>
+<li><a href="https://youtu.be/8MdfNXgkQrM" target="_blank">Minilecture: List Intro (Spring 2017)</a></li>
+<li>
+<span class="">
+<a href="https://drive.google.com/file/d/0ByFhRPJ7g_tLTXBQcXhnQ3NrVU0/view?usp=sharing" target="_blank">(Spring 2017) Katya's Tree + Linked List Worksheet</a>
+
+<ul class="list-inline">
+  <li><a href="https://drive.google.com/file/d/0ByFhRPJ7g_tLZmswMU1EY0dsNU0/view?usp=sharing" class="label label-outline" target="_blank">Solutions</a></li>
+</ul>
+
+</span>
+</li>
+<li><a href="https://youtu.be/2ZkyNQeXJRM" target="_blank">Minilecture: Tree Intro (Spring 2017)</a></li>
+<li><a href="https://docs.google.com/a/berkeley.edu/presentation/d/1p1rhwLg6IdFBGghlvvb5HESIUxBo2_-GLKE4AwbeVLc/edit?usp=sharing" target="_blank">Samantha's Environment Diagram with Lists and Nonlocal Slides (Fall 2016)</a></li>
+<li><a href="https://docs.google.com/document/d/1h84c1wWzXwuf8W7th9i7jFocfBM5zfhPj-rFjL0OVM4/edit?usp=sharing" target="_blank">Kevin's Environment Diagram Doc on Lambdas, HOFs, and Nonlocal (Fall 2015)</a></li>
+<li>
+<span class="">
+<a href="http://albertwu.org/cs61a/review/hof/exam.html" target="_blank">(Summer 2015) Albert's HOF Env Diagram Problems</a>
+
+<ul class="list-inline">
+  
+</ul>
+
+</span>
+</li>
+<li>
+<span class="">
+<a href="http://albertwu.org/cs61a/review/recursion/exam.html" target="_blank">(Summer 2015) Albert's Recursion Problems</a>
+
+<ul class="list-inline">
+  
+</ul>
+
+</span>
+</li>
+<li>
+<span class="">
+<a href="http://albertwu.org/cs61a/review/lists/basic.html" target="_blank">(Summer 2015) Albert's Python Lists Problems</a>
+
+<ul class="list-inline">
+  
+</ul>
+
+</span>
+</li>
+<li>
+<span class="">
+<a href="http://albertwu.org/cs61a/review/trees/exam.html" target="_blank">(Summer 2015) Albert's ADT Tree Problems</a>
+
+<ul class="list-inline">
+  
+</ul>
+
+</span>
+</li>
+<li>
+<span class="">
+<a href="http://albertwu.org/cs61a/review/mutable-trees/exam.html" target="_blank">(Summer 2015) Albert's Mutable Tree Problems</a>
+
+<ul class="list-inline">
+  
+</ul>
+
+</span>
+</li>
+        </div>
+    </div>
+    
+        <i class="prev glyphicon glyphicon-menu-left" aria-hidden="true"></i>
+        <i class="next glyphicon glyphicon-menu-right" aria-hidden="true"></i>
+    </div>
+    
+
+    <div class="announcement" id="announcement-5">
+        <div class="header">Sunday, July 5</div>
+        <p>Congrats on finishing the second week of CS 61a!</p>
+
+<ul>
+  <li>Hog has been released and is due Monday, July 6th</li>
+  <li>The optional Hog Contest has been released and is due Tuesday, July 7th</li>
+  <li>Lab 03 has been released and is due on Monday, July 6th</li>
+  <li>HW3 has been released and is due Tuesday, June 7th</li>
+  <li>There will be an extra Project Party Sunday, July 5th from 2 - 4 PM!</li>
+  <li><p>The Diagnostic Quiz was this week</p>
+
+  <ul>
+    <li>Due to technical difficulties, everyone will be getting the 5 points for completion on this quiz</li>
+    <li>It is still HIGHLY important that you take it at some point so that you can check that your system works well with our exam software</li>
+    <li>Please report any technical issues before/during/after the exam at links.cs61a.org/diagnostic-tech-issues</li>
+  </ul></li>
+  <li>Sign-up for small group tutoring! There are still a few spots left for recurring sections and drop-in sections. Links and sign-up details <a href="https://piazza.com/class/kbesvacrkom2of?cid=555">are on piazza</a>.</li>
+</ul>
+        
+    <div class="highlight-resources">
+        <div class="highlight-resource">
+            <div class="header">Week 2 Class Material</div>
+            <li>
+<div class="assignment-text">
+  Lecture 5: Environment Diagrams
+</div>
+
+<ul class="list-inline">
+  <li><a href="https://www.youtube.com/playlist?list=PLx38hZJ5RLZcUPWZ1-3HYsRPgZ8OCrvqz" class="label label-outline" target="_blank">Video</a></li>
+<li><a href="https://cs61a.org/assets/slides/05-Environment_Diagrams_1pp.pdf" class="label label-outline">1pp</a></li>
+<li><a href="https://cs61a.org/assets/slides/05-Environment_Diagrams_4pp.pdf" class="label label-outline">4pp</a></li>
+<li><a href="https://code.cs61a.org/su20/05.py" class="label label-outline" target="_blank">05.py</a></li>
+</ul>
+</li>
+<li>
+<div class="assignment-text">
+  Lecture 6: Recursion
+</div>
+
+<ul class="list-inline">
+  <li><a href="https://www.youtube.com/playlist?list=PLx38hZJ5RLZeUiq1vZPL7KGsg1p6RJrUk" class="label label-outline" target="_blank">Video</a></li>
+<li><a href="https://youtu.be/jpFZpaVMm48" class="label label-outline" target="_blank">capture</a></li>
+<li><a href="https://cs61a.org/assets/slides/06-Recursion_1pp.pdf" class="label label-outline">1pp</a></li>
+<li><a href="https://cs61a.org/assets/slides/06-Recursion_6pp.pdf" class="label label-outline">6pp</a></li>
+<li><a href="https://cs61a.org/assets/slides/06-Recursion_9pp.pdf" class="label label-outline">9pp</a></li>
+<li><a href="https://code.cs61a.org/su20/06.py" class="label label-outline" target="_blank">06.py</a></li>
+</ul>
+</li>
+<li>
+<div class="assignment-text">
+  Lecture 7: Tree Recursion
+</div>
+
+<ul class="list-inline">
+  <li><a href="https://www.youtube.com/playlist?list=PLx38hZJ5RLZetpo06AQzyDIihcEvcRJsa" class="label label-outline" target="_blank">Video</a></li>
+<li><a href="https://cs61a.org/assets/slides/07-Tree_Recursion_1pp.pdf" class="label label-outline">1pp</a></li>
+<li><a href="https://cs61a.org/assets/slides/07-Tree_Recursion_6pp.pdf" class="label label-outline">6pp</a></li>
+<li><a href="https://cs61a.org/assets/slides/07-Tree_Recursion_9pp.pdf" class="label label-outline">9pp</a></li>
+<li><a href="https://code.cs61a.org/su20/07.py" class="label label-outline" target="_blank">07.py</a></li>
+</ul>
+</li><li>Week 2 Readings: 
+<ul class="list-inline">
+  <li><a href="http://composingprograms.com/pages/16-higher-order-functions.html" class="label label-outline" target="_blank">Ch. 1.6</a></li>
+<li><a href="http://composingprograms.com/pages/17-recursive-functions.html" class="label label-outline" target="_blank">Ch. 1.7</a></li>
+</ul>
+</li><li>
+<span class="">
+<a href="https://cs61a.org/disc/disc02.pdf" class="assignment-text">Disc 02: Higher-Order Functions</a>
+
+<ul class="list-inline">
+  
+</ul>
+
+</span>
+</li>
+        </div>
+        <div class="highlight-resource">
+            <div class="header">Week 2 <a href="https://cs61a.org/resources.html">Resources</a></div>
+            <li><a href="https://youtu.be/UwACQRyzlBM" target="_blank">Minilecture: While Loops (Fall 2016)</a></li>
+<li><a href="https://youtu.be/jj0ECw6s0Cg" target="_blank">Minilecture: Boolean Operators (Fall 2016)</a></li>
+<li><a href="https://youtu.be/IYD_FXvK72E" target="_blank">Minilecture: Control &amp; If Statements (Fall 2016)</a></li>
+<li><a href="https://docs.google.com/document/d/1h84c1wWzXwuf8W7th9i7jFocfBM5zfhPj-rFjL0OVM4/edit?usp=sharing" target="_blank">Kevin's Environment Diagram Doc on Lambdas, HOFs, and Nonlocal (Fall 2015)</a></li>
+<li>
+<span class="">
+<a href="http://albertwu.org/cs61a/review/control/exam.html" target="_blank">(Summer 2015) Albert's Control Structure Problems</a>
+
+<ul class="list-inline">
+  
+</ul>
+
+</span>
+</li>
+<li>
+<span class="">
+<a href="http://albertwu.org/cs61a/review/hof/exam.html" target="_blank">(Summer 2015) Albert's HOF Env Diagram Problems</a>
+
+<ul class="list-inline">
+  
+</ul>
+
+</span>
+</li>
+<li>
+<span class="">
+<a href="http://albertwu.org/cs61a/review/lambdas/exam.html" target="_blank">(Summer 2015) Albert's Lambas Problems</a>
+
+<ul class="list-inline">
+  
+</ul>
+
+</span>
+</li>
+        </div>
+    </div>
+    
+        <i class="prev glyphicon glyphicon-menu-left" aria-hidden="true"></i>
+        <i class="next glyphicon glyphicon-menu-right" aria-hidden="true"></i>
+    </div>
+    
+
+    <div class="announcement" id="announcement-6">
+        <div class="header">Saturday, June 27</div>
+        <p>Congrats on finishing the first week of CS 61a!</p>
+
+<ul>
+  <li>HW 1 has been released and is due Tuesday, June 30th</li>
+  <li>HW 2 has been released and is due Tuesday, June 30th</li>
+  <li>Hog has been released and is due Monday, July 6th</li>
+  <li>The first homework party will be Monday, June 29th from 4:00 - 7:00 PM (links will be on Piazza)</li>
+  <li>The first project party will be Wednesday, July 1st from 3:00 - 6:00 PM (links will be on Piazza)</li>
+  <li>OH are open! Sign up for an appointment the night before at oh.cs61a.org/appointments</li>
+</ul>
+        
+    <div class="highlight-resources">
+        <div class="highlight-resource">
+            <div class="header">Week 1 Class Material</div>
+            <li>
+<div class="assignment-text">
+  Lecture 1: Intro
+</div>
+
+<ul class="list-inline">
+  <li><a href="https://www.youtube.com/watch?v=0_LryzvBxFw&amp;list=PL6BsET-8jgYVkdaPYJNyvuNga3QA_U1gA" class="label label-outline" target="_blank">Video</a></li>
+<li><a href="https://docs.google.com/presentation/d/1_fDaPOCGau9KtPsb5HtN6ItLBF2lXY0FL-cqVzI7_ac/edit#slide=id.g893cb786c0_1_10" class="label label-outline" target="_blank">slides</a></li>
+<li><a href="https://youtu.be/HhaxA3DSILw" class="label label-outline" target="_blank">capture</a></li>
+<li><a href="https://code.cs61a.org/su20/01.py" class="label label-outline" target="_blank">01.py</a></li>
+</ul>
+</li>
+<li>
+<div class="assignment-text">
+  Lecture 2: Functions
+</div>
+
+<ul class="list-inline">
+  <li><a href="https://www.youtube.com/playlist?list=PLx38hZJ5RLZdLilndcPoBVWg20S_VENyu" class="label label-outline" target="_blank">Video</a></li>
+<li><a href="https://cs61a.org/assets/slides/02-Functions_full.pdf" class="label label-outline">full</a></li>
+<li><a href="https://cs61a.org/assets/slides/02-Functions_1pp.pdf" class="label label-outline">1pp</a></li>
+<li><a href="https://cs61a.org/assets/slides/02-Functions_8pp.pdf" class="label label-outline">8pp</a></li>
+<li><a href="https://code.cs61a.org/su20/02.py" class="label label-outline" target="_blank">02.py</a></li>
+</ul>
+</li>
+<li>
+<div class="assignment-text">
+  Lecture 3: Control
+</div>
+
+<ul class="list-inline">
+  <li><a href="https://www.youtube.com/playlist?list=PLx38hZJ5RLZfaBTgnl9EdoB3JqZl5c8G3" class="label label-outline" target="_blank">Video</a></li>
+<li><a href="https://cs61a.org/assets/slides/03-Control_1pp.pdf" class="label label-outline">1pp</a></li>
+<li><a href="https://cs61a.org/assets/slides/03-Control_4pp.pdf" class="label label-outline">4pp</a></li>
+<li><a href="https://code.cs61a.org/su20/03.py" class="label label-outline" target="_blank">03.py</a></li>
+</ul>
+</li>
+<li>
+<div class="assignment-text">
+  Lecture 4: Higher-Order Functions
+</div>
+
+<ul class="list-inline">
+  <li><a href="https://www.youtube.com/playlist?list=PLx38hZJ5RLZc7vG1NTLyhsbnXmoK3xMBw" class="label label-outline" target="_blank">Video</a></li>
+<li><a href="https://cs61a.org/assets/slides/04-Higher-Order_Functions_1pp.pdf" class="label label-outline">1pp</a></li>
+<li><a href="https://cs61a.org/assets/slides/04-Higher-Order_Functions_4pp.pdf" class="label label-outline">4pp</a></li>
+<li><a href="https://code.cs61a.org/su20/04.py" class="label label-outline" target="_blank">04.py</a></li>
+</ul>
+</li><li>Week 1 Readings: 
+<ul class="list-inline">
+  <li><a href="http://composingprograms.com/pages/11-getting-started.html" class="label label-outline" target="_blank">Ch. 1.1</a></li>
+<li><a href="http://composingprograms.com/pages/14-designing-functions.html" class="label label-outline" target="_blank">Ch. 1.4</a></li>
+<li><a href="http://composingprograms.com/pages/13-defining-new-functions.html" class="label label-outline" target="_blank">Ch. 1.3</a></li>
+<li><a href="http://composingprograms.com/pages/12-elements-of-programming.html" class="label label-outline" target="_blank">Ch. 1.2</a></li>
+<li><a href="http://composingprograms.com/pages/15-control.html" class="label label-outline" target="_blank">Ch. 1.5</a></li>
+</ul>
+</li><li>
+<span class="">
+<a href="https://cs61a.org/disc/disc00.pdf" class="assignment-text">Disc 00: Getting Started</a>
+
+<ul class="list-inline">
+  
+</ul>
+
+</span>
+</li>
+<li>
+<span class="">
+<a href="https://cs61a.org/disc/disc01.pdf" class="assignment-text">Disc 01: Environment Diagrams, Control, Self Reference</a>
+
+<ul class="list-inline">
+  
+</ul>
+
+</span>
+</li>
+        </div>
+        <div class="highlight-resource">
+            <div class="header">Week 1 <a href="https://cs61a.org/resources.html">Resources</a></div>
+            <li><a href="https://docs.google.com/presentation/d/1i1Ojc8MJpNh195O-sf6ZDAf0urRYygdv0OZ7EYUWPYI/edit?usp=sharing" target="_blank">Jennifer's Environment Diagram Cheat Sheet (Spring 2019)</a></li>
+<li><a href="https://sequoia-tree.github.io/welcome-to-computer-science.html" target="_blank">Sequoia's Book: Techniques in Computer Science (Summer 2018)</a></li>
+<li><a href="https://drive.google.com/open?id=1zuuj92z_ZEw8ubM34sw5vAJtk_vN1u6CVKr1d95Olts" target="_blank">Rachel's Environment Diagram Guide (Summer 2018)</a></li>
+<li><a href="http://tmmydngyn.me/cs61a/guides/env-diag.html" target="_blank">Tammy's Environment Diagram Guide (Spring 2018)</a></li>
+<li><a href="https://youtu.be/UwACQRyzlBM" target="_blank">Minilecture: While Loops (Fall 2016)</a></li>
+<li><a href="https://youtu.be/jj0ECw6s0Cg" target="_blank">Minilecture: Boolean Operators (Fall 2016)</a></li>
+<li><a href="https://youtu.be/IYD_FXvK72E" target="_blank">Minilecture: Control &amp; If Statements (Fall 2016)</a></li>
+<li><a href="https://docs.google.com/a/berkeley.edu/presentation/d/1p1rhwLg6IdFBGghlvvb5HESIUxBo2_-GLKE4AwbeVLc/edit?usp=sharing" target="_blank">Samantha's Environment Diagram with Lists and Nonlocal Slides (Fall 2016)</a></li>
+<li><a href="https://youtu.be/MlJv2lt_Jos" target="_blank">Minilecture: Env Diagrams (Fall 2016)</a></li>
+<li><a href="https://docs.google.com/document/d/1h84c1wWzXwuf8W7th9i7jFocfBM5zfhPj-rFjL0OVM4/edit?usp=sharing" target="_blank">Kevin's Environment Diagram Doc on Lambdas, HOFs, and Nonlocal (Fall 2015)</a></li>
+<li>
+<span class="">
+<a href="http://albertwu.org/cs61a/review/control/exam.html" target="_blank">(Summer 2015) Albert's Control Structure Problems</a>
+
+<ul class="list-inline">
+  
+</ul>
+
+</span>
+</li>
+<li>
+<span class="">
+<a href="http://albertwu.org/cs61a/review/environments/exam.html" target="_blank">(Summer 2015) Albert's Environment Diagram Problems</a>
+
+<ul class="list-inline">
+  
+</ul>
+
+</span>
+</li>
+<li><a href="http://markmiyashita.com/cs61a/basics/getting_started_with_python/" target="_blank">Mark's Notes: Getting Started With Python (Spring 2014)</a></li>
+<li>
+<span class="">
+<a href="http://markmiyashita.com/cs61a/environment_diagrams" target="_blank">(Spring 2014) Mark's Environment Diagram Notes and Problems</a>
+
+<ul class="list-inline">
+  
+</ul>
+
+</span>
+</li>
+        </div>
+    </div>
+    
+        <i class="prev glyphicon glyphicon-menu-left" aria-hidden="true"></i>
+        <i class="next glyphicon glyphicon-menu-right" aria-hidden="true"></i>
+    </div>
+    
+
+    <div class="announcement" id="announcement-7">
+        <div class="header">Thursday, May 28</div>
+        <p>61A will be offered fully online over the summer. This has the following consequences</p>
+
+<ul>
+  <li>You do not need to be physically in Berkeley in order to take this course, there will be minimal practical differences</li>
+  <li>We will not be giving live lectures and will be recording discussions. We will, however, assign non-negligible amount of points for live discussion attendance. We acknowledge that there are many students from different parts of the world taking the class; we will do our best to combat the time difference and will accommodate exceptions by individual basis. Exams are trickier but 61a never does in class exams, so that particular conflict will not arise</li>
+  <li>Almost the entire course will be publicly available, so if you wish to audit, you can do so easily</li>
+  <li>This is a perfect opportunity for non-Berkeley students to take CS61A as they can do it without having to go through the hassle of finding accommodations in Berkeley</li>
+</ul>
+        
+    <div class="highlight-resources">
+        <div class="highlight-resource">
+            <div class="header">Week 1 Class Material</div>
+            <li>
+<div class="assignment-text">
+  Lecture 1: Intro
+</div>
+
+<ul class="list-inline">
+  <li><a href="https://www.youtube.com/watch?v=0_LryzvBxFw&amp;list=PL6BsET-8jgYVkdaPYJNyvuNga3QA_U1gA" class="label label-outline" target="_blank">Video</a></li>
+<li><a href="https://docs.google.com/presentation/d/1_fDaPOCGau9KtPsb5HtN6ItLBF2lXY0FL-cqVzI7_ac/edit#slide=id.g893cb786c0_1_10" class="label label-outline" target="_blank">slides</a></li>
+<li><a href="https://youtu.be/HhaxA3DSILw" class="label label-outline" target="_blank">capture</a></li>
+<li><a href="https://code.cs61a.org/su20/01.py" class="label label-outline" target="_blank">01.py</a></li>
+</ul>
+</li>
+<li>
+<div class="assignment-text">
+  Lecture 2: Functions
+</div>
+
+<ul class="list-inline">
+  <li><a href="https://www.youtube.com/playlist?list=PLx38hZJ5RLZdLilndcPoBVWg20S_VENyu" class="label label-outline" target="_blank">Video</a></li>
+<li><a href="https://cs61a.org/assets/slides/02-Functions_full.pdf" class="label label-outline">full</a></li>
+<li><a href="https://cs61a.org/assets/slides/02-Functions_1pp.pdf" class="label label-outline">1pp</a></li>
+<li><a href="https://cs61a.org/assets/slides/02-Functions_8pp.pdf" class="label label-outline">8pp</a></li>
+<li><a href="https://code.cs61a.org/su20/02.py" class="label label-outline" target="_blank">02.py</a></li>
+</ul>
+</li>
+<li>
+<div class="assignment-text">
+  Lecture 3: Control
+</div>
+
+<ul class="list-inline">
+  <li><a href="https://www.youtube.com/playlist?list=PLx38hZJ5RLZfaBTgnl9EdoB3JqZl5c8G3" class="label label-outline" target="_blank">Video</a></li>
+<li><a href="https://cs61a.org/assets/slides/03-Control_1pp.pdf" class="label label-outline">1pp</a></li>
+<li><a href="https://cs61a.org/assets/slides/03-Control_4pp.pdf" class="label label-outline">4pp</a></li>
+<li><a href="https://code.cs61a.org/su20/03.py" class="label label-outline" target="_blank">03.py</a></li>
+</ul>
+</li>
+<li>
+<div class="assignment-text">
+  Lecture 4: Higher-Order Functions
+</div>
+
+<ul class="list-inline">
+  <li><a href="https://www.youtube.com/playlist?list=PLx38hZJ5RLZc7vG1NTLyhsbnXmoK3xMBw" class="label label-outline" target="_blank">Video</a></li>
+<li><a href="https://cs61a.org/assets/slides/04-Higher-Order_Functions_1pp.pdf" class="label label-outline">1pp</a></li>
+<li><a href="https://cs61a.org/assets/slides/04-Higher-Order_Functions_4pp.pdf" class="label label-outline">4pp</a></li>
+<li><a href="https://code.cs61a.org/su20/04.py" class="label label-outline" target="_blank">04.py</a></li>
+</ul>
+</li><li>Week 1 Readings: 
+<ul class="list-inline">
+  <li><a href="http://composingprograms.com/pages/11-getting-started.html" class="label label-outline" target="_blank">Ch. 1.1</a></li>
+<li><a href="http://composingprograms.com/pages/14-designing-functions.html" class="label label-outline" target="_blank">Ch. 1.4</a></li>
+<li><a href="http://composingprograms.com/pages/13-defining-new-functions.html" class="label label-outline" target="_blank">Ch. 1.3</a></li>
+<li><a href="http://composingprograms.com/pages/12-elements-of-programming.html" class="label label-outline" target="_blank">Ch. 1.2</a></li>
+<li><a href="http://composingprograms.com/pages/15-control.html" class="label label-outline" target="_blank">Ch. 1.5</a></li>
+</ul>
+</li><li>
+<span class="">
+<a href="https://cs61a.org/disc/disc00.pdf" class="assignment-text">Disc 00: Getting Started</a>
+
+<ul class="list-inline">
+  
+</ul>
+
+</span>
+</li>
+<li>
+<span class="">
+<a href="https://cs61a.org/disc/disc01.pdf" class="assignment-text">Disc 01: Environment Diagrams, Control, Self Reference</a>
+
+<ul class="list-inline">
+  
+</ul>
+
+</span>
+</li>
+        </div>
+        <div class="highlight-resource">
+            <div class="header">Week 1 <a href="https://cs61a.org/resources.html">Resources</a></div>
+            <li><a href="https://docs.google.com/presentation/d/1i1Ojc8MJpNh195O-sf6ZDAf0urRYygdv0OZ7EYUWPYI/edit?usp=sharing" target="_blank">Jennifer's Environment Diagram Cheat Sheet (Spring 2019)</a></li>
+<li><a href="https://sequoia-tree.github.io/welcome-to-computer-science.html" target="_blank">Sequoia's Book: Techniques in Computer Science (Summer 2018)</a></li>
+<li><a href="https://drive.google.com/open?id=1zuuj92z_ZEw8ubM34sw5vAJtk_vN1u6CVKr1d95Olts" target="_blank">Rachel's Environment Diagram Guide (Summer 2018)</a></li>
+<li><a href="http://tmmydngyn.me/cs61a/guides/env-diag.html" target="_blank">Tammy's Environment Diagram Guide (Spring 2018)</a></li>
+<li><a href="https://youtu.be/UwACQRyzlBM" target="_blank">Minilecture: While Loops (Fall 2016)</a></li>
+<li><a href="https://youtu.be/jj0ECw6s0Cg" target="_blank">Minilecture: Boolean Operators (Fall 2016)</a></li>
+<li><a href="https://youtu.be/IYD_FXvK72E" target="_blank">Minilecture: Control &amp; If Statements (Fall 2016)</a></li>
+<li><a href="https://docs.google.com/a/berkeley.edu/presentation/d/1p1rhwLg6IdFBGghlvvb5HESIUxBo2_-GLKE4AwbeVLc/edit?usp=sharing" target="_blank">Samantha's Environment Diagram with Lists and Nonlocal Slides (Fall 2016)</a></li>
+<li><a href="https://youtu.be/MlJv2lt_Jos" target="_blank">Minilecture: Env Diagrams (Fall 2016)</a></li>
+<li><a href="https://docs.google.com/document/d/1h84c1wWzXwuf8W7th9i7jFocfBM5zfhPj-rFjL0OVM4/edit?usp=sharing" target="_blank">Kevin's Environment Diagram Doc on Lambdas, HOFs, and Nonlocal (Fall 2015)</a></li>
+<li>
+<span class="">
+<a href="http://albertwu.org/cs61a/review/control/exam.html" target="_blank">(Summer 2015) Albert's Control Structure Problems</a>
+
+<ul class="list-inline">
+  
+</ul>
+
+</span>
+</li>
+<li>
+<span class="">
+<a href="http://albertwu.org/cs61a/review/environments/exam.html" target="_blank">(Summer 2015) Albert's Environment Diagram Problems</a>
+
+<ul class="list-inline">
+  
+</ul>
+
+</span>
+</li>
+<li><a href="http://markmiyashita.com/cs61a/basics/getting_started_with_python/" target="_blank">Mark's Notes: Getting Started With Python (Spring 2014)</a></li>
+<li>
+<span class="">
+<a href="http://markmiyashita.com/cs61a/environment_diagrams" target="_blank">(Spring 2014) Mark's Environment Diagram Notes and Problems</a>
+
+<ul class="list-inline">
+  
+</ul>
+
+</span>
+</li>
+        </div>
+    </div>
+    
+        <i class="prev glyphicon glyphicon-menu-left" aria-hidden="true"></i>
+        <i class="next glyphicon glyphicon-menu-right" aria-hidden="true"></i>
+    </div>
+    
+</section>
+
+<section id="searchBox">
+    <link rel="stylesheet" href="./CS 61A Summer 2020_files/searchbox.css" type="text/css">
+<script defer="" src="./CS 61A Summer 2020_files/searchbox.js.下载"></script>
+<div class="searchbox">
+    <div class="searchHeader">
+        <h3> Resource Search </h3>
+        Search for terms like "recursion", "homework 3", or "practice".
+    </div>
+    <input placeholder="Search for resources or posts on Piazza">
+    <div class="searchResults"></div>
+    <ul class="list-inline hidden">
+        <li>
+            <a class="label label-outline" target="_blank">More Results</a>
+        </li>
+    </ul>
+
+</div>
+</section>
+
+<section class="assignments" id="assignments">
+</section>
+
+<section id="calendar" class="table-responsive">
+  <table id="calendar" class="table" cellpadding="5px">
+<tbody><tr>
+<th>Week</th>
+<th>Date</th>
+<th>Lecture</th>
+<th>Textbook</th>
+<th>Lab and Discussion Links</th>
+<th>Homework &amp; Project</th>
+</tr>
+<tr class="odd">
+<td rowspan="4" class="weeknum odd">1</td>
+<td>Mon<br>6/22</td>
+<td>
+<div class="assignment-text">
+  Intro
+</div>
+
+<ul class="list-inline">
+  <li><a href="https://www.youtube.com/watch?v=0_LryzvBxFw&amp;list=PL6BsET-8jgYVkdaPYJNyvuNga3QA_U1gA" class="label label-outline" target="_blank">Video</a></li>
+<li><a href="https://docs.google.com/presentation/d/1_fDaPOCGau9KtPsb5HtN6ItLBF2lXY0FL-cqVzI7_ac/edit#slide=id.g893cb786c0_1_10" class="label label-outline" target="_blank">slides</a></li>
+<li><a href="https://youtu.be/HhaxA3DSILw" class="label label-outline" target="_blank">capture</a></li>
+<li><a href="https://code.cs61a.org/su20/01.py" class="label label-outline" target="_blank">01.py</a></li>
+</ul>
+</td>
+<td>
+<ul class="list-inline">
+  
+</ul>
+</td>
+<td>
+<span class="">
+<a href="https://cs61a.org/lab/lab00/">Lab 00: Getting Started</a>
+<div class="badge due">
+  <i class="glyphicon glyphicon-time"></i>
+  Fri 6/26
+</div>
+
+
+</span>
+</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Tue<br>6/23</td>
+<td>
+<div class="assignment-text">
+  Functions
+</div>
+
+<ul class="list-inline">
+  <li><a href="https://www.youtube.com/playlist?list=PLx38hZJ5RLZdLilndcPoBVWg20S_VENyu" class="label label-outline" target="_blank">Video</a></li>
+<li><a href="https://cs61a.org/assets/slides/02-Functions_full.pdf" class="label label-outline">full</a></li>
+<li><a href="https://cs61a.org/assets/slides/02-Functions_1pp.pdf" class="label label-outline">1pp</a></li>
+<li><a href="https://cs61a.org/assets/slides/02-Functions_8pp.pdf" class="label label-outline">8pp</a></li>
+<li><a href="https://code.cs61a.org/su20/02.py" class="label label-outline" target="_blank">02.py</a></li>
+</ul>
+</td>
+<td>
+<ul class="list-inline">
+  <li><a href="http://composingprograms.com/pages/11-getting-started.html" class="label label-outline" target="_blank">Ch. 1.1</a></li>
+<li><a href="http://composingprograms.com/pages/12-elements-of-programming.html" class="label label-outline" target="_blank">Ch. 1.2</a></li>
+</ul>
+</td>
+<td>
+<span class="">
+<a href="https://cs61a.org/disc/disc00.pdf" class="assignment-text">Disc 00: Getting Started</a>
+
+<ul class="list-inline">
+  
+</ul>
+
+</span>
+</td>
+<td>
+<span class="">
+<a href="https://cs61a.org/hw/hw01/">HW 01: Variables &amp; Functions, Control</a>
+<div class="badge due">
+  <i class="glyphicon glyphicon-time"></i>
+  Tue 6/30
+</div>
+
+
+</span>
+</td>
+</tr>
+<tr class="odd">
+<td>Wed<br>6/24</td>
+<td>
+<div class="assignment-text">
+  Control
+</div>
+
+<ul class="list-inline">
+  <li><a href="https://www.youtube.com/playlist?list=PLx38hZJ5RLZfaBTgnl9EdoB3JqZl5c8G3" class="label label-outline" target="_blank">Video</a></li>
+<li><a href="https://cs61a.org/assets/slides/03-Control_1pp.pdf" class="label label-outline">1pp</a></li>
+<li><a href="https://cs61a.org/assets/slides/03-Control_4pp.pdf" class="label label-outline">4pp</a></li>
+<li><a href="https://code.cs61a.org/su20/03.py" class="label label-outline" target="_blank">03.py</a></li>
+</ul>
+</td>
+<td>
+<ul class="list-inline">
+  <li><a href="http://composingprograms.com/pages/13-defining-new-functions.html" class="label label-outline" target="_blank">Ch. 1.3</a></li>
+<li><a href="http://composingprograms.com/pages/14-designing-functions.html" class="label label-outline" target="_blank">Ch. 1.4</a></li>
+<li><a href="http://composingprograms.com/pages/15-control.html" class="label label-outline" target="_blank">Ch. 1.5</a></li>
+</ul>
+</td>
+<td>
+<span class="">
+<a href="https://cs61a.org/lab/lab01/">Lab 01: Variables &amp; Functions, Control</a>
+<div class="badge due">
+  <i class="glyphicon glyphicon-time"></i>
+  Fri 6/26
+</div>
+
+
+</span>
+</td>
+<td>
+<span class="">
+<a href="https://cs61a.org/hw/hw02/">HW 02: Higher-Order Functions</a>
+<div class="badge due">
+  <i class="glyphicon glyphicon-time"></i>
+  Tue 6/30
+</div>
+
+
+</span>
+</td>
+</tr>
+<tr class="odd">
+<td>Thu<br>6/25</td>
+<td>
+<div class="assignment-text">
+  Higher-Order Functions
+</div>
+
+<ul class="list-inline">
+  <li><a href="https://www.youtube.com/playlist?list=PLx38hZJ5RLZc7vG1NTLyhsbnXmoK3xMBw" class="label label-outline" target="_blank">Video</a></li>
+<li><a href="https://cs61a.org/assets/slides/04-Higher-Order_Functions_1pp.pdf" class="label label-outline">1pp</a></li>
+<li><a href="https://cs61a.org/assets/slides/04-Higher-Order_Functions_4pp.pdf" class="label label-outline">4pp</a></li>
+<li><a href="https://code.cs61a.org/su20/04.py" class="label label-outline" target="_blank">04.py</a></li>
+</ul>
+</td>
+<td>
+<ul class="list-inline">
+  
+</ul>
+</td>
+<td>
+<span class="">
+<a href="https://cs61a.org/disc/disc01.pdf" class="assignment-text">Disc 01: Environment Diagrams, Control, Self Reference</a>
+
+<ul class="list-inline">
+  
+</ul>
+
+</span>
+</td>
+<td>
+<span class="">
+<a href="https://cs61a.org/proj/hog/">Hog</a>
+<div class="badge due">
+  <i class="glyphicon glyphicon-time"></i>
+  Wed 7/8
+</div>
+
+
+</span>
+</td>
+</tr>
+<tr class="even">
+<td rowspan="4" class="weeknum even">2</td>
+<td>Mon<br>6/29</td>
+<td>
+<div class="assignment-text">
+  Environment Diagrams
+</div>
+
+<ul class="list-inline">
+  <li><a href="https://www.youtube.com/playlist?list=PLx38hZJ5RLZcUPWZ1-3HYsRPgZ8OCrvqz" class="label label-outline" target="_blank">Video</a></li>
+<li><a href="https://cs61a.org/assets/slides/05-Environment_Diagrams_1pp.pdf" class="label label-outline">1pp</a></li>
+<li><a href="https://cs61a.org/assets/slides/05-Environment_Diagrams_4pp.pdf" class="label label-outline">4pp</a></li>
+<li><a href="https://code.cs61a.org/su20/05.py" class="label label-outline" target="_blank">05.py</a></li>
+</ul>
+</td>
+<td>
+<ul class="list-inline">
+  <li><a href="http://composingprograms.com/pages/16-higher-order-functions.html" class="label label-outline" target="_blank">Ch. 1.6</a></li>
+</ul>
+</td>
+<td>
+<span class="">
+<a href="https://cs61a.org/lab/lab02/">Lab 02: Higher-Order Functions, Lambda Expressions, Self Reference</a>
+<div class="badge due">
+  <i class="glyphicon glyphicon-time"></i>
+  Wed 7/1
+</div>
+
+
+</span>
+</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Tue<br>6/30</td>
+<td>
+<div class="assignment-text">
+  Recursion
+</div>
+
+<ul class="list-inline">
+  <li><a href="https://www.youtube.com/playlist?list=PLx38hZJ5RLZeUiq1vZPL7KGsg1p6RJrUk" class="label label-outline" target="_blank">Video</a></li>
+<li><a href="https://youtu.be/jpFZpaVMm48" class="label label-outline" target="_blank">capture</a></li>
+<li><a href="https://cs61a.org/assets/slides/06-Recursion_1pp.pdf" class="label label-outline">1pp</a></li>
+<li><a href="https://cs61a.org/assets/slides/06-Recursion_6pp.pdf" class="label label-outline">6pp</a></li>
+<li><a href="https://cs61a.org/assets/slides/06-Recursion_9pp.pdf" class="label label-outline">9pp</a></li>
+<li><a href="https://code.cs61a.org/su20/06.py" class="label label-outline" target="_blank">06.py</a></li>
+</ul>
+</td>
+<td>
+<ul class="list-inline">
+  <li><a href="http://composingprograms.com/pages/17-recursive-functions.html" class="label label-outline" target="_blank">Ch. 1.7</a></li>
+</ul>
+</td>
+<td>
+<span class="">
+<a href="https://cs61a.org/disc/disc02.pdf" class="assignment-text">Disc 02: Higher-Order Functions</a>
+
+<ul class="list-inline">
+  
+</ul>
+
+</span>
+</td>
+<td>
+<span class="">
+<a href="https://cs61a.org/proj/hog_contest/">Hog Contest</a>
+<div class="badge due">
+  <i class="glyphicon glyphicon-time"></i>
+  Thu 7/9
+</div>
+
+
+</span>
+</td>
+</tr>
+<tr class="even">
+<td>Wed<br>7/1</td>
+<td>
+<div class="assignment-text">
+  Tree Recursion
+</div>
+
+<ul class="list-inline">
+  <li><a href="https://www.youtube.com/playlist?list=PLx38hZJ5RLZetpo06AQzyDIihcEvcRJsa" class="label label-outline" target="_blank">Video</a></li>
+<li><a href="https://cs61a.org/assets/slides/07-Tree_Recursion_1pp.pdf" class="label label-outline">1pp</a></li>
+<li><a href="https://cs61a.org/assets/slides/07-Tree_Recursion_6pp.pdf" class="label label-outline">6pp</a></li>
+<li><a href="https://cs61a.org/assets/slides/07-Tree_Recursion_9pp.pdf" class="label label-outline">9pp</a></li>
+<li><a href="https://code.cs61a.org/su20/07.py" class="label label-outline" target="_blank">07.py</a></li>
+</ul>
+</td>
+<td>
+<ul class="list-inline">
+  <li><a href="http://composingprograms.com/pages/17-recursive-functions.html" class="label label-outline" target="_blank">Ch. 1.7</a></li>
+</ul>
+</td>
+<td>
+<span class="">
+<a href="https://cs61a.org/lab/lab03/">Lab 03: Recursion, Tree Recursion</a>
+<div class="badge due">
+  <i class="glyphicon glyphicon-time"></i>
+  Tue 7/7
+</div>
+
+
+</span>
+</td>
+<td>
+<span class="">
+<a href="https://cs61a.org/hw/hw03/">HW 03: Higher-Order Functions, Self Reference, Recursion, Tree Recursion</a>
+<div class="badge due">
+  <i class="glyphicon glyphicon-time"></i>
+  Tue 7/7
+</div>
+
+
+</span>
+</td>
+</tr>
+<tr class="even">
+<td>Thu<br>7/2</td>
+<td>Diagnostic Quiz (6-7:15pm PDT)
+<ul class="list-inline">
+  <li><a href="https://www.youtube.com/playlist?list=PLx38hZJ5RLZcw5FXtcXCJNzDS68a418q6" class="label label-outline" target="_blank">Video</a></li>
+</ul>
+</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td rowspan="4" class="weeknum odd">3</td>
+<td>Mon<br>7/6</td>
+<td>
+<div class="assignment-text">
+  Sequences &amp; Data Abstraction
+</div>
+
+<ul class="list-inline">
+  <li><a href="https://www.youtube.com/playlist?list=PLx38hZJ5RLZe0LxEMID8Dus5avnH05-29" class="label label-outline" target="_blank">Video</a></li>
+<li><a href="https://cs61a.org/assets/slides/08-Sequences_&amp;_Data_Abstraction_1pp.pdf" class="label label-outline">1pp</a></li>
+<li><a href="https://cs61a.org/assets/slides/08-Sequences_&amp;_Data_Abstraction_6pp.pdf" class="label label-outline">6pp</a></li>
+<li><a href="https://cs61a.org/assets/slides/08-Sequences_&amp;_Data_Abstraction_9pp.pdf" class="label label-outline">9pp</a></li>
+<li><a href="https://code.cs61a.org/su20/08.py" class="label label-outline" target="_blank">08.py</a></li>
+</ul>
+</td>
+<td>
+<ul class="list-inline">
+  <li><a href="http://composingprograms.com/pages/21-introduction.html" class="label label-outline" target="_blank">Ch. 2.1</a></li>
+<li><a href="http://composingprograms.com/pages/22-data-abstraction.html" class="label label-outline" target="_blank">Ch. 2.2</a></li>
+<li><a href="http://composingprograms.com/pages/23-sequences.html" class="label label-outline" target="_blank">Ch. 2.3</a></li>
+</ul>
+</td>
+<td>
+<span class="">
+<a href="https://cs61a.org/lab/lab04/">Lab 04: Python Lists, Data Abstraction</a>
+<div class="badge due">
+  <i class="glyphicon glyphicon-time"></i>
+  Wed 7/8
+</div>
+
+
+</span>
+</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Tue<br>7/7</td>
+<td>
+<div class="assignment-text">
+  Functional Decomposition &amp; Debugging
+</div>
+
+<ul class="list-inline">
+  <li><a href="https://www.youtube.com/playlist?list=PLx38hZJ5RLZffZox0dIPDdzuWNWX9YuV5" class="label label-outline" target="_blank">Video</a></li>
+<li><a href="https://youtu.be/FwbkP1JLBa0" class="label label-outline" target="_blank">capture</a></li>
+<li><a href="https://cs61a.org/assets/slides/09-Functional_Decomposition_&amp;_Debugging_1pp.pdf" class="label label-outline">1pp</a></li>
+<li><a href="https://cs61a.org/assets/slides/09-Functional_Decomposition_&amp;_Debugging_6pp.pdf" class="label label-outline">6pp</a></li>
+<li><a href="https://cs61a.org/assets/slides/09-Functional_Decomposition_&amp;_Debugging_9pp.pdf" class="label label-outline">9pp</a></li>
+</ul>
+</td>
+<td>
+<ul class="list-inline">
+  
+</ul>
+</td>
+<td>
+<span class="">
+<a href="https://cs61a.org/disc/disc04.pdf" class="assignment-text">Disc 04: Recursion, Tree Recursion, Python Lists</a>
+
+<ul class="list-inline">
+  
+</ul>
+
+</span>
+</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Wed<br>7/8</td>
+<td>
+<div class="assignment-text">
+  Trees
+</div>
+
+<ul class="list-inline">
+  <li><a href="https://www.youtube.com/playlist?list=PLx38hZJ5RLZcSO6VGvle_jaPHHSbdq1aX" class="label label-outline" target="_blank">Video</a></li>
+<li><a href="https://cs61a.org/assets/slides/10-Trees_1pp.pdf" class="label label-outline">1pp</a></li>
+<li><a href="https://cs61a.org/assets/slides/10-Trees_6pp.pdf" class="label label-outline">6pp</a></li>
+<li><a href="https://cs61a.org/assets/slides/10-Trees_9pp.pdf" class="label label-outline">9pp</a></li>
+<li><a href="https://code.cs61a.org/su20/10.py" class="label label-outline" target="_blank">10.py</a></li>
+</ul>
+</td>
+<td>
+<ul class="list-inline">
+  <li><a href="http://composingprograms.com/pages/23-sequences.html" class="label label-outline" target="_blank">Ch. 2.3</a></li>
+</ul>
+</td>
+<td>
+<span class="">
+<a href="https://cs61a.org/lab/lab05/">Lab 05: Python Lists, Trees</a>
+<div class="badge due">
+  <i class="glyphicon glyphicon-time"></i>
+  Fri 7/10
+</div>
+
+
+</span>
+</td>
+<td>
+<span class="">
+<a href="https://cs61a.org/hw/hw04/">HW 04: Data Abstraction, Trees</a>
+<div class="badge due">
+  <i class="glyphicon glyphicon-time"></i>
+  Tue 7/14
+</div>
+
+
+</span>
+<br>
+
+<span class="">
+<a href="https://cs61a.org/proj/cats/">Cats</a>
+<div class="badge due">
+  <i class="glyphicon glyphicon-time"></i>
+  Thu 7/23
+</div>
+
+
+</span>
+</td>
+</tr>
+<tr class="odd">
+<td>Thu<br>7/9</td>
+<td>
+<div class="assignment-text">
+  Mutable Sequences
+</div>
+
+<ul class="list-inline">
+  <li><a href="https://www.youtube.com/playlist?list=PLx38hZJ5RLZdduunxLp6Eiw9qIXSZknFq" class="label label-outline" target="_blank">Video</a></li>
+<li><a href="https://cs61a.org/assets/slides/11-Mutable_Sequences_1pp.pdf" class="label label-outline">1pp</a></li>
+<li><a href="https://cs61a.org/assets/slides/11-Mutable_Sequences_6pp.pdf" class="label label-outline">6pp</a></li>
+<li><a href="https://cs61a.org/assets/slides/11-Mutable_Sequences_9pp.pdf" class="label label-outline">9pp</a></li>
+<li><a href="https://code.cs61a.org/su20/11.py" class="label label-outline" target="_blank">11.py</a></li>
+</ul>
+</td>
+<td>
+<ul class="list-inline">
+  <li><a href="http://composingprograms.com/pages/24-mutable-data.html" class="label label-outline" target="_blank">Ch. 2.4</a></li>
+</ul>
+</td>
+<td>
+<span class="">
+<a href="https://cs61a.org/disc/disc05.pdf" class="assignment-text">Disc 05: Python Lists, Trees, Mutability</a>
+
+<ul class="list-inline">
+  
+</ul>
+
+</span>
+</td>
+<td></td>
+</tr>
+<tr class="even">
+<td rowspan="4" class="weeknum even">4</td>
+<td>Mon<br>7/13</td>
+<td>
+<div class="assignment-text">
+  Mutable Functions
+</div>
+
+<ul class="list-inline">
+  <li><a href="https://www.youtube.com/playlist?list=PLx38hZJ5RLZeB0ttci1_ICVKU6WwTf183" class="label label-outline" target="_blank">Video</a></li>
+<li><a href="https://cs61a.org/assets/slides/12-Mutable_Functions_1pp.pdf" class="label label-outline">1pp</a></li>
+<li><a href="https://cs61a.org/assets/slides/12-Mutable_Functions_6pp.pdf" class="label label-outline">6pp</a></li>
+<li><a href="https://cs61a.org/assets/slides/12-Mutable_Functions_9pp.pdf" class="label label-outline">9pp</a></li>
+<li><a href="https://code.cs61a.org/su20/12.py" class="label label-outline" target="_blank">12.py</a></li>
+</ul>
+</td>
+<td>
+<ul class="list-inline">
+  <li><a href="http://composingprograms.com/pages/24-mutable-data.html" class="label label-outline" target="_blank">Ch. 2.4</a></li>
+</ul>
+</td>
+<td>
+<span class="">
+<a href="https://cs61a.org/lab/lab06/">Lab 06: Nonlocal, Mutability</a>
+<div class="badge due">
+  <i class="glyphicon glyphicon-time"></i>
+  Fri 7/17
+</div>
+
+
+</span>
+<br>
+
+<span class="">
+<a href="https://cs61a.org/lab/lab07/">Lab 07: Midterm Review</a>
+<div class="badge due">
+  <i class="glyphicon glyphicon-time"></i>
+  Fri 7/17
+</div>
+
+
+</span>
+</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Tue<br>7/14</td>
+<td>
+<div class="assignment-text">
+  Midterm Review
+</div>
+
+<ul class="list-inline">
+  <li><a href="https://youtu.be/k4jtx60DQV0" class="label label-outline" target="_blank">capture</a></li>
+</ul>
+</td>
+<td>
+<ul class="list-inline">
+  <li><a href="http://composingprograms.com/pages/42-implicit-sequences.html" class="label label-outline" target="_blank">Ch. 4.2</a></li>
+</ul>
+</td>
+<td>
+<span class="">
+<a href="https://cs61a.org/disc/disc06.pdf" class="assignment-text">Disc 06: Nonlocal, Midterm Review</a>
+
+<ul class="list-inline">
+  
+</ul>
+
+</span>
+</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Wed<br>7/15</td>
+<td>
+<div class="assignment-text">
+  Iterators &amp; Generators
+</div>
+
+<ul class="list-inline">
+  <li><a href="https://www.youtube.com/playlist?list=PLx38hZJ5RLZdkiQbzwV4q1L066G_BPG6L" class="label label-outline" target="_blank">Video</a></li>
+<li><a href="https://cs61a.org/assets/slides/14-Iterators_&amp;_Generators_1pp.pdf" class="label label-outline">1pp</a></li>
+<li><a href="https://cs61a.org/assets/slides/14-Iterators_&amp;_Generators_6pp.pdf" class="label label-outline">6pp</a></li>
+<li><a href="https://cs61a.org/assets/slides/14-Iterators_&amp;_Generators_9pp.pdf" class="label label-outline">9pp</a></li>
+<li><a href="https://code.cs61a.org/su20/14.py" class="label label-outline" target="_blank">14.py</a></li>
+</ul>
+</td>
+<td>
+<ul class="list-inline">
+  
+</ul>
+</td>
+<td></td>
+<td>
+<span class="">
+<a href="https://cs61a.org/hw/hw05/">HW 05: Nonlocal, Iterators &amp; Generators</a>
+<div class="badge due">
+  <i class="glyphicon glyphicon-time"></i>
+  Tue 7/21
+</div>
+
+
+</span>
+</td>
+</tr>
+<tr class="even">
+<td>Thu<br>7/16</td>
+<td>No Lecture <br>
+Midterm(<a href="https://current-time-zone.github.io/t#1594944000">5:00pm</a>-<a href="https://current-time-zone.github.io/t#1594954800">8:00pm</a> PDT)
+<ul class="list-inline">
+  <li><a href="https://cs61a.org/exam/su20/practice-mt/61a-su20-practice-mt.zip" class="label label-outline">Practice</a></li>
+<li><a href="https://cs61a.org/exam/su20/practice-mt/61a-su20-practice-mt-solution.zip" class="label label-outline">Practice Solutions</a></li>
+<li><a href="https://cs61a.org/exam/su20/mt/61a-su20-mt.zip" class="label label-outline">skeleton</a></li>
+<li><a href="https://cs61a.org/exam/su20/mt/61a-su20-mt-solution.zip" class="label label-outline">solution</a></li>
+<li><a href="https://cs61a.org/exam/su20/mt/61a-su20-mt-solution.pdf" class="label label-outline">solution pdf</a></li>
+</ul>
+</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td rowspan="4" class="weeknum odd">5</td>
+<td>Mon<br>7/20</td>
+<td>
+<div class="assignment-text">
+  Objects
+</div>
+
+<ul class="list-inline">
+  <li><a href="https://www.youtube.com/playlist?list=PLx38hZJ5RLZdoX-JqkkqwYvhtImMa7TaE" class="label label-outline" target="_blank">Video</a></li>
+<li><a href="https://cs61a.org/assets/slides/15-Objects_1pp.pdf" class="label label-outline">1pp</a></li>
+<li><a href="https://cs61a.org/assets/slides/15-Objects_6pp.pdf" class="label label-outline">6pp</a></li>
+<li><a href="https://cs61a.org/assets/slides/15-Objects_9pp.pdf" class="label label-outline">9pp</a></li>
+<li><a href="https://code.cs61a.org/su20/15.py" class="label label-outline" target="_blank">15.py</a></li>
+</ul>
+</td>
+<td>
+<ul class="list-inline">
+  <li><a href="http://composingprograms.com/pages/25-object-oriented-programming.html" class="label label-outline" target="_blank">Ch. 2.5</a></li>
+</ul>
+</td>
+<td>
+<span class="">
+<a href="https://cs61a.org/lab/lab08/">Lab 08: Object-Oriented Programming</a>
+<div class="badge due">
+  <i class="glyphicon glyphicon-time"></i>
+  Wed 7/22
+</div>
+
+
+</span>
+</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Tue<br>7/21</td>
+<td>
+<div class="assignment-text">
+  Inheritance
+</div>
+
+<ul class="list-inline">
+  <li><a href="https://www.youtube.com/playlist?list=PLx38hZJ5RLZfPzy7UUgxux2k6P6GwSU7t" class="label label-outline" target="_blank">Video</a></li>
+<li><a href="https://youtu.be/mtlQZMFmX0o" class="label label-outline" target="_blank">capture</a></li>
+<li><a href="https://cs61a.org/assets/slides/16-Inheritance_1pp.pdf" class="label label-outline">1pp</a></li>
+<li><a href="https://cs61a.org/assets/slides/16-Inheritance_6pp.pdf" class="label label-outline">6pp</a></li>
+<li><a href="https://cs61a.org/assets/slides/16-Inheritance_9pp.pdf" class="label label-outline">9pp</a></li>
+<li><a href="https://code.cs61a.org/su20/16.py" class="label label-outline" target="_blank">16.py</a></li>
+</ul>
+</td>
+<td>
+<ul class="list-inline">
+  <li><a href="http://composingprograms.com/pages/25-object-oriented-programming.html" class="label label-outline" target="_blank">Ch. 2.5</a></li>
+</ul>
+</td>
+<td>
+<span class="">
+<a href="https://cs61a.org/disc/disc08.pdf" class="assignment-text">Disc 08: Iterators &amp; Generators, Object-Oriented Programming</a>
+
+<ul class="list-inline">
+  
+</ul>
+
+</span>
+</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Wed<br>7/22</td>
+<td>
+<div class="assignment-text">
+  Linked Lists &amp; Trees
+</div>
+
+<ul class="list-inline">
+  <li><a href="https://www.youtube.com/playlist?list=PLx38hZJ5RLZf7pdcJxbpVG7ju65P2SA-a" class="label label-outline" target="_blank">Video</a></li>
+<li><a href="https://cs61a.org/assets/slides/17-Linked_Lists_&amp;_Trees_1pp.pdf" class="label label-outline">1pp</a></li>
+<li><a href="https://cs61a.org/assets/slides/17-Linked_Lists_&amp;_Trees_6pp.pdf" class="label label-outline">6pp</a></li>
+<li><a href="https://cs61a.org/assets/slides/17-Linked_Lists_&amp;_Trees_9pp.pdf" class="label label-outline">9pp</a></li>
+<li><a href="https://code.cs61a.org/su20/17.py" class="label label-outline" target="_blank">17.py</a></li>
+</ul>
+</td>
+<td>
+<ul class="list-inline">
+  <li><a href="http://composingprograms.com/pages/29-recursive-objects.html" class="label label-outline" target="_blank">Ch. 2.9</a></li>
+</ul>
+</td>
+<td>
+<span class="">
+<a href="https://cs61a.org/lab/lab09/">Lab 09: Linked Lists, Mutable Trees</a>
+<div class="badge due">
+  <i class="glyphicon glyphicon-time"></i>
+  Fri 7/24
+</div>
+
+
+</span>
+</td>
+<td>
+<span class="">
+<a href="https://cs61a.org/hw/hw06/">HW 06: Object-Oriented Programming, Linked Lists, Trees</a>
+<div class="badge due">
+  <i class="glyphicon glyphicon-time"></i>
+  Tue 7/28
+</div>
+
+
+</span>
+</td>
+</tr>
+<tr class="odd">
+<td>Thu<br>7/23</td>
+<td>
+<div class="assignment-text">
+  Interfaces
+</div>
+
+<ul class="list-inline">
+  <li><a href="https://www.youtube.com/playlist?list=PLx38hZJ5RLZf8wMIE87-0vDBX3baxtjgo" class="label label-outline" target="_blank">Video</a></li>
+<li><a href="https://cs61a.org/assets/slides/18-Interfaces_1pp.pdf" class="label label-outline">1pp</a></li>
+<li><a href="https://cs61a.org/assets/slides/18-Interfaces_6pp.pdf" class="label label-outline">6pp</a></li>
+<li><a href="https://cs61a.org/assets/slides/18-Interfaces_9pp.pdf" class="label label-outline">9pp</a></li>
+<li><a href="https://code.cs61a.org/su20/18.py" class="label label-outline" target="_blank">18.py</a></li>
+</ul>
+</td>
+<td>
+<ul class="list-inline">
+  <li><a href="http://composingprograms.com/pages/27-object-abstraction.html" class="label label-outline" target="_blank">Ch. 2.7</a></li>
+</ul>
+</td>
+<td>
+<span class="">
+<a href="https://cs61a.org/disc/disc09.pdf" class="assignment-text">Disc 09: Linked Lists, Trees</a>
+
+<ul class="list-inline">
+  
+</ul>
+
+</span>
+</td>
+<td>
+<span class="">
+<a href="https://cs61a.org/proj/ants/">Ants</a>
+<div class="badge due">
+  <i class="glyphicon glyphicon-time"></i>
+  Thu 7/30
+</div>
+
+
+</span>
+</td>
+</tr>
+<tr class="even">
+<td rowspan="4" class="weeknum even">6</td>
+<td>Mon<br>7/27</td>
+<td>
+<div class="assignment-text">
+  Scheme
+</div>
+
+<ul class="list-inline">
+  <li><a href="https://www.youtube.com/playlist?list=PLx38hZJ5RLZf-3ZQQ1eo_BRQlUbHZy4HD" class="label label-outline" target="_blank">Video</a></li>
+<li><a href="https://cs61a.org/assets/slides/19-Scheme_1pp.pdf" class="label label-outline">1pp</a></li>
+<li><a href="https://cs61a.org/assets/slides/19-Scheme_6pp.pdf" class="label label-outline">6pp</a></li>
+<li><a href="https://cs61a.org/assets/slides/19-Scheme_9pp.pdf" class="label label-outline">9pp</a></li>
+</ul>
+</td>
+<td>
+<ul class="list-inline">
+  <li><a href="http://composingprograms.com/pages/31-introduction.html" class="label label-outline" target="_blank">Ch. 3.1</a></li>
+<li><a href="http://composingprograms.com/pages/32-functional-programming.html" class="label label-outline" target="_blank">Ch. 3.2</a></li>
+</ul>
+</td>
+<td>
+<span class="">
+<a href="https://cs61a.org/lab/lab10/">Lab 10: Scheme, Scheme Lists</a>
+<div class="badge due">
+  <i class="glyphicon glyphicon-time"></i>
+  Wed 7/29
+</div>
+
+
+</span>
+</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Tue<br>7/28</td>
+<td>
+<div class="assignment-text">
+  Interpreters
+</div>
+
+<ul class="list-inline">
+  <li><a href="https://www.youtube.com/playlist?list=PLx38hZJ5RLZd6R4c6tv3osMGG3aLK6yVu" class="label label-outline" target="_blank">Video</a></li>
+<li><a href="https://cs61a.org/assets/slides/20-Interpreters_1pp.pdf" class="label label-outline">1pp</a></li>
+<li><a href="https://cs61a.org/assets/slides/20-Interpreters_6pp.pdf" class="label label-outline">6pp</a></li>
+<li><a href="https://cs61a.org/assets/slides/20-Interpreters_9pp.pdf" class="label label-outline">9pp</a></li>
+</ul>
+</td>
+<td>
+<ul class="list-inline">
+  <li><a href="http://composingprograms.com/pages/35-interpreters-for-languages-with-abstraction.html" class="label label-outline" target="_blank">Ch. 3.5</a></li>
+</ul>
+</td>
+<td>
+<span class="">
+<a href="https://cs61a.org/disc/disc10.pdf" class="assignment-text">Disc 10: Scheme, Scheme Lists</a>
+
+<ul class="list-inline">
+  
+</ul>
+
+</span>
+</td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Wed<br>7/29</td>
+<td>
+<div class="assignment-text">
+  More Scheme
+</div>
+
+<ul class="list-inline">
+  <li><a href="https://www.youtube.com/playlist?list=PLx38hZJ5RLZd9GgeOIFICR7iYkDbhzAkn" class="label label-outline" target="_blank">Video</a></li>
+<li><a href="https://cs61a.org/assets/slides/21-More_Scheme_1pp.pdf" class="label label-outline">1pp</a></li>
+<li><a href="https://cs61a.org/assets/slides/21-More_Scheme_6pp.pdf" class="label label-outline">6pp</a></li>
+<li><a href="https://cs61a.org/assets/slides/21-More_Scheme_9pp.pdf" class="label label-outline">9pp</a></li>
+</ul>
+</td>
+<td>
+<ul class="list-inline">
+  <li><a href="http://composingprograms.com/pages/35-interpreters-for-languages-with-abstraction.html" class="label label-outline" target="_blank">Ch. 3.5</a></li>
+</ul>
+</td>
+<td>
+<span class="">
+<a href="https://cs61a.org/lab/lab11/">Lab 11: Interpreters</a>
+<div class="badge due">
+  <i class="glyphicon glyphicon-time"></i>
+  Fri 7/31
+</div>
+
+
+</span>
+</td>
+<td>
+<span class="">
+<a href="https://cs61a.org/hw/hw07/">HW 07: Scheme, Tail Recursion, Macros</a>
+<div class="badge due">
+  <i class="glyphicon glyphicon-time"></i>
+  Tue 8/4
+</div>
+
+
+</span>
+</td>
+</tr>
+<tr class="even">
+<td>Thu<br>7/30</td>
+<td>
+<div class="assignment-text">
+  Macros
+</div>
+
+<ul class="list-inline">
+  <li><a href="https://www.youtube.com/playlist?list=PLx38hZJ5RLZdRI_P_SBVKTlv626FGxUoT" class="label label-outline" target="_blank">Video</a></li>
+<li><a href="https://cs61a.org/assets/slides/22-Macros_1pp.pdf" class="label label-outline">1pp</a></li>
+<li><a href="https://cs61a.org/assets/slides/22-Macros_6pp.pdf" class="label label-outline">6pp</a></li>
+<li><a href="https://cs61a.org/assets/slides/22-Macros_9pp.pdf" class="label label-outline">9pp</a></li>
+</ul>
+</td>
+<td>
+<ul class="list-inline">
+  <li><a href="http://composingprograms.com/pages/35-interpreters-for-languages-with-abstraction.html" class="label label-outline" target="_blank">Ch. 3.5</a></li>
+</ul>
+</td>
+<td>
+<span class="">
+<a href="https://cs61a.org/disc/disc11.pdf" class="assignment-text">Disc 11: Tail Recursion, Macros</a>
+
+<ul class="list-inline">
+  
+</ul>
+
+</span>
+</td>
+<td>
+<span class="">
+<a href="https://cs61a.org/proj/scheme/">Scheme</a>
+<div class="badge due">
+  <i class="glyphicon glyphicon-time"></i>
+  Mon 8/10
+</div>
+
+
+</span>
+<br>
+
+<span class="">
+<a href="https://cs61a.org/proj/scheme_stubbed/">Scheme Challenge Version</a>
+<div class="badge due">
+  <i class="glyphicon glyphicon-time"></i>
+  Mon 8/10
+</div>
+
+
+</span>
+</td>
+</tr>
+<tr class="odd">
+<td rowspan="4" class="weeknum odd">7</td>
+<td>Mon<br>8/3</td>
+<td>
+<div class="assignment-text">
+  Streams
+</div>
+
+<ul class="list-inline">
+  <li><a href="https://www.youtube.com/playlist?list=PLx38hZJ5RLZcjcujTun_raYxUZlHKUgbB" class="label label-outline" target="_blank">Video</a></li>
+<li><a href="https://cs61a.org/assets/slides/23-Streams_1pp.pdf" class="label label-outline">1pp</a></li>
+<li><a href="https://cs61a.org/assets/slides/23-Streams_6pp.pdf" class="label label-outline">6pp</a></li>
+<li><a href="https://cs61a.org/assets/slides/23-Streams_9pp.pdf" class="label label-outline">9pp</a></li>
+</ul>
+</td>
+<td>
+<ul class="list-inline">
+  
+</ul>
+</td>
+<td>
+<span class="">
+<a href="https://cs61a.org/lab/lab12/">Lab 12: Macros, Streams</a>
+<div class="badge due">
+  <i class="glyphicon glyphicon-time"></i>
+  Wed 8/5
+</div>
+
+
+</span>
+</td>
+<td></td>
+</tr>
+<tr class="odd">
+<td>Tue<br>8/4</td>
+<td>
+<div class="assignment-text">
+  Declarative Programming I
+</div>
+
+<ul class="list-inline">
+  <li><a href="https://www.youtube.com/playlist?list=PLx38hZJ5RLZdQkYbg6wF7iDhIznaFtfDG" class="label label-outline" target="_blank">Video</a></li>
+<li><a href="https://cs61a.org/assets/slides/24-Declarative_Programming_I_1pp.pdf" class="label label-outline">1pp</a></li>
+<li><a href="https://cs61a.org/assets/slides/24-Declarative_Programming_I_6pp.pdf" class="label label-outline">6pp</a></li>
+<li><a href="https://cs61a.org/assets/slides/24-Declarative_Programming_I_9pp.pdf" class="label label-outline">9pp</a></li>
+<li><a href="https://code.cs61a.org/su20/24.sql" class="label label-outline" target="_blank">24.sql</a></li>
+</ul>
+</td>
+<td>
+<ul class="list-inline">
+  <li><a href="http://composingprograms.com/pages/43-declarative-programming.html" class="label label-outline" target="_blank">Ch. 4.3</a></li>
+</ul>
+</td>
+<td>
+<span class="">
+<a href="https://cs61a.org/disc/disc12.pdf" class="assignment-text">Disc 12: Streams</a>
+
+<ul class="list-inline">
+  
+</ul>
+
+</span>
+</td>
+<td>
+<span class="">
+<a href="https://cs61a.org/proj/scheme_contest/">Scheme Contest</a>
+<div class="badge due">
+  <i class="glyphicon glyphicon-time"></i>
+  Tue 8/11
+</div>
+
+
+</span>
+</td>
+</tr>
+<tr class="odd">
+<td>Wed<br>8/5</td>
+<td>
+<div class="assignment-text">
+  Declarative Programming II
+</div>
+
+<ul class="list-inline">
+  <li><a href="https://www.youtube.com/playlist?list=PLx38hZJ5RLZfbmmdqB-zF30xnNBoAC0Rz" class="label label-outline" target="_blank">Video</a></li>
+<li><a href="https://cs61a.org/assets/slides/25-Declarative_Programming_II_1pp.pdf" class="label label-outline">1pp</a></li>
+<li><a href="https://cs61a.org/assets/slides/25-Declarative_Programming_II_6pp.pdf" class="label label-outline">6pp</a></li>
+<li><a href="https://cs61a.org/assets/slides/25-Declarative_Programming_II_9pp.pdf" class="label label-outline">9pp</a></li>
+<li><a href="https://code.cs61a.org/su20/25.py" class="label label-outline" target="_blank">25.py</a></li>
+<li><a href="https://code.cs61a.org/su20/25.sql" class="label label-outline" target="_blank">25.sql</a></li>
+</ul>
+</td>
+<td>
+<ul class="list-inline">
+  <li><a href="http://composingprograms.com/pages/43-declarative-programming.html" class="label label-outline" target="_blank">Ch. 4.3</a></li>
+</ul>
+</td>
+<td>
+<span class="">
+<a href="https://cs61a.org/lab/lab13/">Lab 13: SQL</a>
+<div class="badge due">
+  <i class="glyphicon glyphicon-time"></i>
+  Fri 8/7
+</div>
+
+
+</span>
+</td>
+<td>
+<span class="">
+<a href="https://cs61a.org/hw/hw08/">HW 08: Streams, SQL</a>
+<div class="badge due">
+  <i class="glyphicon glyphicon-time"></i>
+  Tue 8/11
+</div>
+
+
+</span>
+</td>
+</tr>
+<tr class="odd">
+<td>Thu<br>8/6</td>
+<td>
+<div class="assignment-text">
+  Final Review
+</div>
+
+<ul class="list-inline">
+  <li><a href="https://www.youtube.com/playlist?list=PLx38hZJ5RLZe_WKEjJ5B0Glvnod2UN_Mt" class="label label-outline" target="_blank">Video</a></li>
+<li><a href="https://youtu.be/2rdyDpLbuDw" class="label label-outline" target="_blank">capture</a></li>
+<li><a href="https://cs61a.org/assets/slides/26-Final_Review_1pp.pdf" class="label label-outline">1pp</a></li>
+<li><a href="https://cs61a.org/assets/slides/26-Final_Review_6pp.pdf" class="label label-outline">6pp</a></li>
+<li><a href="https://cs61a.org/assets/slides/26-Final_Review_9pp.pdf" class="label label-outline">9pp</a></li>
+<li><a href="https://code.cs61a.org/su20/26.py" class="label label-outline" target="_blank">26.py</a></li>
+</ul>
+</td>
+<td>
+<ul class="list-inline">
+  
+</ul>
+</td>
+<td>
+<span class="">
+<a href="https://cs61a.org/disc/disc13.pdf" class="assignment-text">Disc 13: SQL</a>
+
+<ul class="list-inline">
+  
+</ul>
+
+</span>
+</td>
+<td></td>
+</tr>
+<tr class="even">
+<td rowspan="4" class="weeknum even">8</td>
+<td>Mon<br>8/10</td>
+<td>
+<div class="assignment-text">
+  Special Topics I (Programming Languages)
+</div>
+
+<ul class="list-inline">
+  <li><a href="https://youtu.be/22x3YMdp67U" class="label label-outline" target="_blank">capture</a></li>
+<li><a href="https://docs.google.com/presentation/d/10X2MFk6UKduoV_OC04wdHe--TVhqNXWA2TWlfyZtZKs/edit#slide=id.p" class="label label-outline" target="_blank">slides</a></li>
+</ul>
+</td>
+<td>
+<ul class="list-inline">
+  
+</ul>
+</td>
+<td>
+<span class="">
+<a href="https://cs61a.org/lab/lab14/">Lab 14: Final Review</a>
+<div class="badge due">
+  <i class="glyphicon glyphicon-time"></i>
+  Wed 8/12
+</div>
+
+
+</span>
+</td>
+<td>
+<span class="">
+<a href="https://cs61a.org/hw/hw09/">HW 09: Final Review (Optional)</a>
+<div class="badge due">
+  <i class="glyphicon glyphicon-time"></i>
+  Fri 8/14
+</div>
+
+
+</span>
+</td>
+</tr>
+<tr class="even">
+<td>Tue<br>8/11</td>
+<td>
+<div class="assignment-text">
+  Special Topics II (Machine Learning)
+</div>
+
+<ul class="list-inline">
+  <li><a href="https://youtu.be/sXXmfojZA2k" class="label label-outline" target="_blank">capture</a></li>
+</ul>
+</td>
+<td>
+<ul class="list-inline">
+  
+</ul>
+</td>
+<td>
+<span class="">
+<a href="https://cs61a.org/disc/disc14.pdf" class="assignment-text">Disc 14: Final Review</a>
+
+<ul class="list-inline">
+  
+</ul>
+
+</span>
+</td>
+<td>
+<span class="">
+<a href="https://cs61a.org/proj/scheme_gallery/">Scheme Gallery</a>
+<div class="badge due">
+  <i class="glyphicon glyphicon-time"></i>
+  Fri 8/14
+</div>
+
+
+</span>
+</td>
+</tr>
+<tr class="even">
+<td>Wed<br>8/12</td>
+<td>
+<div class="assignment-text">
+  Navigating Berkeley
+</div>
+
+<ul class="list-inline">
+  <li><a href="https://youtu.be/YDn908mJxKs" class="label label-outline" target="_blank">capture</a></li>
+<li><a href="https://docs.google.com/presentation/d/1q56AikNJmgr_eTDzn4PeXo71RcEGlRvZ4gNC6vubGLs/edit#slide=id.g370722b3f7_0_0" class="label label-outline" target="_blank">slides</a></li>
+</ul>
+</td>
+<td>
+<ul class="list-inline">
+  
+</ul>
+</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>Thu<br>8/13</td>
+<td>Final (time TBD)</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+</section>
+
+    </main>
+
+    <footer class="container">
+      <div class="row text-center">
+        <div class="col col-sm-4">
+          <h3><a href="https://cs61a.org/">CS 61A</a></h3>
+          <ul class="nav nav-pills nav-stacked">
+            <li><a href="https://cs61a.org/weekly.html">Weekly Schedule</a></li>
+            <li><a href="https://cs61a.org/office-hours.html">Office Hours</a></li>
+            <li><a href="https://cs61a.org/staff.html">Staff</a></li>
+          </ul>
+        </div>
+        <div class="col col-sm-4">
+          <h3><a href="https://cs61a.org/resources.html">Resources</a></h3>
+          <ul class="nav nav-pills nav-stacked">
+            <li><a href="https://cs61a.org/articles/studying.html">Studying Guide</a></li>
+            <li><a href="https://cs61a.org/articles/debugging.html">Debugging Guide</a></li>
+            <li><a href="https://cs61a.org/articles/composition.html">Composition Guide</a></li>
+          </ul>
+        </div>
+        <div class="col col-sm-4">
+          <h3><a href="https://cs61a.org/articles/about.html">Policies</a></h3>
+          <ul class="nav nav-pills nav-stacked">
+            <li><a href="https://cs61a.org/articles/about.html#assignments">Assignments</a></li>
+            <li><a href="https://cs61a.org/articles/about.html#exams">Exams</a></li>
+            <li><a href="https://cs61a.org/articles/about.html#grading">Grading</a></li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+
+    
+
+<script>
+$(document).ready(function() {
+  function urlExists(url, callback) {
+      // adapted from http://stackoverflow.com/a/1591653
+      var xhr = new XMLHttpRequest();
+      xhr.onreadystatechange = function() {
+          xhr.readyState === 4 && callback(xhr.status < 400);
+      };
+      xhr.open('HEAD', url);
+       xhr.send();
+   }
+
+  // Assignment quick list
+  var assignments = [{"due": "6/26/20", "link": "lab/lab00/", "name": "Lab 00: Getting Started", "release": "6/22/20"}, {"due": "6/26/20", "link": "lab/lab01/", "name": "Lab 01: Variables & Functions, Control", "release": "6/24/20"}, {"due": "6/30/20", "link": "hw/hw01/", "name": "HW 01: Variables & Functions, Control", "release": "6/23/20"}, {"due": "6/30/20", "link": "hw/hw02/", "name": "HW 02: Higher-Order Functions", "release": "6/24/20"}, {"due": "7/1/20", "link": "lab/lab02/", "name": "Lab 02: Higher-Order Functions, Lambda Expressions, Self Reference", "release": "6/29/20"}, {"due": "7/7/20", "link": "lab/lab03/", "name": "Lab 03: Recursion, Tree Recursion", "release": "7/1/20"}, {"due": "7/7/20", "link": "hw/hw03/", "name": "HW 03: Higher-Order Functions, Self Reference, Recursion, Tree Recursion", "release": "7/1/20"}, {"due": "7/8/20", "link": "lab/lab04/", "name": "Lab 04: Python Lists, Data Abstraction", "release": "7/6/20"}, {"due": "7/8/20", "link": "proj/hog/", "name": "Hog", "release": "6/25/20"}, {"due": "7/9/20", "link": "proj/hog_contest/", "name": "Hog Contest", "release": "6/30/20"}, {"due": "7/10/20", "link": "lab/lab05/", "name": "Lab 05: Python Lists, Trees", "release": "7/8/20"}, {"due": "7/14/20", "link": "hw/hw04/", "name": "HW 04: Data Abstraction, Trees", "release": "7/8/20"}, {"due": "7/17/20", "link": "lab/lab06/", "name": "Lab 06: Nonlocal, Mutability", "release": "7/13/20"}, {"due": "7/17/20", "link": "lab/lab07/", "name": "Lab 07: Midterm Review", "release": "7/13/20"}, {"due": "7/21/20", "link": "hw/hw05/", "name": "HW 05: Nonlocal, Iterators & Generators", "release": "7/15/20"}, {"due": "7/22/20", "link": "lab/lab08/", "name": "Lab 08: Object-Oriented Programming", "release": "7/20/20"}, {"due": "7/23/20", "link": "proj/cats/", "name": "Cats", "release": "7/8/20"}, {"due": "7/24/20", "link": "lab/lab09/", "name": "Lab 09: Linked Lists, Mutable Trees", "release": "7/22/20"}, {"due": "7/28/20", "link": "hw/hw06/", "name": "HW 06: Object-Oriented Programming, Linked Lists, Trees", "release": "7/22/20"}, {"due": "7/29/20", "link": "lab/lab10/", "name": "Lab 10: Scheme, Scheme Lists", "release": "7/27/20"}, {"due": "7/30/20", "link": "proj/ants/", "name": "Ants", "release": "7/23/20"}, {"due": "7/31/20", "link": "lab/lab11/", "name": "Lab 11: Interpreters", "release": "7/29/20"}, {"due": "8/4/20", "link": "hw/hw07/", "name": "HW 07: Scheme, Tail Recursion, Macros", "release": "7/29/20"}, {"due": "8/5/20", "link": "lab/lab12/", "name": "Lab 12: Macros, Streams", "release": "8/3/20"}, {"due": "8/7/20", "link": "lab/lab13/", "name": "Lab 13: SQL", "release": "8/5/20"}, {"due": "8/10/20", "link": "proj/scheme/", "name": "Scheme", "release": "7/30/20"}, {"due": "8/10/20", "link": "proj/scheme_stubbed/", "name": "Scheme Challenge Version", "release": "7/30/20"}, {"due": "8/11/20", "link": "hw/hw08/", "name": "HW 08: Streams, SQL", "release": "8/5/20"}, {"due": "8/11/20", "link": "proj/scheme_contest/", "name": "Scheme Contest", "release": "8/4/20"}, {"due": "8/12/20", "link": "lab/lab14/", "name": "Lab 14: Final Review", "release": "8/10/20"}, {"due": "8/14/20", "link": "hw/hw09/", "name": "HW 09: Final Review (Optional)", "release": "8/10/20"}, {"due": "8/14/20", "link": "proj/scheme_gallery/", "name": "Scheme Gallery", "release": "8/11/20"}];
+
+  $(document).ready(function() {
+    var currentTime = Date.now();
+    assignments.forEach(function(assignment) {
+      var release = new Date(assignment.release);
+      var due = assignment.due !== null ? new Date(assignment.due) : null;
+      if (due !== null) {
+        due.setDate(due.getDate() + 1);
+      }
+      if (currentTime > release && (due === null || currentTime <= due)) {
+        urlExists(assignment.link, function(exists) {
+          if (!exists) return;
+          $('#assignments').append(
+              '<a href="' + assignment.link + '" class="btn btn-outline btn-lg">'
+              + assignment.name
+              + (assignment.due !== null ? ' <span class="badge">' + assignment.due + '</span></a>\n' : ''));
+        });
+      }
+    });
+  });
+
+  // Announcements
+  var announcementIndex = 0;
+
+  function setAnnouncements(offset) {
+    var newIndex = announcementIndex  + offset;
+    var announcementNumber = $('.announcement').length;
+
+    if (newIndex < 0 || newIndex >= announcementNumber) {
+      return;
+    }
+
+    $('#announcement-' + announcementIndex).hide(0, function() {
+      $('#announcement-' + newIndex).show(0);
+    });
+
+    announcementIndex = newIndex;
+
+    if (announcementIndex >= announcementNumber - 1) {
+      $('#announcement-' + announcementIndex + ' .prev')
+        .addClass('disabled');
+    }
+    if (announcementIndex === 0) {
+      $('#announcement-' + announcementIndex + ' .next')
+        .addClass('disabled');
+    }
+  }
+  setAnnouncements(0);
+
+  $('.next').click(function() {
+    setAnnouncements(-1);
+  });
+   $('.prev').click(function() {
+     setAnnouncements(1);
+   });
+
+ });
+
+ let build_time = new Date(1000 * 1597739471.172861);
+ </script>
+ 
+  
+<div class="xl-chrome-ext-bar" id="xl_chrome_ext_{4DB361DE-01F7-4376-B494-639E489D19ED}" style="display: none;">
+      <div class="xl-chrome-ext-bar__logo"></div>
+
+      <a id="xl_chrome_ext_download" href="javascript:;" class="xl-chrome-ext-bar__option">下载视频</a>
+      <a id="xl_chrome_ext_close" href="javascript:;" class="xl-chrome-ext-bar__close"></a>
+    </div></body></html>

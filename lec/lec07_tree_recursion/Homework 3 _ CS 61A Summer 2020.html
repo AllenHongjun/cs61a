@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<!-- saved from url=(0026)https://cs61a.org/hw/hw03/ -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="description" content="CS 61A: Structure and Interpretation of Computer Programs">
+    <meta name="keywords" content="CS 61A, Computer Science, CS, 61A, Programming, John DeNero, Berkeley, EECS">
+    <meta name="author" content="Chae Park, Kavi Gupta, Ryan Moughan">
+    
+    <meta name="viewport" content="width=device-width">
+
+    <script src="./Homework 3 _ CS 61A Summer 2020_files/jquery.min.js.下载"></script>
+    <script src="./Homework 3 _ CS 61A Summer 2020_files/bootstrap.min.js.下载"></script>
+    <script src="./Homework 3 _ CS 61A Summer 2020_files/hl.js.下载"></script>
+    <script>
+        // we aren't registering builtins since
+        //      (1) they don't render differently in the current CSS from other names
+        //      (2) it's a mess to list all of them. You can extract from the site but that takes effort
+        // if (1) ceases to be true, (2) might be worth the effort. For now, we're leaving as is
+        hljsRegister({
+            'keyword': "define if cond and or let begin lambda mu quote delay cons-stream set! quasiquote unquote unquote-splicing define-macro"
+        });
+        hljs.initHighlightingOnLoad();
+    </script>
+    <script src="./Homework 3 _ CS 61A Summer 2020_files/dark-mode.js.下载"></script>
+    <link rel="stylesheet" href="./Homework 3 _ CS 61A Summer 2020_files/bootstrap.min.css">
+    <link rel="stylesheet" href="./Homework 3 _ CS 61A Summer 2020_files/css">
+    <link rel="stylesheet" href="./Homework 3 _ CS 61A Summer 2020_files/style.css">
+    <link rel="stylesheet" href="./Homework 3 _ CS 61A Summer 2020_files/mono-blue.css">
+    <link rel="icon" href="https://cs61a.org/assets/images/favicon.ico">
+
+    
+
+<link rel="stylesheet" type="text/css" href="./Homework 3 _ CS 61A Summer 2020_files/hw.css">
+
+
+    <title>
+Homework 3 | CS 61A Summer 2020
+</title>
+  </head>
+
+  <body id="index" class="home">
+    <nav class="navbar navbar-default navbar-static-top">
+      <div class="container noselect">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapse-section">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="https://cs61a.org/">
+            <img style="max-width:60px; margin-top: -20px;" class="logo" src="./Homework 3 _ CS 61A Summer 2020_files/logo.png">
+          </a>
+        </div>
+
+        <div class="collapse navbar-collapse" id="navbar-collapse-section">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="https://cs61a.org/weekly.html">Weekly Schedule</a></li>
+            <li><a href="https://cs61a.org/office-hours.html">Office Hours</a></li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="https://cs61a.org/hw/hw03/#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Staff
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a href="https://cs61a.org/instructor.html">Instructors</a></li>
+                <li><a href="https://cs61a.org/TAs.html">TAs</a></li>
+                <li><a href="https://cs61a.org/tutors.html">Tutors</a></li>
+                <!-- <li><a href="/academic-interns.html">Academic Interns</a></li> -->
+              </ul>
+            </li>
+            <li><a href="https://cs61a.org/resources.html">Resources</a></li>
+            <li><a href="https://cs61a.org/articles/about.html">Syllabus</a></li>
+            <li><a href="https://piazza.com/berkeley/summer2020/cs61a" target="_blank">Piazza</a></li>
+            <li><a href="https://denero.org/feedback.html" target="_blank">Feedback</a></li>
+            <li><a href="https://edge.edx.org/courses/course-v1:BerkeleyX+CSW61A+2020_SP">EdX</a></li>
+            <!-- <li><a href="https://scheme.cs61a.org">Scheme</a></li> -->
+            <!-- <li><a href="https://sql.cs61a.org">SQL</a></li> -->
+            <li><a href="https://code.cs61a.org/">Code</a></li>
+            <li><a href="http://tutor.cs61a.org/">Tutor</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <main id="content" class="container">
+      
+<div class="row">
+  <div class="col-md-9">
+    <header>
+      <h1>
+        
+Homework 3: Higher-Order Functions, Self Reference, Recursion, Tree Recursion
+
+        
+        
+        <ul class="inline-block list-inline">
+          <li><a href="https://cs61a.org/hw/hw03/hw03.zip" class="label label-outline">hw03.zip</a></li>
+        </ul>
+        
+        
+      </h1>
+    </header>
+    
+
+<p><em>Due by 11:59pm on Tuesday, July 7</em></p>
+
+
+
+
+
+<h2>Instructions</h2>
+
+<p>Download <a href="https://cs61a.org/hw/hw03/hw03.zip">hw03.zip</a>. Inside the archive, you will find a file called
+<a href="https://cs61a.org/hw/hw03/hw03.py">hw03.py</a>, along with a copy of the <code>ok</code> autograder.</p>
+
+<p><strong>Submission:</strong> When you are done, submit with <code>python3 ok
+  --submit</code>.  You may submit more than once before the deadline; only the
+final submission will be scored. Check that you have successfully submitted
+your code on <a href="https://okpy.org/">okpy.org</a>.  See <a href="https://cs61a.org/lab/lab00#submitting-the-assignment">Lab 0</a> for more instructions on
+submitting assignments.</p>
+
+<p><strong>Using Ok:</strong> If you have any questions about using Ok, please
+refer to <a href="https://cs61a.org/articles/using-ok.html">this guide.</a>
+
+
+  </p><p><strong>Readings:</strong> You might find the following references
+  useful:</p>
+  <ul>
+  <li><a href="http://composingprograms.com/pages/17-recursive-functions.html">Section 1,7</a></li>
+  <li><a href="http://composingprograms.com/pages/23-sequences.html">Section 2.3</a></li>
+</ul>
+  
+
+<p><strong>Grading:</strong> Homework is graded based on
+correctness. Each incorrect problem will decrease the total score by one point. There is a homework recovery policy as stated in the syllabus.
+<strong>This homework is out of 3 points.</strong>
+
+
+
+
+    
+</p><h1 id="required-questions">Required questions</h1>
+
+
+<h3 class="question" id="q1">Q1: Compose</h3>
+
+<p>Write a higher-order function <code>composer</code> that returns two functions, <code>func</code> and <code>func_adder</code>.
+<code>func</code> is a one-argument function that applies all of the functions that have been composed so far to it. The functions are applied with the most recent function being applied first (see doctests and examples).
+<code>func_adder</code> is used to add more functions to our composition, and when called on another function <code>g</code>, <code>func_adder</code> should return a new <code>func</code>, and a new <code>func_adder</code>.</p>
+
+<p>If no parameters are passed into <code>composer</code>, the <code>func</code> returned is the identity function.</p>
+
+<p>For example:</p>
+
+<pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span>add_one = <span class="hljs-keyword">lambda</span> x: x + <span class="hljs-number">1</span>
+<span class="hljs-meta">&gt;&gt;&gt; </span>square = <span class="hljs-keyword">lambda</span> x: x * x
+<span class="hljs-meta">&gt;&gt;&gt; </span>times_two = <span class="hljs-keyword">lambda</span> x: x + x
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>f1, func_adder = composer()
+<span class="hljs-meta">&gt;&gt;&gt; </span>f1(<span class="hljs-number">1</span>)
+<span class="hljs-number">1</span>
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>f2, func_adder = func_adder(add_one)
+<span class="hljs-meta">&gt;&gt;&gt; </span>f2(<span class="hljs-number">1</span>)
+<span class="hljs-number">2</span>   <span class="hljs-comment"># 1 + 1</span>
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>f3, func_adder = func_adder(square)
+<span class="hljs-meta">&gt;&gt;&gt; </span>f3(<span class="hljs-number">3</span>)
+<span class="hljs-number">10</span>  <span class="hljs-comment"># 1 + (3**2)</span>
+
+<span class="hljs-meta">&gt;&gt;&gt; </span>f4, func_adder = func_adder(times_two)
+<span class="hljs-meta">&gt;&gt;&gt; </span>f4(<span class="hljs-number">3</span>)
+<span class="hljs-number">37</span>  <span class="hljs-comment"># 1 + ((2 * 3) **2)</span></code></pre>
+
+<blockquote><p><em>Hint:</em> Your <code>func_adder</code> should return two arguments <code>func</code> and
+<code>func_adder</code>. What function do we know that returns <code>func</code> and <code>func_adder</code>?</p></blockquote>
+
+<solution>
+
+<pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">composer</span><span class="hljs-params">(func=lambda x: x)</span>:</span>
+    <span class="hljs-string">"""
+    Returns two functions -
+    one holding the composed function so far, and another
+    that can create further composed problems.
+    &gt;&gt;&gt; add_one = lambda x: x + 1
+    &gt;&gt;&gt; mul_two = lambda x: x * 2
+    &gt;&gt;&gt; f, func_adder = composer()
+    &gt;&gt;&gt; f1, func_adder = func_adder(add_one)
+    &gt;&gt;&gt; f1(3)
+    4
+    &gt;&gt;&gt; f2, func_adder = func_adder(mul_two)
+    &gt;&gt;&gt; f2(3) # should be 1 + (2*3) = 7
+    7
+    &gt;&gt;&gt; f3, func_adder = func_adder(add_one)
+    &gt;&gt;&gt; f3(3) # should be 1 + (2 * (3 + 1)) = 9
+    9
+    """</span>
+    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">func_adder</span><span class="hljs-params">(g)</span>:</span>
+        <span class="hljs-string">"*** YOUR CODE HERE ***"</span>
+    <span class="hljs-keyword">return</span> func, func_adder</code></pre>
+
+</solution>
+
+<p>Use Ok to test your code:</p><pre><code class="nohighlight">python3 ok -q composer</code></pre>
+
+<h3 class="question" id="q2">Q2: G function</h3>
+
+<p>A mathematical function <code>G</code> on positive integers is defined by two
+cases:</p>
+
+<pre><code class="hljs">G(n) = n,                                       if n &lt;= 3
+G(n) = G(n - 1) + 2 * G(n - 2) + 3 * G(n - 3),  if n &gt; 3</code></pre>
+
+<p>Write a recursive function <code>g</code> that computes <code>G(n)</code>. Then, write an
+iterative function <code>g_iter</code> that also computes <code>G(n)</code>:</p>
+
+<blockquote><p><em>Hint:</em> The <code>fibonacci</code> example in the <a href="https://docs.google.com/presentation/d/1MiO_prn0nKPqG9LJ2ZtIjhUc9PiyYrpaLEz0EBY71pw/edit?usp=sharing">tree recursion
+lecture</a> is a good illustration of the relationship between
+the recursive and iterative definitions of a tree recursive problem.</p></blockquote>
+
+<solution>
+
+<pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">g</span><span class="hljs-params">(n)</span>:</span>
+    <span class="hljs-string">"""Return the value of G(n), computed recursively.
+
+    &gt;&gt;&gt; g(1)
+    1
+    &gt;&gt;&gt; g(2)
+    2
+    &gt;&gt;&gt; g(3)
+    3
+    &gt;&gt;&gt; g(4)
+    10
+    &gt;&gt;&gt; g(5)
+    22
+    &gt;&gt;&gt; from construct_check import check
+    &gt;&gt;&gt; # ban iteration
+    &gt;&gt;&gt; check(HW_SOURCE_FILE, 'g', ['While', 'For'])
+    True
+    """</span>
+    <span class="hljs-string">"*** YOUR CODE HERE ***"</span>
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">g_iter</span><span class="hljs-params">(n)</span>:</span>
+    <span class="hljs-string">"""Return the value of G(n), computed iteratively.
+
+    &gt;&gt;&gt; g_iter(1)
+    1
+    &gt;&gt;&gt; g_iter(2)
+    2
+    &gt;&gt;&gt; g_iter(3)
+    3
+    &gt;&gt;&gt; g_iter(4)
+    10
+    &gt;&gt;&gt; g_iter(5)
+    22
+    &gt;&gt;&gt; from construct_check import check
+    &gt;&gt;&gt; # ban recursion
+    &gt;&gt;&gt; check(HW_SOURCE_FILE, 'g_iter', ['Recursion'])
+    True
+    """</span>
+    <span class="hljs-string">"*** YOUR CODE HERE ***"</span>
+</code></pre>
+
+</solution>
+
+<p>Use Ok to test your code:</p><pre><code class="nohighlight">python3 ok -q g
+python3 ok -q g_iter</code></pre>
+
+
+
+<h3 class="question" id="q3">Q3: Missing Digits</h3>
+
+<p>Write the recursive function <code>missing_digits</code> that takes a number <code>n</code> that is sorted in increasing order (for example, <code>12289</code> is valid but <code>15362</code> and <code>98764</code> are not). It returns the number of missing digits in <code>n</code>. A missing digit is a number between the first and last digit of <code>n</code> of a that is not in <code>n</code>.
+<em>Use recursion - the tests will fail if you use while or for loops.</em></p>
+
+<solution>
+
+<pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">missing_digits</span><span class="hljs-params">(n)</span>:</span>
+    <span class="hljs-string">"""Given a number a that is in sorted, increasing order,
+    return the number of missing digits in n. A missing digit is
+    a number between the first and last digit of a that is not in n.
+    &gt;&gt;&gt; missing_digits(1248) # 3, 5, 6, 7
+    4
+    &gt;&gt;&gt; missing_digits(1122) # No missing numbers
+    0
+    &gt;&gt;&gt; missing_digits(123456) # No missing numbers
+    0
+    &gt;&gt;&gt; missing_digits(3558) # 4, 6, 7
+    3
+    &gt;&gt;&gt; missing_digits(35578) # 4, 6
+    2
+    &gt;&gt;&gt; missing_digits(12456) # 3
+    1
+    &gt;&gt;&gt; missing_digits(16789) # 2, 3, 4, 5
+    4
+    &gt;&gt;&gt; missing_digits(19) # 2, 3, 4, 5, 6, 7, 8
+    7
+    &gt;&gt;&gt; missing_digits(4) # No missing numbers between 4 and 4
+    0
+    &gt;&gt;&gt; from construct_check import check
+    &gt;&gt;&gt; # ban while or for loops
+    &gt;&gt;&gt; check(HW_SOURCE_FILE, 'missing_digits', ['While', 'For'])
+    True
+    """</span>
+    <span class="hljs-string">"*** YOUR CODE HERE ***"</span>
+</code></pre>
+
+</solution>
+
+<p>Use Ok to test your code:</p><pre><code class="nohighlight">python3 ok -q missing_digits</code></pre>
+
+
+
+<h3 class="question" id="q4">Q4: Count change</h3>
+
+<p>Once the machines take over, the denomination of every coin will be a power of
+two: 1-cent, 2-cent, 4-cent, 8-cent, 16-cent, etc. There will be no limit to
+how much a coin can be worth.</p>
+
+<p>Given a positive integer <code>total</code>, a set of coins makes change for <code>total</code> if
+the sum of the values of the coins is <code>total</code>.  For example, the following
+sets make change for <code>7</code>:</p>
+
+<ul>
+  <li>7 1-cent coins</li>
+  <li>5 1-cent, 1 2-cent coins</li>
+  <li>3 1-cent, 2 2-cent coins</li>
+  <li>3 1-cent, 1 4-cent coins</li>
+  <li>1 1-cent, 3 2-cent coins</li>
+  <li>1 1-cent, 1 2-cent, 1 4-cent coins</li>
+</ul>
+
+<p>Thus, there are 6 ways to make change for <code>7</code>.  Write a recursive function
+<code>count_change</code> that takes a positive integer <code>total</code> and returns the number of
+ways to make change for <code>total</code> using these coins of the future.</p>
+
+<blockquote><p><em>Hint:</em> Refer the <a href="http://composingprograms.com/pages/17-recursive-functions.html#example-partitions">implementation</a> of <code>count_partitions</code> for an
+example of how to count the ways to sum up to a total with smaller parts.
+If you need to keep track of more than one value across recursive calls,
+consider writing a helper function.</p></blockquote>
+
+<solution>
+
+<pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">count_change</span><span class="hljs-params">(total)</span>:</span>
+    <span class="hljs-string">"""Return the number of ways to make change for total.
+
+    &gt;&gt;&gt; count_change(7)
+    6
+    &gt;&gt;&gt; count_change(10)
+    14
+    &gt;&gt;&gt; count_change(20)
+    60
+    &gt;&gt;&gt; count_change(100)
+    9828
+    &gt;&gt;&gt; from construct_check import check
+    &gt;&gt;&gt; # ban iteration
+    &gt;&gt;&gt; check(HW_SOURCE_FILE, 'count_change', ['While', 'For'])
+    True
+    """</span>
+    <span class="hljs-string">"*** YOUR CODE HERE ***"</span>
+</code></pre>
+
+</solution>
+
+<br>
+
+<p>Watch the hints video below for somewhere to start:
+
+            <iframe width="560" height="315" src="./Homework 3 _ CS 61A Summer 2020_files/Qulht7kq0eE.html" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></p>
+
+<br>
+
+<p>Use Ok to test your code:</p><pre><code class="nohighlight">python3 ok -q count_change</code></pre>
+
+
+
+
+<h2 id="submit">Submit</h2>
+
+
+<p>Make sure to submit this assignment by running:</p>
+
+<pre><code class="hljs sql">python3 ok <span class="hljs-comment">--submit</span></code></pre>
+
+<!-- # Optional List Question -->
+
+<!-- <include topics/lists/immutable/medium/flatten.md> -->
+
+
+<h1 id="just-for-fun-questions">Just for Fun Questions</h1>
+
+
+<blockquote><p>The first question below used to be required (but caused students lots of trouble)! You're welcome to try it.
+The second question demonstrates that it's possible to write recursive functions without assigning them a name in the global frame.</p></blockquote>
+
+<h3 class="question" id="q5">Q5: Towers of Hanoi</h3>
+
+<p>A classic puzzle called the Towers of Hanoi is a game that consists of three
+rods, and a number of disks of different sizes which can slide onto any rod.
+The puzzle starts with <code>n</code> disks in a neat stack in ascending order of size on
+a <code>start</code> rod, the smallest at the top, forming a conical shape.</p>
+
+<p><img class="img-responsive center-block" src="./Homework 3 _ CS 61A Summer 2020_files/Tower_of_Hanoi.jpeg" alt="Towers of Hanoi"></p>
+
+<p>The objective of the puzzle is to move the entire stack to an <code>end</code> rod,
+obeying the following rules:</p>
+
+<ul>
+  <li>Only one disk may be moved at a time.</li>
+  <li>Each move consists of taking the top (smallest) disk from one of the rods and
+  sliding it onto another rod, on top of the other disks that may already be
+  present on that rod.</li>
+  <li>No disk may be placed on top of a smaller disk.</li>
+</ul>
+
+<p>Complete the definition of <code>move_stack</code>, which prints out the steps required to
+move <code>n</code> disks from the <code>start</code> rod to the <code>end</code> rod without violating the
+rules. The provided <code>print_move</code> function will print out the step to move a
+single disk from the given <code>origin</code> to the given <code>destination</code>.</p>
+
+<blockquote><p><em>Hint:</em> Draw out a few games with various <code>n</code> on a piece of paper and try to
+find a pattern of disk movements that applies to any <code>n</code>. In your solution,
+take the recursive leap of faith whenever you need to move any amount of
+disks less than <code>n</code> from one rod to another. If you need more help, see
+the following hints.</p></blockquote>
+
+
+        <button id="toggle-1" class="btn btn-outline btn-lg alwaystoggle toggle" style="display: inline-block;">
+        Hint 1<noscript> (enable JavaScript)</noscript>
+        </button>
+        <div class="solution toggle-1">
+See the following animation of the Towers of Hanoi, found on <a href="https://commons.wikimedia.org/wiki/File:Iterative_algorithm_solving_a_6_disks_Tower_of_Hanoi.gif">Wikimedia</a> by user <a href="https://commons.wikimedia.org/wiki/User:Trixx">Trixx</a>
+
+<img class="img-responsive center-block" src="./Homework 3 _ CS 61A Summer 2020_files/Iterative_algorithm_solving_a_6_disks_Tower_of_Hanoi.gif">
+</div>
+<br>
+
+        <button id="toggle-2" class="btn btn-outline btn-lg alwaystoggle toggle" style="display: inline-block;">
+        Hint 2<noscript> (enable JavaScript)</noscript>
+        </button>
+        <div class="solution toggle-2">
+The strategy used in Towers of Hanoi is to move all but the bottom disc to the second peg, then moving the bottom disc to the third peg, then moving all but the second disc from the second to the third peg.
+</div>
+<br>
+
+        <button id="toggle-3" class="btn btn-outline btn-lg alwaystoggle toggle" style="display: inline-block;">
+        Hint 3<noscript> (enable JavaScript)</noscript>
+        </button>
+        <div class="solution toggle-3">
+One thing you don't need to worry about is collecting all the steps. <code>print</code> effectively "collects" all the results in the terminal as long as you make sure that the moves are printed in order.
+</div>
+
+<solution>
+
+<pre><code class="hljs python"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">print_move</span><span class="hljs-params">(origin, destination)</span>:</span>
+    <span class="hljs-string">"""Print instructions to move a disk."""</span>
+    print(<span class="hljs-string">"Move the top disk from rod"</span>, origin, <span class="hljs-string">"to rod"</span>, destination)
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">move_stack</span><span class="hljs-params">(n, start, end)</span>:</span>
+    <span class="hljs-string">"""Print the moves required to move n disks on the start pole to the end
+    pole without violating the rules of Towers of Hanoi.
+
+    n -- number of disks
+    start -- a pole position, either 1, 2, or 3
+    end -- a pole position, either 1, 2, or 3
+
+    There are exactly three poles, and start and end must be different. Assume
+    that the start pole has at least n disks of increasing size, and the end
+    pole is either empty or has a top disk larger than the top n start disks.
+
+    &gt;&gt;&gt; move_stack(1, 1, 3)
+    Move the top disk from rod 1 to rod 3
+    &gt;&gt;&gt; move_stack(2, 1, 3)
+    Move the top disk from rod 1 to rod 2
+    Move the top disk from rod 1 to rod 3
+    Move the top disk from rod 2 to rod 3
+    &gt;&gt;&gt; move_stack(3, 1, 3)
+    Move the top disk from rod 1 to rod 3
+    Move the top disk from rod 1 to rod 2
+    Move the top disk from rod 3 to rod 2
+    Move the top disk from rod 1 to rod 3
+    Move the top disk from rod 2 to rod 1
+    Move the top disk from rod 2 to rod 3
+    Move the top disk from rod 1 to rod 3
+    """</span>
+    <span class="hljs-keyword">assert</span> <span class="hljs-number">1</span> &lt;= start &lt;= <span class="hljs-number">3</span> <span class="hljs-keyword">and</span> <span class="hljs-number">1</span> &lt;= end &lt;= <span class="hljs-number">3</span> <span class="hljs-keyword">and</span> start != end, <span class="hljs-string">"Bad start/end"</span>
+    <span class="hljs-string">"*** YOUR CODE HERE ***"</span>
+</code></pre>
+
+</solution>
+
+<br>
+
+<p>Watch the hints video below for somewhere to start:
+
+            <iframe width="560" height="315" src="./Homework 3 _ CS 61A Summer 2020_files/PPmFbYAOxyY.html" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe></p>
+
+<br>
+
+<p>Use Ok to test your code:</p><pre><code class="nohighlight">python3 ok -q move_stack</code></pre>
+
+
+
+<h3 class="question" id="q6">Q6: Anonymous factorial</h3>
+
+<p>The recursive factorial function can be written as a single expression
+by using a <a href="http://docs.python.org/py3k/reference/expressions.html#conditional-expressions">conditional expression</a>.</p>
+
+<pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span>fact = <span class="hljs-keyword">lambda</span> n: <span class="hljs-number">1</span> <span class="hljs-keyword">if</span> n == <span class="hljs-number">1</span> <span class="hljs-keyword">else</span> mul(n, fact(sub(n, <span class="hljs-number">1</span>)))
+<span class="hljs-meta">&gt;&gt;&gt; </span>fact(<span class="hljs-number">5</span>)
+<span class="hljs-number">120</span></code></pre>
+
+<p>However, this implementation relies on the fact (no pun intended) that
+<code>fact</code> has a name, to which we refer in the body of <code>fact</code>.  To write a
+recursive function, we have always given it a name using a <code>def</code> or
+assignment statement so that we can refer to the function within its
+own body.  In this question, your job is to define fact recursively
+without giving it a name!</p>
+
+<p>Write an expression that computes <code>n</code> factorial using only call
+expressions, conditional expressions, and lambda expressions (no
+assignment or def statements).  <em>Note in particular that you are not
+allowed to use <code>make_anonymous_factorial</code> in your return expression.</em>
+The <code>sub</code> and <code>mul</code> functions from the <code>operator</code> module are the only
+built-in functions required to solve this problem:</p>
+
+<solution>
+
+<pre><code class="hljs python"><span class="hljs-keyword">from</span> operator <span class="hljs-keyword">import</span> sub, mul
+
+<span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">make_anonymous_factorial</span><span class="hljs-params">()</span>:</span>
+    <span class="hljs-string">"""Return the value of an expression that computes factorial.
+
+    &gt;&gt;&gt; make_anonymous_factorial()(5)
+    120
+    &gt;&gt;&gt; from construct_check import check
+    &gt;&gt;&gt; # ban any assignments or recursion
+    &gt;&gt;&gt; check(HW_SOURCE_FILE, 'make_anonymous_factorial', ['Assign', 'AugAssign', 'FunctionDef', 'Recursion'])
+    True
+    """</span>
+    <span class="hljs-keyword">return</span> <span class="hljs-string">'YOUR_EXPRESSION_HERE'</span>
+</code></pre>
+
+</solution>
+
+<p>Use Ok to test your code:</p><pre><code class="nohighlight">python3 ok -q make_anonymous_factorial</code></pre>
+
+<script>
+    $('.alwaystoggle').css('display', 'inline-block');
+    $('.alwaystoggle').click(function() {
+      var solution_id = $(this).attr('id');
+      $('div.' + solution_id).slideToggle(600);
+    });
+</script>
+
+
+  </div>
+
+  <div class="col-md-3 sticky">
+    <nav class="hidden-print hidden-sm hidden-xs sidebar">
+      <ul class="nav nav-stacked noselect">
+  <li><a href="https://cs61a.org/hw/hw03/#required-questions">Required questions</a></li>
+  <ul class="nav nav-stacked noselect">
+    <li><a href="https://cs61a.org/hw/hw03/#q1">Q1: Compose</a></li>
+    <li><a href="https://cs61a.org/hw/hw03/#q2">Q2: G function</a></li>
+    <li><a href="https://cs61a.org/hw/hw03/#q3">Q3: Missing Digits</a></li>
+    <li><a href="https://cs61a.org/hw/hw03/#q4">Q4: Count change</a></li>
+  </ul>
+  <ul class="nav nav-stacked noselect">
+    <li><a href="https://cs61a.org/hw/hw03/#submit">Submit</a></li>
+  </ul>
+  <li><a href="https://cs61a.org/hw/hw03/#just-for-fun-questions">Just for Fun Questions</a></li>
+  <ul class="nav nav-stacked noselect">
+    <li><a href="https://cs61a.org/hw/hw03/#q5">Q5: Towers of Hanoi</a></li>
+    <li><a href="https://cs61a.org/hw/hw03/#q6">Q6: Anonymous factorial</a></li>
+  </ul>
+</ul>
+    </nav>
+  </div>
+</div>
+
+    </main>
+
+    <footer class="container">
+      <div class="row text-center">
+        <div class="col col-sm-4">
+          <h3><a href="https://cs61a.org/">CS 61A</a></h3>
+          <ul class="nav nav-pills nav-stacked">
+            <li><a href="https://cs61a.org/weekly.html">Weekly Schedule</a></li>
+            <li><a href="https://cs61a.org/office-hours.html">Office Hours</a></li>
+            <li><a href="https://cs61a.org/staff.html">Staff</a></li>
+          </ul>
+        </div>
+        <div class="col col-sm-4">
+          <h3><a href="https://cs61a.org/resources.html">Resources</a></h3>
+          <ul class="nav nav-pills nav-stacked">
+            <li><a href="https://cs61a.org/articles/studying.html">Studying Guide</a></li>
+            <li><a href="https://cs61a.org/articles/debugging.html">Debugging Guide</a></li>
+            <li><a href="https://cs61a.org/articles/composition.html">Composition Guide</a></li>
+          </ul>
+        </div>
+        <div class="col col-sm-4">
+          <h3><a href="https://cs61a.org/articles/about.html">Policies</a></h3>
+          <ul class="nav nav-pills nav-stacked">
+            <li><a href="https://cs61a.org/articles/about.html#assignments">Assignments</a></li>
+            <li><a href="https://cs61a.org/articles/about.html#exams">Exams</a></li>
+            <li><a href="https://cs61a.org/articles/about.html#grading">Grading</a></li>
+          </ul>
+        </div>
+      </div>
+    </footer>
+
+    
+
+<script>
+  $('.sidebar ul').addClass('nav nav-stacked noselect');
+  $('body').scrollspy({
+    target: '.sidebar',
+    offset: 40
+  });
+
+  function goToId(id) {
+    var target = $(id);
+    console.log(target);
+    target.parent().show();
+    $('html,body').animate({
+      scrollTop: target.offset().top,
+    }, 100);
+    $("body").scrollspy('refresh');
+  }
+
+  if (location.hash) {
+    setTimeout(function() {
+      // window.scrollTo(0, 0);
+      if (location.hash) {
+        goToId(location.hash);
+      }
+    }, 1);
+  }
+
+  $("a").click(function(event) {
+    var urlBeforeHashRegEx = new RegExp("^"+window.location.href.split("#")[0]);
+    if (/^#/.test(this.hash) && urlBeforeHashRegEx.test(this.href)) {
+      event.preventDefault();
+      goToId(this.hash);
+      document.location.hash = this.hash;
+    }
+  });
+</script>
+
+  
+<div class="xl-chrome-ext-bar" id="xl_chrome_ext_{4DB361DE-01F7-4376-B494-639E489D19ED}" style="display: none;">
+      <div class="xl-chrome-ext-bar__logo"></div>
+
+      <a id="xl_chrome_ext_download" href="javascript:;" class="xl-chrome-ext-bar__option">下载视频</a>
+      <a id="xl_chrome_ext_close" href="javascript:;" class="xl-chrome-ext-bar__close"></a>
+    </div></body></html>

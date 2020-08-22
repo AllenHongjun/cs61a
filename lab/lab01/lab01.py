@@ -21,7 +21,9 @@ def falling(n, k):
         # """print("m:----",m,"n:-----",n,"k:-----",k)"""
     print(m)
     
-
+## 做实验 做作业 做小项目 看书 看视频 看文档。。
+## 提交代码 开源分享。。交朋友。。自己独立思考的能力。。
+## 还可以组队 一起学习。。一起闯关。。
 ## sum the digits 
 def sum_digits(y):
     """Sum all the digits of y.

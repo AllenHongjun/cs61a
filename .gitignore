@@ -298,3 +298,5 @@ __pycache__/
 *.odx.cs
 *.xsd.cs
 Fresh.Admin/UploadFiles/
+*.pdf
+*.zip
