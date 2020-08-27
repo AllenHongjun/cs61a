@@ -1,3 +1,5 @@
+# py -m doctest -v 01.py
+
 # Numeric expressions
 2020
 2000 + 20
