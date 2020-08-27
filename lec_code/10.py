@@ -18,6 +18,10 @@ all([x < 5 for x in range(5)])
 perfect_square = lambda x: x == round(x ** 0.5) ** 2
 any([perfect_square(x) for x in range(50, 60)]) # Try ,65)
 
+
+## 正好有些地方不太理解。。看看书和视频。。ppt就能了解各大概了。
+## 很多写死的接口假数据。完成。
+
 # Trees
 
 def tree(label, branches=[]):

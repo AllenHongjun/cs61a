@@ -1,5 +1,7 @@
 # Functional arguments
 
+
+
 def apply_twice(f, x):
     """Return f(f(x))
 
