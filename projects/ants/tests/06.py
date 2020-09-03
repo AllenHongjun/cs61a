@@ -68,44 +68,24 @@ test = {
         },
         {
           'code': r"""
-          >>> # Abstraction tests
-          >>> original = Ant.__init__
-          >>> Ant.__init__ = lambda self, armor: print("init") #If this errors, you are not calling the parent constructor correctly.
-          >>> hungry = HungryAnt()
-          init
-          >>> Ant.__init__ = original
-          >>> hungry = HungryAnt()
-          >>> # Class vs Instance attributes
-          >>> not hasattr(HungryAnt, 'digesting')
-          True
-          >>> hungry.digesting
-          0
-          >>> HungryAnt.time_to_digest
-          3
-          """,
-          'hidden': False,
-          'locked': False
-        },
-        {
-          'code': r"""
           >>> # Testing HungryAnt eats and digests
           >>> hungry = HungryAnt()
           >>> bee1 = Bee(1000)              # A Bee with 1000 armor
-          >>> place = gamestate.places["tunnel_0_0"]
+          >>> place = colony.places["tunnel_0_0"]
           >>> place.add_insect(hungry)
           >>> place.add_insect(bee1)         # Add the Bee to the same place as HungryAnt
-          >>> hungry.action(gamestate)
+          >>> hungry.action(colony)
           >>> bee1.armor
           73b94a1326ae2e803c3421016112207b
           # locked
           >>> bee2 = Bee(1)                 # A Bee with 1 armor
           >>> place.add_insect(bee2)
           >>> for _ in range(3):
-          ...     hungry.action(gamestate)     # Digesting...not eating
+          ...     hungry.action(colony)     # Digesting...not eating
           >>> bee2.armor
           d89cf7c79d5a479b0f636734143ed5e6
           # locked
-          >>> hungry.action(gamestate)
+          >>> hungry.action(colony)
           >>> bee2.armor
           73b94a1326ae2e803c3421016112207b
           # locked
@@ -118,18 +98,18 @@ test = {
           >>> # Testing HungryAnt eats and digests
           >>> hungry = HungryAnt()
           >>> super_bee, wimpy_bee = Bee(1000), Bee(1)
-          >>> place = gamestate.places["tunnel_0_0"]
+          >>> place = colony.places["tunnel_0_0"]
           >>> place.add_insect(hungry)
           >>> place.add_insect(super_bee)
-          >>> hungry.action(gamestate)         # super_bee is no match for HungryAnt!
+          >>> hungry.action(colony)         # super_bee is no match for HungryAnt!
           >>> super_bee.armor
           0
           >>> place.add_insect(wimpy_bee)
           >>> for _ in range(3):
-          ...     hungry.action(gamestate)     # digesting...not eating
+          ...     hungry.action(colony)     # digesting...not eating
           >>> wimpy_bee.armor
           1
-          >>> hungry.action(gamestate)         # back to eating!
+          >>> hungry.action(colony)         # back to eating!
           >>> wimpy_bee.armor
           0
           """,
@@ -140,23 +120,23 @@ test = {
           'code': r"""
           >>> # Testing HungryAnt only waits when digesting
           >>> hungry = HungryAnt()
-          >>> place = gamestate.places["tunnel_0_0"]
+          >>> place = colony.places["tunnel_0_0"]
           >>> place.add_insect(hungry)
           >>> # Wait a few turns before adding Bee
           >>> for _ in range(5):
-          ...     hungry.action(gamestate)  # shouldn't be digesting
+          ...     hungry.action(colony)  # shouldn't be digesting
           >>> bee = Bee(3)
           >>> place.add_insect(bee)
-          >>> hungry.action(gamestate)  # Eating time!
+          >>> hungry.action(colony)  # Eating time!
           >>> bee.armor
           0
           >>> bee = Bee(3)
           >>> place.add_insect(bee)
           >>> for _ in range(3):
-          ...     hungry.action(gamestate)     # Should be digesting
+          ...     hungry.action(colony)     # Should be digesting
           >>> bee.armor
           3
-          >>> hungry.action(gamestate)
+          >>> hungry.action(colony)
           >>> bee.armor
           0
           """,
@@ -168,12 +148,12 @@ test = {
           >>> # Testing HungryAnt digest time looked up on instance
           >>> very_hungry = HungryAnt()  # Add very hungry caterpi- um, ant
           >>> very_hungry.time_to_digest = 0
-          >>> place = gamestate.places["tunnel_0_0"]
+          >>> place = colony.places["tunnel_0_0"]
           >>> place.add_insect(very_hungry)
           >>> for _ in range(100):
           ...     place.add_insect(Bee(3))
           >>> for _ in range(100):
-          ...     very_hungry.action(gamestate)   # Eat all the bees!
+          ...     very_hungry.action(colony)   # Eat all the bees!
           >>> len(place.bees)
           0
           """,
@@ -184,71 +164,19 @@ test = {
           'code': r"""
           >>> # Testing HungryAnt dies while eating
           >>> hungry = HungryAnt()
-          >>> place = gamestate.places["tunnel_0_0"]
+          >>> place = colony.places["tunnel_0_0"]
           >>> place.add_insect(hungry)
           >>> place.add_insect(Bee(3))
-          >>> hungry.action(gamestate)
+          >>> hungry.action(colony)
           >>> len(place.bees)
           0
           >>> bee = Bee(3)
           >>> place.add_insect(bee)
-          >>> bee.action(gamestate) # Bee kills digesting ant
+          >>> bee.action(colony) # Bee kills digesting ant
           >>> place.ant is None
           True
           >>> len(place.bees)
           1
-          """,
-          'hidden': False,
-          'locked': False
-        },
-        {
-          'code': r"""
-          >>> # Testing HungryAnt can't eat a bee at another space
-          >>> hungry = HungryAnt()
-          >>> gamestate.places["tunnel_0_0"].add_insect(hungry)
-          >>> gamestate.places["tunnel_0_1"].add_insect(Bee(3))
-          >>> hungry.action(gamestate)
-          >>> len(gamestate.places["tunnel_0_1"].bees)
-          1
-          """,
-          'hidden': False,
-          'locked': False
-        },
-        {
-          'code': r"""
-          >>> # test proper call to death callback
-          >>> original_death_callback = Insect.death_callback
-          >>> Insect.death_callback = lambda x: print("insect died")
-          >>> ant = HungryAnt()
-          >>> bee = Bee(1000)              # A Bee with 1000 armor
-          >>> place = gamestate.places["tunnel_0_0"]
-          >>> place.add_insect(bee)
-          >>> place.add_insect(ant)
-          >>> ant.action(gamestate) # if you fail this test you probably didn't correctly call Ant.reduce_armor or Insect.reduce_armor
-          insect died
-          >>> Insect.death_callback = original_death_callback
-          """,
-          'hidden': False,
-          'locked': False
-        },
-        {
-          'code': r"""
-          >>> # Testing HungryAnt removes bee when eating.
-          >>> hungry = HungryAnt()
-          >>> place = gamestate.places["tunnel_0_0"]
-          >>> place.add_insect(hungry)
-          >>> place.add_insect(Bee(3))
-          >>> place.add_insect(Bee(3))
-          >>> hungry.action(gamestate)
-          >>> len(place.bees)
-          1
-          >>> bee = Bee(3)
-          >>> place.add_insect(bee)
-          >>> bee.action(gamestate) # Bee kills digesting ant
-          >>> place.ant is None
-          True
-          >>> len(place.bees)
-          2
           """,
           'hidden': False,
           'locked': False
@@ -257,29 +185,11 @@ test = {
       'scored': True,
       'setup': r"""
       >>> from ants import *
-      >>> beehive, layout = Hive(AssaultPlan()), dry_layout
+      >>> hive, layout = Hive(AssaultPlan()), dry_layout
       >>> dimensions = (1, 9)
-      >>> gamestate = GameState(None, beehive, ant_types(), layout, dimensions)
+      >>> colony = AntColony(None, hive, ant_types(), layout, dimensions)
       >>> #
       """,
-      'teardown': '',
-      'type': 'doctest'
-    },
-    {
-      'cases': [
-        {
-          'code': r"""
-          >>> from ants import *
-          >>> HungryAnt.implemented
-          c7a88a0ffd3aef026b98eef6e7557da3
-          # locked
-          """,
-          'hidden': False,
-          'locked': True
-        }
-      ],
-      'scored': True,
-      'setup': '',
       'teardown': '',
       'type': 'doctest'
     }

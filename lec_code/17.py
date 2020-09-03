@@ -367,7 +367,7 @@ def count_frames(f):
     counted.max_count = 0
     return counted
 
-# Order of growth
+# Order of growth15268645935  30M33
 
 def exp(b, n):
     """Return b to the n.

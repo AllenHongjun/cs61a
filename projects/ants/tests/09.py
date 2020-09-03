@@ -1,6 +1,6 @@
 test = {
   'name': 'Problem 9',
-  'points': 5,
+  'points': 4,
   'suites': [
     {
       'cases': [
@@ -9,8 +9,8 @@ test = {
           'choices': [
             'The Ant instance that is in the same place as itself',
             'The Ant instance in the place closest to its own place',
-            'A random Ant instance in the gamestate',
-            'All the Ant instances in the gamestate'
+            'A random Ant instance in the colony',
+            'All the Ant instances in the colony'
           ],
           'hidden': False,
           'locked': True,
@@ -41,6 +41,18 @@ test = {
           'question': 'Where is the ant contained by a BodyguardAnt stored?'
         },
         {
+          'answer': '9fd9ef6ab35f8b2049907fc9f070c72d',
+          'choices': [
+            'is_container is False for every Ant subclass except BodyguardAnt',
+            'is_container is True for every Ant subclass except BodyguardAnt',
+            'is_container is True for all Ants',
+            'is_container is False for all Ants'
+          ],
+          'hidden': False,
+          'locked': True,
+          'question': 'What is the value of the container attribute for each Ant subclass?'
+        },
+        {
           'answer': '7a81f10493cb9dd2a778afa061e3edd5',
           'choices': [
             r"""
@@ -53,7 +65,7 @@ test = {
           ],
           'hidden': False,
           'locked': True,
-          'question': 'When can a second Ant be added to a place that already contains an Ant?'
+          'question': 'When can a second be added to a place that already contains an Ant?'
         },
         {
           'answer': '15da5c3b3f44c437c3da5155a6d0c267',
@@ -89,21 +101,6 @@ test = {
           """,
           'hidden': False,
           'locked': True
-        },
-        {
-          'code': r"""
-          >>> # Abstraction tests
-          >>> original = ContainerAnt.__init__
-          >>> ContainerAnt.__init__ = lambda self, armor: print("init") #If this errors, you are not calling the parent constructor correctly.
-          >>> bodyguard = BodyguardAnt()
-          init
-          >>> ContainerAnt.__init__ = original
-          >>> bodyguard = BodyguardAnt()
-          >>> hasattr(bodyguard, 'contained_ant')
-          True
-          """,
-          'hidden': False,
-          'locked': False
         }
       ],
       'scored': True,
@@ -118,7 +115,7 @@ test = {
         {
           'code': r"""
           >>> bodyguard = BodyguardAnt()
-          >>> bodyguard.action(gamestate) # Action without contained ant should not error
+          >>> bodyguard.action(colony) # Action without contained ant should not error
           """,
           'hidden': False,
           'locked': False
@@ -130,10 +127,10 @@ test = {
           >>> thrower = ThrowerAnt()
           >>> bee = Bee(2)
           >>> # Place bodyguard before thrower
-          >>> gamestate.places["tunnel_0_0"].add_insect(bodyguard)
-          >>> gamestate.places["tunnel_0_0"].add_insect(thrower)
-          >>> gamestate.places["tunnel_0_3"].add_insect(bee)
-          >>> bodyguard.action(gamestate)
+          >>> colony.places["tunnel_0_0"].add_insect(bodyguard)
+          >>> colony.places["tunnel_0_0"].add_insect(thrower)
+          >>> colony.places["tunnel_0_3"].add_insect(bee)
+          >>> bodyguard.action(colony)
           >>> bee.armor
           1
           """,
@@ -147,10 +144,10 @@ test = {
           >>> thrower = ThrowerAnt()
           >>> bee = Bee(2)
           >>> # Place thrower before bodyguard
-          >>> gamestate.places["tunnel_0_0"].add_insect(thrower)
-          >>> gamestate.places["tunnel_0_0"].add_insect(bodyguard)
-          >>> gamestate.places["tunnel_0_3"].add_insect(bee)
-          >>> bodyguard.action(gamestate)
+          >>> colony.places["tunnel_0_0"].add_insect(thrower)
+          >>> colony.places["tunnel_0_0"].add_insect(bodyguard)
+          >>> colony.places["tunnel_0_3"].add_insect(bee)
+          >>> bodyguard.action(colony)
           >>> bee.armor
           1
           """,
@@ -160,34 +157,13 @@ test = {
         {
           'code': r"""
           >>> # Testing removing a bodyguard doesn't remove contained ant
-          >>> place = gamestate.places['tunnel_0_0']
+          >>> place = colony.places['tunnel_0_0']
           >>> bodyguard = BodyguardAnt()
           >>> test_ant = Ant(1)
-          >>> # add bodyguard first
           >>> place.add_insect(bodyguard)
           >>> place.add_insect(test_ant)
-          >>> gamestate.remove_ant('tunnel_0_0')
+          >>> colony.remove_ant('tunnel_0_0')
           >>> place.ant is test_ant
-          True
-          >>> bodyguard.place is None
-          True
-          """,
-          'hidden': False,
-          'locked': False
-        },
-        {
-          'code': r"""
-          >>> # Testing removing a bodyguard doesn't remove contained ant
-          >>> place = gamestate.places['tunnel_0_0']
-          >>> bodyguard = BodyguardAnt()
-          >>> test_ant = Ant(1)
-          >>> # add ant first
-          >>> place.add_insect(test_ant)
-          >>> place.add_insect(bodyguard)
-          >>> gamestate.remove_ant('tunnel_0_0')
-          >>> place.ant is test_ant
-          True
-          >>> bodyguard.place is None
           True
           """,
           'hidden': False,
@@ -197,16 +173,28 @@ test = {
           'code': r"""
           >>> # Testing bodyguarded ant keeps instance attributes
           >>> test_ant = Ant()
-          >>> def new_action(gamestate):
+          >>> def new_action(colony):
           ...     test_ant.armor += 9000
           >>> test_ant.action = new_action
-          >>> place = gamestate.places['tunnel_0_0']
+          >>> place = colony.places['tunnel_0_0']
           >>> bodyguard = BodyguardAnt()
           >>> place.add_insect(test_ant)
           >>> place.add_insect(bodyguard)
-          >>> place.ant.action(gamestate)
+          >>> place.ant.action(colony)
           >>> place.ant.contained_ant.armor
           9001
+          """,
+          'hidden': False,
+          'locked': False
+        },
+        {
+          'code': r"""
+          >>> # Testing container can contain a special non-container bodyguard
+          >>> bodyguard = BodyguardAnt()
+          >>> mod_guard = BodyguardAnt()
+          >>> mod_guard.is_container = False
+          >>> bodyguard.can_contain(mod_guard)
+          True
           """,
           'hidden': False,
           'locked': False
@@ -216,7 +204,7 @@ test = {
           >>> # Testing single BodyguardAnt cannot hold two other ants
           >>> bodyguard = BodyguardAnt()
           >>> first_ant = ThrowerAnt()
-          >>> place = gamestate.places['tunnel_0_0']
+          >>> place = colony.places['tunnel_0_0']
           >>> place.add_insect(bodyguard)
           >>> place.add_insect(first_ant)
           >>> second_ant = ThrowerAnt()
@@ -233,7 +221,7 @@ test = {
           >>> # Testing BodyguardAnt cannot hold another BodyguardAnt
           >>> bodyguard1 = BodyguardAnt()
           >>> bodyguard2 = BodyguardAnt()
-          >>> place = gamestate.places['tunnel_0_0']
+          >>> place = colony.places['tunnel_0_0']
           >>> place.add_insect(bodyguard1)
           >>> place.add_insect(bodyguard2)
           Traceback (most recent call last):
@@ -242,86 +230,15 @@ test = {
           """,
           'hidden': False,
           'locked': False
-        },
-        {
-          'code': r"""
-          >>> # Testing BodyguardAnt takes all the damage
-          >>> thrower = ThrowerAnt()
-          >>> bodyguard = BodyguardAnt()
-          >>> bee = Bee(1)
-          >>> place = gamestate.places['tunnel_0_0']
-          >>> place.add_insect(thrower)
-          >>> place.add_insect(bodyguard)
-          >>> place.add_insect(bee)
-          >>> bodyguard.armor
-          2
-          >>> bee.action(gamestate)
-          >>> (bodyguard.armor, thrower.armor)
-          (1, 1)
-          >>> bee.action(gamestate)
-          >>> (bodyguard.armor, thrower.armor)
-          (0, 1)
-          >>> bodyguard.place is None
-          True
-          >>> place.ant is thrower
-          True
-          >>> bee.action(gamestate)
-          >>> thrower.armor
-          0
-          >>> place.ant is None
-          True
-          """,
-          'hidden': False,
-          'locked': False
-        },
-        {
-          'code': r"""
-          >>> # test proper call to death callback
-          >>> original_death_callback = Insect.death_callback
-          >>> Insect.death_callback = lambda x: print("insect died")
-          >>> place = gamestate.places["tunnel_0_0"]
-          >>> bee = Bee(3)
-          >>> bodyguard = BodyguardAnt()
-          >>> ant = ThrowerAnt()
-          >>> place.add_insect(bee)
-          >>> place.add_insect(ant)
-          >>> place.add_insect(bodyguard)
-          >>> bee.action(gamestate)
-          >>> bee.action(gamestate)
-          insect died
-          >>> bee.action(gamestate) # if you fail this test you probably didn't correctly call Ant.reduce_armor or Insect.reduce_armor
-          insect died
-          >>> Insect.death_callback = original_death_callback
-          """,
-          'hidden': False,
-          'locked': False
         }
       ],
       'scored': True,
       'setup': r"""
       >>> from ants import *
-      >>> beehive, layout = Hive(AssaultPlan()), dry_layout
-      >>> gamestate = GameState(None, beehive, ant_types(), layout, (1, 9))
+      >>> hive, layout = Hive(AssaultPlan()), dry_layout
+      >>> colony = AntColony(None, hive, ant_types(), layout, (1, 9))
       >>> #
       """,
-      'teardown': '',
-      'type': 'doctest'
-    },
-    {
-      'cases': [
-        {
-          'code': r"""
-          >>> from ants import *
-          >>> BodyguardAnt.implemented
-          c7a88a0ffd3aef026b98eef6e7557da3
-          # locked
-          """,
-          'hidden': False,
-          'locked': True
-        }
-      ],
-      'scored': True,
-      'setup': '',
       'teardown': '',
       'type': 'doctest'
     }

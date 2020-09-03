@@ -34,6 +34,9 @@ test = {
           >>> TankAnt.damage
           d89cf7c79d5a479b0f636734143ed5e6
           # locked
+          >>> TankAnt.is_container
+          c7a88a0ffd3aef026b98eef6e7557da3
+          # locked
           >>> tank = TankAnt()
           >>> tank.armor
           20d533d3e06345c8bd7072212867f2d1
@@ -44,32 +47,15 @@ test = {
         },
         {
           'code': r"""
-          >>> # Abstraction tests
-          >>> original = Ant.__init__
-          >>> Ant.__init__ = lambda self, armor: print("init") #If this errors, you are not calling the parent constructor correctly.
-          >>> wall = WallAnt()
-          init
-          >>> Ant.__init__ = original
-          >>> wall = WallAnt()
-          """,
-          'hidden': False,
-          'locked': False
-        },
-        {
-          'code': r"""
           >>> # Testing TankAnt action
           >>> tank = TankAnt()
-          >>> place = gamestate.places['tunnel_0_1']
-          >>> other_place = gamestate.places['tunnel_0_2']
+          >>> place = colony.places['tunnel_0_1']
           >>> place.add_insect(tank)
           >>> for _ in range(3):
           ...     place.add_insect(Bee(3))
-          >>> other_place.add_insect(Bee(3))
-          >>> tank.action(gamestate)
+          >>> tank.action(colony)
           >>> [bee.armor for bee in place.bees]
           [2, 2, 2]
-          >>> [bee.armor for bee in other_place.bees]
-          [3]
           """,
           'hidden': False,
           'locked': False
@@ -79,14 +65,14 @@ test = {
           >>> # Testing TankAnt container methods
           >>> tank = TankAnt()
           >>> thrower = ThrowerAnt()
-          >>> place = gamestate.places['tunnel_0_1']
+          >>> place = colony.places['tunnel_0_1']
           >>> place.add_insect(thrower)
           >>> place.add_insect(tank)
           >>> place.ant is tank
           True
           >>> bee = Bee(3)
           >>> place.add_insect(bee)
-          >>> tank.action(gamestate)   # Both ants attack bee
+          >>> tank.action(colony)   # Both ants attack bee
           >>> bee.armor
           1
           """,
@@ -97,10 +83,9 @@ test = {
       'scored': True,
       'setup': r"""
       >>> from ants import *
-      >>> from ants_plans import *
-      >>> beehive, layout = Hive(make_test_assault_plan()), dry_layout
+      >>> hive, layout = Hive(make_test_assault_plan()), dry_layout
       >>> dimensions = (1, 9)
-      >>> gamestate = GameState(None, beehive, ant_types(), layout, dimensions)
+      >>> colony = AntColony(None, hive, ant_types(), layout, dimensions)
       >>> #
       """,
       'teardown': '',
@@ -112,27 +97,11 @@ test = {
           'code': r"""
           >>> # Testing TankAnt action
           >>> tank = TankAnt()
-          >>> place = gamestate.places['tunnel_0_1']
+          >>> place = colony.places['tunnel_0_1']
           >>> place.add_insect(tank)
           >>> for _ in range(3):
           ...     place.add_insect(Bee(1))
-          >>> tank.action(gamestate)
-          >>> len(place.bees)
-          0
-          """,
-          'hidden': False,
-          'locked': False
-        },
-        {
-          'code': r"""
-          >>> # Testing TankAnt.damage
-          >>> tank = TankAnt()
-          >>> tank.damage = 100
-          >>> place = gamestate.places['tunnel_0_1']
-          >>> place.add_insect(tank)
-          >>> for _ in range(3):
-          ...     place.add_insect(Bee(100))
-          >>> tank.action(gamestate)
+          >>> tank.action(colony)
           >>> len(place.bees)
           0
           """,
@@ -142,68 +111,47 @@ test = {
         {
           'code': r"""
           >>> # Placement of ants
-          >>> tank = TankAnt()
-          >>> harvester = HarvesterAnt()
-          >>> place = gamestate.places['tunnel_0_0']
+          >>> tank0 = TankAnt()
+          >>> tank1 = TankAnt()
+          >>> harvester0 = HarvesterAnt()
+          >>> harvester1 = HarvesterAnt()
+          >>> place0 = colony.places['tunnel_0_0']
+          >>> place1 = colony.places['tunnel_0_1']
           >>> # Add tank before harvester
-          >>> place.add_insect(tank)
-          >>> place.add_insect(harvester)
-          >>> gamestate.food = 0
-          >>> tank.action(gamestate)
-          >>> gamestate.food
+          >>> place0.add_insect(tank0)
+          >>> place0.add_insect(harvester0)
+          >>> colony.food = 0
+          >>> tank0.action(colony)
+          >>> colony.food
           1
-          >>> try:
-          ...   place.add_insect(TankAnt())
-          ... except AssertionError:
-          ...   print("error!")
-          error!
-          >>> place.ant is tank
-          True
-          >>> tank.contained_ant is harvester
-          True
-          >>> try:
-          ...   place.add_insect(HarvesterAnt())
-          ... except AssertionError:
-          ...   print("error!")
-          error!
-          >>> place.ant is tank
-          True
-          >>> tank.contained_ant is harvester
-          True
-          """,
-          'hidden': False,
-          'locked': False
-        },
-        {
-          'code': r"""
-          >>> # Placement of ants
-          >>> tank = TankAnt()
-          >>> harvester = HarvesterAnt()
-          >>> place = gamestate.places['tunnel_0_0']
+          >>> for ant in [TankAnt(), HarvesterAnt()]:
+          ...     try:
+          ...         place0.add_insect(ant)
+          ...     except AssertionError:
+          ...         assert place0.ant is tank0,\
+          ...                 'Tank was kicked out by {0}'.format(ant)
+          ...         assert tank0.contained_ant is harvester0,\
+          ...                 'Contained ant was kicked out by {0}'.format(ant)
+          ...         continue
+          ...     assert False, 'No AssertionError raised when adding {0}'.format(ant)
           >>> # Add harvester before tank
-          >>> place.add_insect(harvester)
-          >>> place.add_insect(tank)
-          >>> gamestate.food = 0
-          >>> tank.action(gamestate)
-          >>> gamestate.food
-          1
-          >>> try:
-          ...   place.add_insect(TankAnt())
-          ... except AssertionError:
-          ...   print("error!")
-          error!
-          >>> place.ant is tank
-          True
-          >>> tank.contained_ant is harvester
-          True
-          >>> try:
-          ...   place.add_insect(HarvesterAnt())
-          ... except AssertionError:
-          ...   print("error!")
-          error!
-          >>> place.ant is tank
-          True
-          >>> tank.contained_ant is harvester
+          >>> place1.add_insect(harvester1)
+          >>> place1.add_insect(tank1)
+          >>> tank1.action(colony)
+          >>> colony.food
+          2
+          >>> for ant in [TankAnt(), HarvesterAnt()]:
+          ...     try:
+          ...         place1.add_insect(ant)
+          ...     except AssertionError:
+          ...         assert place1.ant is tank1,\
+          ...                 'Tank was kicked out by {0}'.format(ant)
+          ...         assert tank1.contained_ant is harvester1,\
+          ...                 'Contained ant was kicked out by {0}'.format(ant)
+          ...         continue
+          ...     assert False, 'No AssertionError raised when adding {0}'.format(ant)
+          >>> tank0.reduce_armor(tank0.armor)
+          >>> place0.ant is harvester0
           True
           """,
           'hidden': False,
@@ -236,29 +184,7 @@ test = {
           >>> tank = TankAnt()
           >>> place = Place('Test')
           >>> place.add_insect(tank)
-          >>> tank.action(gamestate) # Action without contained ant should not error
-          """,
-          'hidden': False,
-          'locked': False
-        },
-        {
-          'code': r"""
-          >>> # test proper call to death callback
-          >>> original_death_callback = Insect.death_callback
-          >>> Insect.death_callback = lambda x: print("insect died")
-          >>> place = gamestate.places["tunnel_0_0"]
-          >>> bee = Bee(3)
-          >>> tank = TankAnt()
-          >>> ant = ThrowerAnt()
-          >>> place.add_insect(bee)
-          >>> place.add_insect(ant)
-          >>> place.add_insect(tank)
-          >>> bee.action(gamestate)
-          >>> bee.action(gamestate)
-          insect died
-          >>> bee.action(gamestate) # if you fail this test you probably didn't correctly call Ant.reduce_armor or Insect.reduce_armor
-          insect died
-          >>> Insect.death_callback = original_death_callback
+          >>> tank.action(colony) # Action without contained ant should not error
           """,
           'hidden': False,
           'locked': False
@@ -267,30 +193,11 @@ test = {
       'scored': True,
       'setup': r"""
       >>> from ants import *
-      >>> from ants_plans import *
-      >>> beehive, layout = Hive(make_test_assault_plan()), dry_layout
+      >>> hive, layout = Hive(make_test_assault_plan()), dry_layout
       >>> dimensions = (1, 9)
-      >>> gamestate = GameState(None, beehive, ant_types(), layout, dimensions)
+      >>> colony = AntColony(None, hive, ant_types(), layout, dimensions)
       >>> #
       """,
-      'teardown': '',
-      'type': 'doctest'
-    },
-    {
-      'cases': [
-        {
-          'code': r"""
-          >>> from ants import *
-          >>> TankAnt.implemented
-          c7a88a0ffd3aef026b98eef6e7557da3
-          # locked
-          """,
-          'hidden': False,
-          'locked': True
-        }
-      ],
-      'scored': True,
-      'setup': '',
       'teardown': '',
       'type': 'doctest'
     }

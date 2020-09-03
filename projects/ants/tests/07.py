@@ -97,15 +97,15 @@ test = {
         {
           'code': r"""
           >>> # Testing NinjaAnts do not block bees
-          >>> p0 = gamestate.places["tunnel_0_0"]
-          >>> p1 = gamestate.places["tunnel_0_1"]  # p0 is p1's exit
+          >>> p0 = colony.places["tunnel_0_0"]
+          >>> p1 = colony.places["tunnel_0_1"]  # p0 is p1's exit
           >>> bee = Bee(2)
           >>> ninja = NinjaAnt()
           >>> thrower = ThrowerAnt()
           >>> p0.add_insect(thrower)            # Add ThrowerAnt to p0
           >>> p1.add_insect(bee)
           >>> p1.add_insect(ninja)              # Add the Bee and NinjaAnt to p1
-          >>> bee.action(gamestate)
+          >>> bee.action(colony)
           >>> bee.place is ninja.place          # Did NinjaAnt block the Bee from moving?
           03456a09f22295a39ca84d133a26f63d
           # locked
@@ -115,37 +115,7 @@ test = {
           >>> ninja.armor
           d89cf7c79d5a479b0f636734143ed5e6
           # locked
-          >>> bee.action(gamestate)
-          >>> bee.place is p0                   # Did ThrowerAnt block the Bee from moving?
-          c7a88a0ffd3aef026b98eef6e7557da3
-          # locked
-          """,
-          'hidden': False,
-          'locked': True
-        },
-        {
-          'code': r"""
-          >>> # Testing non-blocking ants do not block bees
-          >>> p0 = gamestate.places["tunnel_0_0"]
-          >>> p1 = gamestate.places["tunnel_0_1"]  # p0 is p1's exit
-          >>> bee = Bee(2)
-          >>> ninja_fire = FireAnt(1)
-          >>> ninja_fire.blocks_path = False
-          >>> thrower = ThrowerAnt()
-          >>> p0.add_insect(thrower)            # Add ThrowerAnt to p0
-          >>> p1.add_insect(bee)
-          >>> p1.add_insect(ninja_fire)              # Add the Bee and NinjaAnt to p1
-          >>> bee.action(gamestate)
-          >>> bee.place is ninja_fire.place          # Did the "ninjaish" FireAnt block the Bee from moving?
-          03456a09f22295a39ca84d133a26f63d
-          # locked
-          >>> bee.place is p0
-          c7a88a0ffd3aef026b98eef6e7557da3
-          # locked
-          >>> ninja_fire.armor
-          d89cf7c79d5a479b0f636734143ed5e6
-          # locked
-          >>> bee.action(gamestate)
+          >>> bee.action(colony)
           >>> bee.place is p0                   # Did ThrowerAnt block the Bee from moving?
           c7a88a0ffd3aef026b98eef6e7557da3
           # locked
@@ -156,12 +126,12 @@ test = {
         {
           'code': r"""
           >>> # Testing NinjaAnt strikes all bees in its place
-          >>> test_place = gamestate.places["tunnel_0_0"]
+          >>> test_place = colony.places["tunnel_0_0"]
           >>> for _ in range(3):
           ...     test_place.add_insect(Bee(2))
           >>> ninja = NinjaAnt()
           >>> test_place.add_insect(ninja)
-          >>> ninja.action(gamestate)   # should strike all bees in place
+          >>> ninja.action(colony)   # should strike all bees in place
           >>> [bee.armor for bee in test_place.bees]
           [1, 1, 1]
           """,
@@ -170,29 +140,13 @@ test = {
         },
         {
           'code': r"""
-          >>> # Testing NinjaAnt doesn't hardcode damage
-          >>> test_place = gamestate.places["tunnel_0_0"]
-          >>> for _ in range(3):
-          ...     test_place.add_insect(Bee(100))
-          >>> ninja = NinjaAnt()
-          >>> ninja.damage = 50
-          >>> test_place.add_insect(ninja)
-          >>> ninja.action(gamestate)   # should strike all bees in place
-          >>> [bee.armor for bee in test_place.bees]
-          [50, 50, 50]
-          """,
-          'hidden': False,
-          'locked': False
-        },
-        {
-          'code': r"""
           >>> # Testing NinjaAnt strikes all bees, even if some expire
-          >>> test_place = gamestate.places["tunnel_0_0"]
+          >>> test_place = colony.places["tunnel_0_0"]
           >>> for _ in range(3):
           ...     test_place.add_insect(Bee(1))
           >>> ninja = NinjaAnt()
           >>> test_place.add_insect(ninja)
-          >>> ninja.action(gamestate)   # should strike all bees in place
+          >>> ninja.action(colony)   # should strike all bees in place
           >>> len(test_place.bees)
           0
           """,
@@ -202,13 +156,13 @@ test = {
         {
           'code': r"""
           >>> # Testing damage is looked up on the instance
-          >>> place = gamestate.places["tunnel_0_0"]
+          >>> place = colony.places["tunnel_0_0"]
           >>> bee = Bee(900)
           >>> place.add_insect(bee)
           >>> buffNinja = NinjaAnt()
           >>> buffNinja.damage = 500  # Sharpen the sword
           >>> place.add_insect(buffNinja)
-          >>> buffNinja.action(gamestate)
+          >>> buffNinja.action(colony)
           >>> bee.armor
           400
           """,
@@ -219,8 +173,8 @@ test = {
           'code': r"""
           >>> # Testing Ninja ant does not crash when left alone
           >>> ninja = NinjaAnt()
-          >>> gamestate.places["tunnel_0_0"].add_insect(ninja)
-          >>> ninja.action(gamestate)
+          >>> colony.places["tunnel_0_0"].add_insect(ninja)
+          >>> ninja.action(colony)
           """,
           'hidden': False,
           'locked': False
@@ -229,8 +183,8 @@ test = {
           'code': r"""
           >>> # Testing Bee does not crash when left alone
           >>> bee = Bee(3)
-          >>> gamestate.places["tunnel_0_1"].add_insect(bee)
-          >>> bee.action(gamestate)
+          >>> colony.places["tunnel_0_1"].add_insect(bee)
+          >>> bee.action(colony)
           """,
           'hidden': False,
           'locked': False
@@ -239,29 +193,11 @@ test = {
       'scored': True,
       'setup': r"""
       >>> from ants import *
-      >>> beehive, layout = Hive(AssaultPlan()), dry_layout
+      >>> hive, layout = Hive(AssaultPlan()), dry_layout
       >>> dimensions = (1, 9)
-      >>> gamestate = GameState(None, beehive, ant_types(), layout, dimensions)
+      >>> colony = AntColony(None, hive, ant_types(), layout, dimensions)
       >>> #
       """,
-      'teardown': '',
-      'type': 'doctest'
-    },
-    {
-      'cases': [
-        {
-          'code': r"""
-          >>> from ants import *
-          >>> NinjaAnt.implemented
-          c7a88a0ffd3aef026b98eef6e7557da3
-          # locked
-          """,
-          'hidden': False,
-          'locked': True
-        }
-      ],
-      'scored': True,
-      'setup': '',
       'teardown': '',
       'type': 'doctest'
     }

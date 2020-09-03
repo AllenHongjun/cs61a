@@ -68,7 +68,7 @@ test = {
           62674984f877ec783f37e8b8b9c264d0
           # locked
           >>> fire.armor
-          81a7d27d1a4a958871bb97b545b871db
+          d89cf7c79d5a479b0f636734143ed5e6
           # locked
           """,
           'hidden': False,
@@ -76,47 +76,21 @@ test = {
         },
         {
           'code': r"""
-          >>> # Abstraction tests
-          >>> original = Ant.__init__
-          >>> Ant.__init__ = lambda self, armor: print("init") #If this errors, you are not calling the parent constructor correctly.
-          >>> fire = FireAnt()
-          init
-          >>> Ant.__init__ = original
-          >>> fire = FireAnt()
-          >>> original = Ant.reduce_armor
-          >>> Ant.reduce_armor = lambda self, amount: print("reduced") #If this errors, you are not calling the inherited method correctly
-          >>> place = gamestate.places['tunnel_0_4']
-          >>> place.add_insect(fire)
-          >>> fire.reduce_armor(1)
-          reduced
-          >>> Ant.reduce_armor = original
-          """,
-          'hidden': False,
-          'locked': False
-        },
-        {
-          'code': r"""
           >>> # Testing fire does damage to all Bees in its Place
-          >>> place = gamestate.places['tunnel_0_4']
-          >>> fire = FireAnt(armor=1)
+          >>> place = colony.places['tunnel_0_4']
+          >>> fire = FireAnt()
           >>> place.add_insect(fire)        # Add a FireAnt with 1 armor
           >>> place.add_insect(Bee(3))      # Add a Bee with 3 armor
           >>> place.add_insect(Bee(5))      # Add a Bee with 5 armor
           >>> len(place.bees)               # How many bees are there?
           20d533d3e06345c8bd7072212867f2d1
           # locked
-          >>> place.bees[0].action(gamestate)  # The first Bee attacks FireAnt
-          >>> fire.armor
-          73b94a1326ae2e803c3421016112207b
-          # locked
-          >>> fire.place is None
-          c7a88a0ffd3aef026b98eef6e7557da3
-          # locked
+          >>> place.bees[0].action(colony)  # The first Bee attacks FireAnt
           >>> len(place.bees)               # How many bees are left?
           d89cf7c79d5a479b0f636734143ed5e6
           # locked
           >>> place.bees[0].armor           # What is the armor of the remaining Bee?
-          d89cf7c79d5a479b0f636734143ed5e6
+          20d533d3e06345c8bd7072212867f2d1
           # locked
           """,
           'hidden': False,
@@ -124,7 +98,7 @@ test = {
         },
         {
           'code': r"""
-          >>> place = gamestate.places['tunnel_0_4']
+          >>> place = colony.places['tunnel_0_4']
           >>> ant = FireAnt(1)           # Create a FireAnt with 1 armor
           >>> place.add_insect(ant)      # Add a FireAnt to place
           >>> ant.place is place
@@ -140,52 +114,14 @@ test = {
         },
         {
           'code': r"""
-          >>> # Testing fire damage when the fire ant does not die
-          >>> place = gamestate.places['tunnel_0_4']
+          >>> # Testing fire damage
+          >>> place = colony.places['tunnel_0_4']
           >>> bee = Bee(5)
-          >>> ant = FireAnt(armor=100)
           >>> place.add_insect(bee)
-          >>> place.add_insect(ant)
-          >>> bee.action(gamestate) # attack the FireAnt
-          >>> ant.armor
-          99
+          >>> place.add_insect(FireAnt())
+          >>> bee.action(colony) # attack the FireAnt
           >>> bee.armor
-          4
-          """,
-          'hidden': False,
-          'locked': False
-        },
-        {
-          'code': r"""
-          >>> # Testing no hardcoded 3
-          >>> place = gamestate.places['tunnel_0_4']
-          >>> bee = Bee(100)
-          >>> ant = FireAnt(armor=1)
-          >>> ant.damage = 49
-          >>> place.add_insect(bee)
-          >>> place.add_insect(ant)
-          >>> bee.action(gamestate) # attack the FireAnt
-          >>> ant.armor
-          0
-          >>> bee.armor
-          50
-          """,
-          'hidden': False,
-          'locked': False
-        },
-        {
-          'code': r"""
-          >>> # Testing fire damage when the fire ant does die
-          >>> place = gamestate.places['tunnel_0_4']
-          >>> bee = Bee(5)
-          >>> ant = FireAnt(armor=1)
-          >>> place.add_insect(bee)
-          >>> place.add_insect(ant)
-          >>> bee.action(gamestate) # attack the FireAnt
-          >>> ant.armor
-          0
-          >>> bee.armor
-          1
+          2
           """,
           'hidden': False,
           'locked': False
@@ -193,11 +129,11 @@ test = {
         {
           'code': r"""
           >>> # Testing fire does damage to all Bees in its Place
-          >>> place = gamestate.places['tunnel_0_4']
-          >>> place.add_insect(FireAnt(1))
+          >>> place = colony.places['tunnel_0_4']
+          >>> place.add_insect(FireAnt())
           >>> for i in range(100):          # Add 100 Bees with 3 armor
           ...     place.add_insect(Bee(3))
-          >>> place.bees[0].action(gamestate)  # The first Bee attacks FireAnt
+          >>> place.bees[0].action(colony)  # The first Bee attacks FireAnt
           >>> len(place.bees)               # How many bees are left?
           0
           """,
@@ -207,15 +143,15 @@ test = {
         {
           'code': r"""
           >>> # Testing fire damage is instance attribute
-          >>> place = gamestate.places['tunnel_0_4']
+          >>> place = colony.places['tunnel_0_4']
           >>> bee = Bee(900)
-          >>> buffAnt = FireAnt(1)
+          >>> buffAnt = FireAnt()
           >>> buffAnt.damage = 500   # Feel the burn!
           >>> place.add_insect(bee)
           >>> place.add_insect(buffAnt)
-          >>> bee.action(gamestate) # attack the FireAnt
+          >>> bee.action(colony) # attack the FireAnt
           >>> bee.armor  # is damage an instance attribute?
-          399
+          400
           """,
           'hidden': False,
           'locked': False
@@ -223,21 +159,21 @@ test = {
         {
           'code': r"""
           >>> # General FireAnt Test
-          >>> place = gamestate.places['tunnel_0_4']
+          >>> place = colony.places['tunnel_0_4']
           >>> bee = Bee(10)
-          >>> ant = FireAnt(1)
+          >>> ant = FireAnt()
           >>> place.add_insect(bee)
           >>> place.add_insect(ant)
-          >>> bee.action(gamestate)    # Attack the FireAnt
+          >>> bee.action(colony)    # Attack the FireAnt
           >>> bee.armor
-          6
+          7
           >>> ant.armor
           0
           >>> place.ant is None     # The FireAnt should not occupy the place anymore
           True
-          >>> bee.action(gamestate)
+          >>> bee.action(colony)
           >>> bee.armor             # Bee should not get damaged again
-          6
+          7
           >>> bee.place.name        # Bee should not have been blocked
           'tunnel_0_3'
           """,
@@ -247,38 +183,18 @@ test = {
         {
           'code': r"""
           >>> # General FireAnt Test
-          >>> place = gamestate.places['tunnel_0_4']
+          >>> place = colony.places['tunnel_0_4']
           >>> bee = Bee(10)
           >>> ant = FireAnt()
           >>> place.add_insect(bee)
           >>> place.add_insect(ant)
           >>> ant.reduce_armor(0.1) # Poke the FireAnt
-          >>> bee.armor             # Bee should only get slightly damaged
-          9.9
+          >>> bee.armor             # Bee should not get damaged
+          10
           >>> ant.armor
-          2.9
+          0.9
           >>> place.ant is ant      # The FireAnt should still be at place
           True
-          """,
-          'hidden': False,
-          'locked': False
-        },
-        {
-          'code': r"""
-          >>> # test proper call to death callback
-          >>> original_death_callback = Insect.death_callback
-          >>> Insect.death_callback = lambda x: print("insect died")
-          >>> place = gamestate.places["tunnel_0_0"]
-          >>> bee = Bee(3)
-          >>> ant = FireAnt()
-          >>> place.add_insect(bee)
-          >>> place.add_insect(ant)
-          >>> bee.action(gamestate)
-          >>> bee.action(gamestate)
-          >>> bee.action(gamestate) # if you fail this test you probably didn't correctly call Ant.reduce_armor or Insect.reduce_armor
-          insect died
-          insect died
-          >>> Insect.death_callback = original_death_callback
           """,
           'hidden': False,
           'locked': False
@@ -287,29 +203,11 @@ test = {
       'scored': True,
       'setup': r"""
       >>> from ants import *
-      >>> beehive, layout = Hive(AssaultPlan()), dry_layout
+      >>> hive, layout = Hive(AssaultPlan()), dry_layout
       >>> dimensions = (1, 9)
-      >>> gamestate = GameState(None, beehive, ant_types(), layout, dimensions)
+      >>> colony = AntColony(None, hive, ant_types(), layout, dimensions)
       >>> #
       """,
-      'teardown': '',
-      'type': 'doctest'
-    },
-    {
-      'cases': [
-        {
-          'code': r"""
-          >>> from ants import *
-          >>> FireAnt.implemented
-          c7a88a0ffd3aef026b98eef6e7557da3
-          # locked
-          """,
-          'hidden': False,
-          'locked': True
-        }
-      ],
-      'scored': True,
-      'setup': '',
       'teardown': '',
       'type': 'doctest'
     }

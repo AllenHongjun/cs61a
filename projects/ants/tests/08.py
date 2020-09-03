@@ -64,9 +64,6 @@ test = {
           'code': r"""
           >>> # Testing WallAnt parameters
           >>> wall = WallAnt()
-          >>> wall.name
-          b344415ec12ae63ab2f69b87a119dba6
-          # locked
           >>> wall.armor
           c9452203eb0b0f0bd2454586a6c2fc5c
           # locked
@@ -83,30 +80,17 @@ test = {
         },
         {
           'code': r"""
-          >>> # Abstraction tests
-          >>> original = Ant.__init__
-          >>> Ant.__init__ = lambda self, armor: print("init") #If this errors, you are not calling the parent constructor correctly.
-          >>> wall = WallAnt()
-          init
-          >>> Ant.__init__ = original
-          >>> wall = WallAnt()
-          """,
-          'hidden': False,
-          'locked': False
-        },
-        {
-          'code': r"""
           >>> # Testing WallAnt holds strong
-          >>> beehive, layout = Hive(AssaultPlan()), dry_layout
-          >>> gamestate = GameState(None, beehive, ant_types(), layout, (1, 9))
-          >>> place = gamestate.places['tunnel_0_4']
+          >>> hive, layout = Hive(AssaultPlan()), dry_layout
+          >>> colony = AntColony(None, hive, ant_types(), layout, (1, 9))
+          >>> place = colony.places['tunnel_0_4']
           >>> wall = WallAnt()
           >>> bee = Bee(1000)
           >>> place.add_insect(wall)
           >>> place.add_insect(bee)
           >>> for i in range(3):
-          ...     bee.action(gamestate)
-          ...     wall.action(gamestate)   # WallAnt does nothing
+          ...     bee.action(colony)
+          ...     wall.action(colony)   # WallAnt does nothing
           >>> wall.armor
           1
           >>> bee.armor
@@ -124,24 +108,6 @@ test = {
       'setup': r"""
       >>> from ants import *
       """,
-      'teardown': '',
-      'type': 'doctest'
-    },
-    {
-      'cases': [
-        {
-          'code': r"""
-          >>> from ants import *
-          >>> WallAnt.implemented
-          c7a88a0ffd3aef026b98eef6e7557da3
-          # locked
-          """,
-          'hidden': False,
-          'locked': True
-        }
-      ],
-      'scored': True,
-      'setup': '',
       'teardown': '',
       'type': 'doctest'
     }

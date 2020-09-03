@@ -30,22 +30,22 @@ test = {
           >>> # Testing Slow
           >>> slow = SlowThrower()
           >>> bee = Bee(3)
-          >>> gamestate.places["tunnel_0_0"].add_insect(slow)
-          >>> gamestate.places["tunnel_0_4"].add_insect(bee)
-          >>> slow.action(gamestate)
-          >>> gamestate.time = 1
-          >>> bee.action(gamestate)
+          >>> colony.places["tunnel_0_0"].add_insect(slow)
+          >>> colony.places["tunnel_0_4"].add_insect(bee)
+          >>> slow.action(colony)
+          >>> colony.time = 1
+          >>> bee.action(colony)
           >>> bee.place.name # SlowThrower should cause slowness on odd turns
           040b6ad98a7360eba8d493c250a9b82e
           # locked
-          >>> gamestate.time += 1
-          >>> bee.action(gamestate)
+          >>> colony.time += 1
+          >>> bee.action(colony)
           >>> bee.place.name # SlowThrower should cause slowness on odd turns
           8344c19df8015306b462119efc8419cb
           # locked
           >>> for _ in range(3):
-          ...    gamestate.time += 1
-          ...    bee.action(gamestate)
+          ...    colony.time += 1
+          ...    bee.action(colony)
           >>> bee.place.name
           7f44338412808161209e944b1ee0f78c
           # locked
@@ -56,20 +56,21 @@ test = {
         {
           'code': r"""
           >>> # Testing Scare
+          >>> error_msg = "ScaryThrower doesn't scare for exactly two turns."
           >>> scary = ScaryThrower()
           >>> bee = Bee(3)
-          >>> gamestate.places["tunnel_0_0"].add_insect(scary)
-          >>> gamestate.places["tunnel_0_4"].add_insect(bee)
-          >>> scary.action(gamestate)
-          >>> bee.action(gamestate)
+          >>> colony.places["tunnel_0_0"].add_insect(scary)
+          >>> colony.places["tunnel_0_4"].add_insect(bee)
+          >>> scary.action(colony)
+          >>> bee.action(colony)
           >>> bee.place.name # ScaryThrower should scare for two turns
           46f9851313dc368f747e69f1670450da
           # locked
-          >>> bee.action(gamestate)
+          >>> bee.action(colony)
           >>> bee.place.name # ScaryThrower should scare for two turns
           32a5320f2c5021a9b66582af8b364dc7
           # locked
-          >>> bee.action(gamestate)
+          >>> bee.action(colony)
           >>> bee.place.name
           46f9851313dc368f747e69f1670450da
           # locked
@@ -79,72 +80,28 @@ test = {
         },
         {
           'code': r"""
-          >>> # Scary stings an ant
-          >>> scary = ScaryThrower()
-          >>> harvester = HarvesterAnt()
-          >>> bee = Bee(3)
-          >>> gamestate.places["tunnel_0_0"].add_insect(scary)
-          >>> gamestate.places["tunnel_0_4"].add_insect(bee)
-          >>> gamestate.places["tunnel_0_5"].add_insect(harvester)
-          >>> scary.action(gamestate)
-          >>> bee.action(gamestate)
-          >>> bee.place.name # ScaryThrower should scare for two turns
-          46f9851313dc368f747e69f1670450da
-          # locked
-          >>> harvester.armor
-          d89cf7c79d5a479b0f636734143ed5e6
-          # locked
-          >>> bee.action(gamestate)
-          >>> harvester.armor
-          73b94a1326ae2e803c3421016112207b
-          # locked
-          """,
-          'hidden': False,
-          'locked': True
-        },
-        {
-          'code': r"""
-          >>> # Testing if statuses stack
+          >>> # Testing if effects stack
           >>> slow = SlowThrower()
           >>> bee = Bee(3)
-          >>> slow_place = gamestate.places["tunnel_0_0"]
-          >>> bee_place = gamestate.places["tunnel_0_8"]
+          >>> slow_place = colony.places["tunnel_0_0"]
+          >>> bee_place = colony.places["tunnel_0_4"]
           >>> slow_place.add_insect(slow)
           >>> bee_place.add_insect(bee)
-          >>> slow.action(gamestate)    # slow bee two times
-          >>> slow.action(gamestate)
-          >>> gamestate.time = 1
-          >>> bee.action(gamestate) # do nothing. The outer slow has 2 turns to go, the inner one still has 3 turns
+          >>> for _ in range(2):    # slow bee two times
+          ...    slow.action(colony)
+          
+          >>> colony.time = 1
+          >>> for _ in range(5):        # bee should only move on odd times
+          ...    bee.action(colony)
+          ...    colony.time += 1
+          
           >>> bee.place.name
-          'tunnel_0_8'
-          >>> gamestate.time = 2
-          >>> bee.action(gamestate) # moves forward. The outer slow has 1 turn to go, the inner one has 2 turns
+          'tunnel_0_2'
+          
+          >>> colony.time += 1      # slow effects have worn off
+          >>> bee.action(colony)
           >>> bee.place.name
-          'tunnel_0_7'
-          >>> gamestate.time = 3
-          >>> bee.action(gamestate) # do nothing. The outer slow has no turns left, the inner one has 2 turns
-          >>> bee.place.name
-          'tunnel_0_7'
-          >>> gamestate.time = 4
-          >>> bee.action(gamestate) # moves forward. The inner slow has 1 turn
-          >>> bee.place.name
-          'tunnel_0_6'
-          >>> gamestate.time = 5
-          >>> bee.action(gamestate) # does nothing. The inner slow has no turns
-          >>> bee.place.name
-          'tunnel_0_6'
-          >>> gamestate.time = 6      # slow status have worn off
-          >>> bee.action(gamestate)
-          >>> bee.place.name
-          'tunnel_0_5'
-          >>> gamestate.time = 7      # slow status have worn off
-          >>> bee.action(gamestate)
-          >>> bee.place.name
-          'tunnel_0_4'
-          >>> gamestate.time = 8      # slow status have worn off
-          >>> bee.action(gamestate)
-          >>> bee.place.name
-          'tunnel_0_3'
+          'tunnel_0_1'
           """,
           'hidden': False,
           'locked': False
@@ -157,31 +114,31 @@ test = {
           >>> bee1 = Bee(3)
           >>> bee2 = Bee(3)
           
-          >>> gamestate.places["tunnel_0_0"].add_insect(scare1)
-          >>> gamestate.places["tunnel_0_1"].add_insect(bee1)
-          >>> gamestate.places["tunnel_0_4"].add_insect(scare2)
-          >>> gamestate.places["tunnel_0_5"].add_insect(bee2)
+          >>> colony.places["tunnel_0_0"].add_insect(scare1)
+          >>> colony.places["tunnel_0_1"].add_insect(bee1)
+          >>> colony.places["tunnel_0_4"].add_insect(scare2)
+          >>> colony.places["tunnel_0_5"].add_insect(bee2)
           
-          >>> scare1.action(gamestate)
-          >>> scare2.action(gamestate)
-          >>> bee1.action(gamestate)
-          >>> bee2.action(gamestate)
+          >>> scare1.action(colony)
+          >>> scare2.action(colony)
+          >>> bee1.action(colony)
+          >>> bee2.action(colony)
           
           >>> bee1.place.name
           'tunnel_0_2'
           >>> bee2.place.name
           'tunnel_0_6'
           
-          >>> bee1.action(gamestate)
-          >>> bee2.action(gamestate)
+          >>> bee1.action(colony)
+          >>> bee2.action(colony)
           
           >>> bee1.place.name
           'tunnel_0_3'
           >>> bee2.place.name
           'tunnel_0_7'
           
-          >>> bee1.action(gamestate)
-          >>> bee2.action(gamestate)
+          >>> bee1.action(colony)
+          >>> bee2.action(colony)
           
           >>> bee1.place.name
           'tunnel_0_2'
@@ -195,17 +152,17 @@ test = {
           'code': r"""
           >>> scare = ScaryThrower()
           >>> bee = Bee(3)
-          >>> gamestate.places["tunnel_0_0"].add_insect(scare)
-          >>> gamestate.places["tunnel_0_1"].add_insect(bee)
+          >>> colony.places["tunnel_0_0"].add_insect(scare)
+          >>> colony.places["tunnel_0_1"].add_insect(bee)
           
-          >>> scare.action(gamestate)
-          >>> bee.action(gamestate)
+          >>> scare.action(colony)
+          >>> bee.action(colony)
           
           >>> bee.place.name
           ba5c35f55ba3229d1eb021382d9d19c5
           # locked
           
-          >>> bee.action(gamestate)
+          >>> bee.action(colony)
           
           >>> bee.place.name
           8344c19df8015306b462119efc8419cb
@@ -213,8 +170,8 @@ test = {
           
           >>> #
           >>> # Same bee should not be scared more than once
-          >>> scare.action(gamestate)
-          >>> bee.action(gamestate)
+          >>> scare.action(colony)
+          >>> bee.action(colony)
           
           >>> bee.place.name
           ba5c35f55ba3229d1eb021382d9d19c5
@@ -225,115 +182,69 @@ test = {
         },
         {
           'code': r"""
-          >>> # Testing long status stack
+          >>> # Testing long effect stack
           >>> scary = ScaryThrower()
           >>> slow = SlowThrower()
           >>> bee = Bee(3)
-          >>> gamestate.places["tunnel_0_0"].add_insect(scary)
-          >>> gamestate.places["tunnel_0_1"].add_insect(slow)
-          >>> gamestate.places["tunnel_0_3"].add_insect(bee)
+          >>> colony.places["tunnel_0_0"].add_insect(scary)
+          >>> colony.places["tunnel_0_1"].add_insect(slow)
+          >>> colony.places["tunnel_0_3"].add_insect(bee)
           
-          >>> scary.action(gamestate) # scare bee once
+          >>> scary.action(colony) # scare bee once
           
-          >>> gamestate.time = 0
-          >>> bee.action(gamestate) # scared
+          >>> colony.time = 0
+          >>> bee.action(colony) # scared
           >>> bee.place.name
           'tunnel_0_4'
           
           >>> for _ in range(3): # slow bee three times
-          ...    slow.action(gamestate)
+          ...    slow.action(colony)
           
-          >>> gamestate.time = 1
-          >>> bee.action(gamestate) # scared, but also slowed thrice
+          >>> colony.time = 1
+          >>> bee.action(colony) # scared, but also slowed thrice
           >>> bee.place.name
           'tunnel_0_4'
           
-          >>> gamestate.time = 2
-          >>> bee.action(gamestate) # scared and slowed thrice
+          >>> colony.time = 2
+          >>> bee.action(colony) # scared and slowed thrice
           >>> bee.place.name
           'tunnel_0_5'
           
-          >>> gamestate.time = 3
-          >>> bee.action(gamestate) # slowed thrice
+          >>> colony.time = 3
+          >>> bee.action(colony) # slowed thrice
           >>> bee.place.name
           'tunnel_0_5'
           
-          >>> gamestate.time = 4
-          >>> bee.action(gamestate) # slowed twice
+          >>> colony.time = 4
+          >>> bee.action(colony) # slowed twice
           >>> bee.place.name
           'tunnel_0_4'
           
-          >>> gamestate.time = 5
-          >>> bee.action(gamestate) # slowed twice
+          >>> colony.time = 5
+          >>> bee.action(colony) # slowed twice
           >>> bee.place.name
           'tunnel_0_4'
           
-          >>> gamestate.time = 6
-          >>> bee.action(gamestate) # slowed once
+          >>> colony.time = 6
+          >>> bee.action(colony) # slowed once
           >>> bee.place.name
           'tunnel_0_3'
           
-          >>> gamestate.time = 7
-          >>> bee.action(gamestate) # statuses have worn off
+          >>> colony.time = 7
+          >>> bee.action(colony) # status effects have worn off
           >>> bee.place.name
           'tunnel_0_2'
           """,
           'hidden': False,
           'locked': False
-        },
-        {
-          'code': r"""
-          >>> scary = ScaryThrower()
-          >>> slow = SlowThrower()
-          >>> bee = Bee(3)
-          >>> gamestate.places["tunnel_0_0"].add_insect(scary)
-          >>> gamestate.places["tunnel_0_1"].add_insect(slow)
-          >>> gamestate.places["tunnel_0_3"].add_insect(bee)
-          
-          >>> slow.action(gamestate) # slow bee
-          >>> scary.action(gamestate) # scare bee
-          
-          >>> bee.place.name
-          'tunnel_0_3'
-          
-          >>> gamestate.time = 0
-          >>> bee.action(gamestate) # scared and slowed
-          >>> bee.place.name
-          'tunnel_0_4'
-          
-          >>> gamestate.time = 1
-          >>> bee.action(gamestate) # scared and slowed
-          >>> bee.place.name
-          'tunnel_0_4'
-          
-          >>> gamestate.time = 2
-          >>> bee.action(gamestate) # slowed
-          >>> bee.place.name
-          'tunnel_0_3'
-          """,
-          'hidden': False,
-          'locked': False
-        },
-        {
-          'code': r"""
-          >>> from ants import *
-          >>> ScaryThrower.implemented
-          c7a88a0ffd3aef026b98eef6e7557da3
-          # locked
-          >>> SlowThrower.implemented
-          c7a88a0ffd3aef026b98eef6e7557da3
-          # locked
-          """,
-          'hidden': False,
-          'locked': True
         }
       ],
       'scored': True,
       'setup': r"""
       >>> from ants import *
-      >>> beehive, layout = Hive(AssaultPlan()), dry_layout
+      >>> hive, layout = Hive(AssaultPlan()), dry_layout
       >>> dimensions = (1, 9)
-      >>> gamestate = GameState(None, beehive, ant_types(), layout, dimensions)
+      >>> colony = AntColony(None, hive, ant_types(), layout, dimensions)
       """,
       'teardown': '',
       'type': 'doctest'

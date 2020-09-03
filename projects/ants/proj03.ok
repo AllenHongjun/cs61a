@@ -1,8 +1,9 @@
 {
     "name": "Project 3: Ants Vs. SomeBees",
-    "endpoint": "cal/cs61a/su20/proj03",
+    "endpoint": "cal/cs61a/su19/proj03",
     "src": [
-        "ants.py"
+        "ants.py",
+        "mytests.rst"
     ],
     "tests": {
         "tests/0[0-9].py": "ok_test",

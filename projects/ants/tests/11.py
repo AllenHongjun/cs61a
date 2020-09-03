@@ -37,7 +37,7 @@ test = {
             'reduce_armor, in the Insect class',
             'remove_insect, in the Place class',
             'sting, in the Bee class',
-            'remove_ant, in the GameState class'
+            'remove_ant, in the AntColony class'
           ],
           'hidden': False,
           'locked': True,
@@ -55,19 +55,14 @@ test = {
         {
           'code': r"""
           >>> # Testing water with Ants
+          >>> test_ants = [HarvesterAnt(), Ant(), ThrowerAnt()]
           >>> test_water = Water('Water Test1')
-          >>> ant = HarvesterAnt()
-          >>> test_water.add_insect(ant)
-          >>> (ant.armor, test_water.ant is None)
-          (0, True)
-          >>> ant = Ant()
-          >>> test_water.add_insect(ant)
-          >>> (ant.armor, test_water.ant is None)
-          (0, True)
-          >>> ant = ThrowerAnt()
-          >>> test_water.add_insect(ant)
-          >>> (ant.armor, test_water.ant is None)
-          (0, True)
+          >>> for test_ant in test_ants:
+          ...     test_water.add_insect(test_ant)
+          ...     assert test_ant.armor == 0,\
+          ...             '{0} should have 0 armor'.format(test_ant)
+          ...     assert test_water.ant is None,\
+          ...             '{0} not removed from water'.format(test_ant)
           """,
           'hidden': False,
           'locked': False
@@ -79,10 +74,10 @@ test = {
           >>> test_bee.is_watersafe = False    # Make Bee non-watersafe
           >>> test_water = Water('Water Test2')
           >>> test_water.add_insect(test_bee)
-          >>> test_bee.armor
-          0
-          >>> test_water.bees
-          []
+          >>> assert test_bee.armor == 0,\
+          ...         '{0} should have 0 armor'.format(test_bee)
+          >>> assert len(test_water.bees) == 0,\
+          ...         '{0} not removed from water'.format(test_bee)
           """,
           'hidden': False,
           'locked': False
@@ -93,28 +88,10 @@ test = {
           >>> test_bee = Bee(1)
           >>> test_water = Water('Water Test3')
           >>> test_water.add_insect(test_bee)
-          >>> test_bee.armor
-          1
-          >>> test_water.bees == [test_bee]
-          True
-          """,
-          'hidden': False,
-          'locked': False
-        },
-        {
-          'code': r"""
-          >>> # test proper call to death callback
-          >>> original_death_callback = Insect.death_callback
-          >>> Insect.death_callback = lambda x: print("insect died")
-          >>> place = Water('Water Test4')
-          >>> soggy_bee = Bee(1)
-          >>> soggy_bee.is_watersafe = False
-          >>> place.add_insect(soggy_bee)
-          insect died
-          >>> place.add_insect(Bee(1))
-          >>> place.add_insect(ThrowerAnt())
-          insect died
-          >>> Insect.death_callback = original_death_callback
+          >>> assert test_bee.armor == 1,\
+          ...         '{0} should not drown'.format(test_bee)
+          >>> assert test_bee in test_water.bees,\
+          ...         '{0} should not have been removed from place'.format(test_bee)
           """,
           'hidden': False,
           'locked': False
@@ -123,10 +100,9 @@ test = {
       'scored': True,
       'setup': r"""
       >>> from ants import *
-      >>> from ants_plans import *
-      >>> beehive, layout = Hive(make_test_assault_plan()), dry_layout
+      >>> hive, layout = Hive(make_test_assault_plan()), dry_layout
       >>> dimensions = (1, 9)
-      >>> gamestate = GameState(None, beehive, ant_types(), layout, dimensions)
+      >>> colony = AntColony(None, hive, ant_types(), layout, dimensions)
       >>> #
       """,
       'teardown': '',
@@ -137,16 +113,39 @@ test = {
         {
           'code': r"""
           >>> # Testing water inheritance
-          >>> old_add_insect = Place.add_insect
           >>> def new_add_insect(self, insect):
-          ...     print("called add_insect")
-          ...     old_add_insect(self, insect)
+          ...     raise NotImplementedError()
+          
           >>> Place.add_insect = new_add_insect
           >>> test_bee = Bee(1)
           >>> test_water = Water('Water Test4')
-          >>> test_water.add_insect(test_bee) # if this fails you probably didn't call `add_insect`
-          called add_insect
-          >>> Place.add_insect = old_add_insect
+          >>> passed = False
+          >>> try:
+          ...     test_water.add_insect(test_bee)
+          ... except NotImplementedError:
+          ...     passed = True
+          >>> passed
+          True
+          """,
+          'hidden': False,
+          'locked': False
+        },
+        {
+          'code': r"""
+          >>> ### Make sure to place the ant before watering it!
+          >>> def new_add_insect(self, insect):
+          ...     raise NotImplementedError()
+          
+          >>> Place.add_insect = new_add_insect
+          >>> test_ant = HarvesterAnt()
+          >>> test_water = Water('Water Test5')
+          >>> passed = False
+          >>> try:
+          ...     test_water.add_insect(test_ant)
+          ... except NotImplementedError:
+          ...     passed = True
+          >>> passed
+          True
           """,
           'hidden': False,
           'locked': False
@@ -155,10 +154,9 @@ test = {
       'scored': True,
       'setup': r"""
       >>> from ants import *
-      >>> from ants_plans import *
-      >>> beehive, layout = Hive(make_test_assault_plan()), dry_layout
+      >>> hive, layout = Hive(make_test_assault_plan()), dry_layout
       >>> dimensions = (1, 9)
-      >>> gamestate = GameState(None, beehive, ant_types(), layout, dimensions)
+      >>> colony = AntColony(None, hive, ant_types(), layout, dimensions)
       >>> old_add_insect = Place.add_insect
       """,
       'teardown': r"""

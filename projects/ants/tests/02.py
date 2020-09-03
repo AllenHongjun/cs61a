@@ -5,7 +5,7 @@ test = {
     {
       'cases': [
         {
-          'answer': 'ba9d5316d8a8cf38d31424fc9bc51ea9',
+          'answer': 'A single tile that an Ant can be placed on and that connects to other Places',
           'choices': [
             r"""
             A single tile that an Ant can be placed on and that connects to
@@ -16,30 +16,20 @@ test = {
             'Where the bees start out in the game'
           ],
           'hidden': False,
-          'locked': True,
+          'locked': False,
           'question': 'What does a Place represent in the game?'
         },
         {
-          'answer': '010db6ca237fafb71ab37bd963f06870',
+          'answer': 'When p is initialized',
           'choices': [
-            'When p is constructed',
-            'When q is constructed',
+            'When q.entrance is initialized',
+            'When q.exit is initialized',
+            'When p is initialized',
             'Never, it is always set to None'
           ],
           'hidden': False,
-          'locked': True,
-          'question': 'p is a Place whose entrance is q and exit is r (q and r are not None). When is p.entrance first set to a non-None value?'
-        },
-        {
-          'answer': '0be706b6821937577f2e07621737dcb7',
-          'choices': [
-            'When p is constructed',
-            'When q is constructed',
-            'Never, it is always set to None'
-          ],
-          'hidden': False,
-          'locked': True,
-          'question': 'p is a Place whose entrance is q and exit is r (q and r are not None). When is p.exit first set to a non-None value?'
+          'locked': False,
+          'question': 'If p is a place whose entrance is q, when is p.entrance initialized?'
         }
       ],
       'scored': True,
@@ -72,23 +62,31 @@ test = {
           'code': r"""
           >>> # Testing if entrances are properly initialized
           >>> tunnel_len = 9
-          >>> len(gamestate.bee_entrances)
-          1
-          >>> tile_1 = gamestate.bee_entrances[0]
-          >>> tile_2 = tile_1.exit
-          >>> tile_3 = tile_2.exit
-          >>> tile_1.entrance is gamestate.beehive
-          True
-          >>> tile_1.exit is tile_2
-          True
-          >>> tile_2.entrance is tile_1
-          True
-          >>> tile_2.exit is tile_3
-          True
-          >>> tile_3.entrance is tile_2
-          True
-          >>> tile_3.exit is gamestate.base
-          True
+          >>> for entrance in colony.bee_entrances:
+          ...     num_places = 0
+          ...     place = entrance
+          ...     while place is not colony.queen:
+          ...         num_places += 1
+          ...         assert place.entrance is not None,\
+          ...                 '{0} has no entrance'.format(place.name)
+          ...         place = place.exit
+          ...     assert num_places == tunnel_len,\
+          ...             'Found {0} places in tunnel instead of {1}'.format(num_places,tunnel_len)
+          """,
+          'hidden': False,
+          'locked': False
+        },
+        {
+          'code': r"""
+          >>> # Testing if exits and entrances are different
+          >>> for place in colony.places.values():
+          ...     assert place is not place.exit,\
+          ...             "{0}'s exit leads to itself".format(place.name)
+          ...     assert place is not place.entrance,\
+          ...             "{0}'s entrance leads to itself".format(place.name)
+          ...     if place.exit and place.entrance:
+          ...         assert place.exit is not place.entrance,\
+          ...                 "{0}'s entrance and exit are the same".format(place.name)
           """,
           'hidden': False,
           'locked': False
@@ -97,12 +95,11 @@ test = {
       'scored': True,
       'setup': r"""
       >>> from ants import *
-      >>> from ants_plans import *
       >>> #
-      >>> # Create a test layout where the gamestate is a single row with 3 tiles
-      >>> beehive, layout = Hive(make_test_assault_plan()), dry_layout
-      >>> dimensions = (1, 3)
-      >>> gamestate = GameState(None, beehive, ant_types(), layout, dimensions)
+      >>> # Create a test layout where the colony is a single row with 9 tiles
+      >>> hive, layout = Hive(make_test_assault_plan()), dry_layout
+      >>> dimensions = (1, 9)
+      >>> colony = AntColony(None, hive, ant_types(), layout, dimensions)
       >>> #
       """,
       'teardown': '',
