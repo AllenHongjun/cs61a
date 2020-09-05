@@ -300,3 +300,5 @@ __pycache__/
 Fresh.Admin/UploadFiles/
 *.pdf
 *.zip
+*.pptx
+*.ppt
