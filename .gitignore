@@ -302,3 +302,5 @@ Fresh.Admin/UploadFiles/
 *.zip
 *.pptx
 *.ppt
+*.doc
+*.docx
