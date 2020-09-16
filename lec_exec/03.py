@@ -1,6 +1,6 @@
 from operator import truediv, floordiv,mod
 # Dostrings, doctest, & default arguments
-## python3 -i 03.py    python3 -m doctest 03.py
+## python3 -i 03.py    python3 -m doctest -v 03.py
 ## IndentationError: unindent does not match any outer indentation level  缩进的问题
 def divide_exact(n, d = 10):
 	"""Return the quotient and remainder of dividing N by D.
