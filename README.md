@@ -41,7 +41,6 @@
 
 
 ###
-git remote add 
-cs61a  https://github.com/AllenHongjun/cs61a
+git remote add cs61a  https://github.com/AllenHongjun/cs61a
 
 
