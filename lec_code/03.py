@@ -1,3 +1,9 @@
+#1.vscode 代码显示如何自动换行？？？
+#2. git linux 如何配置远程地址。然后推送代码？？
+#3. 流程先看数。在看ppt 在看代码。看视频。然后做实验。做作业做项目。
+# python3 如何多行注释？？
+
+
 # Print
 -2
 print(-2)
@@ -87,7 +93,8 @@ def end(n, d):
         print(last)
         if d == last:
             return None
-
+# 循环调用函数。每一次调用都会创建一个函数新的作用域
+# 但是这里函数的作用域都是父级都是global
 def search(f):
     """Return the smallest non-negative integer x for which f(x) is a true value."""
     x = 0
@@ -107,6 +114,7 @@ def is_three(x):
 def square(x):
     return x * x
 
+## 计算平方根。感觉这个写法稍微有点绕。
 def positive(x):
     """A function that is 0 until square(x)-100 is positive.
 

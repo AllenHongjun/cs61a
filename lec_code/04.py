@@ -1,6 +1,7 @@
 # Generalizing patterns using arguments
 ##git config --global user.email "652971723@163.com"
 ##git config --global user.name "AllenHongjun"
+## linux 下面 使用
 
 
 from math import pi, sqrt
